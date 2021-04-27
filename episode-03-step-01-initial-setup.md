@@ -12,6 +12,7 @@ NOTE: You will incur charges as you go through either of these workshops, as the
     - [Enable Quick Setup to create and attach the IAM role](#enable-quick-setup-to-create-and-attach-the-iam-role)
     - [Create the KMS key](#create-the-kms-key)
     - [Add KMS permissions to the IAM role](#add-kms-permissions-to-the-iam-role)
+    - [Add KMS encryption to Session Manager preferences](#add-kms-encryption-to-session-manager-preferences)
     - [Confirm the EC2 instance is registered](#confirm-the-ec2-instance-is-registered)
 - [CloudFormation instructions](#cloudformation-instructions)
     - [Create test resources using CloudFormation](#create-test-resources-using-cloudformation)
@@ -29,7 +30,7 @@ To create the resources using CloudFormation, skip to the section [CloudFormatio
 
 ### Create a test Windows EC2 instance
 
-1. Open the Amazon Elastic Compute Cloud (EC2) console at https://console.aws.amazon.com/ec2/v2/home.
+1. Open the **Amazon Elastic Compute Cloud (EC2)** console at https://console.aws.amazon.com/ec2/v2/home.
 
     - **Important**: Ensure you are using the N. Virginia (us-east-1) region.
 
@@ -44,8 +45,8 @@ To create the resources using CloudFormation, skip to the section [CloudFormatio
     ![](/media/ep03-p10.png)
 
 1. On the **Step 3: Configure Instance Details** screen, perform the following steps:
-    - Expand the **Advanced Details** section and copy/paste the following PowerShell script in to the **User data**.
-        - **Note**: The PowerShell script below will download a test PowerShell script to stress test the CPU.
+    - Expand the **Advanced Details** section and copy/paste the following PowerShell commands in to the **User data**.
+        - **Note**: The PowerShell commands below will download a test PowerShell script to stress test the CPU.
 
     ```
     <powershell>
@@ -82,7 +83,7 @@ To create the resources using CloudFormation, skip to the section [CloudFormatio
     ![](/media/episode-03-security-group.png)
 
 1. Choose **Launch**.
-1. For**Select an existing key pair or create a new key pair**, choose **Proceed without a key pair** from the drop-down list, choose **I acknowledge that I will not be able to connect to this instance unless I already know the password built into this AMI.** and choose **Launch Instances**.
+1. For **Select an existing key pair or create a new key pair**, choose **Proceed without a key pair** from the drop-down list, choose the check-box for **I acknowledge that I will not be able to connect to this instance unless I already know the password built into this AMI** and choose **Launch Instances**.
     - **Note**: In the next section you will use Session Manager to remotely connect to the EC2 instance which does not require a key pair.
 
 ### Enable Quick Setup to create and attach the IAM role
@@ -91,7 +92,7 @@ Use AWS Systems Manager Quick Setup to quickly configure frequently used AWS ser
 
 **To setup Quick Setup Host Management**
 
-1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
+1. Open the **AWS Systems Manager** console at https://console.aws.amazon.com/systems-manager/.
 1. In the navigation pane, choose [**Quick Setup**](https://console.aws.amazon.com/systems-manager/quick-setup).
 1. Choose **Get started**.
 1. Choose **Create**.
@@ -123,57 +124,75 @@ Use AWS Systems Manager Quick Setup to quickly configure frequently used AWS ser
 
 In order to fully manage the instance with Fleet Manager, you need to configure a KMS Key and I assume you are following this in order.
 
-1. Open the AWS Key Management Service (KMS) console [at](https://console.aws.amazon.com/kms/)
-1. In the navigation pane, choose Customer managed keys
-1. Choose Create key
-1. On the Configure key page, leave the default values and choose **Next**
-1. On the Add labels page, for Alias enter session-manager, and choose **Next**
-1. On the Define key administrative permissions page, select your IAM role TeamRole, and choose **Next**.
-1. On the Define key usage permissions page, select the EC2 IAM instance profile role **AmazonSSMRoleForInstancesQuickSetup**, and choose **Next**
-On the Review page, choose **Finish**
-1. Once the KMS key is created, note the Amazon Resource Name (ARN) of the KMS key and copy the value
-    ![](https://workshop.aws-management.tools/ssm/capability_hands-on_labs/media/fleet-manager-kms.png)
+1. Open the **AWS Key Management Service (KMS)** console at https://console.aws.amazon.com/kms/home.
+1. In the navigation pane, choose **Customer managed keys**.
+1. Choose **Create key**.
+1. On the **Configure key** page, leave the default value of **Symmetric** for the **Key type** and choose **Next**.
+1. On the **Add labels** page, for **Alias** enter ```session-manager```, and choose **Next**.
+1. On the **Define key administrative permissions** page, select your IAM user or role you are currently logged in with, and choose **Next**.
+1. On the **Define key usage permissions** page, select the EC2 IAM instance profile role **AmazonSSMRoleForInstancesQuickSetup**, and choose **Next**.
+1. On the **Review** page, choose **Finish**.
+1. Once the KMS key is created, note the **Amazon Resource Name (ARN)** of the KMS key and copy the value.
+
+    ![](media/fleet-manager-kms.png)
 
 ### Add KMS permissions to the IAM role
-1. Open the AWS Identity and Access Management (IAM) console at https://console.aws.amazon.com/iam/home
-1. In the navigation pane, choose Roles
-1. Select the **AmazonSSMRoleForInstancesQuickSetup** role from the list
-1. On the Summary page, choose **Add inline** policy
-1. On the Create policy page, choose the **JSON tab**.
-1. Replace the default content with the following. **Important:** replace key-name with the ARN of the custom KMS key you created previously.
-```
-{
-"Version": "2012-10-17",
-"Statement": [
+
+1. Open the **AWS Identity and Access Management (IAM)** console at https://console.aws.amazon.com/iam/home.
+1. In the navigation pane, choose **Roles**.
+1. Select the **AmazonSSMRoleForInstancesQuickSetup** role from the list to bring up the **Summary** page.
+1. On the **Summary** page, choose **Add inline** policy.
+1. On the **Create policy** page, choose the **JSON tab**.
+1. Replace the default content with the following. 
+    - **Important:** Replace **key-arn** with the ARN of the custom KMS key you created previously.
+
+    ```
     {
-        "Effect": "Allow",
-        "Action": [
-            "kms:Decrypt"
-        ],
-        "Resource": "key-name"
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "kms:Decrypt"
+                ],
+                "Resource": "key-arn"
+            }
+        ]
     }
-]
-}
+    ```
+    
+    ![](media/episode-03-kms-policy.png)
 
-```
+1. Choose **Review policy**.
+1. For **Name**, enter ```KMS_Permissions``` and choose **Create policy**.
+    
+### Add KMS encryption to Session Manager preferences
+
+1. Open the **AWS Systems Manager** console at https://console.aws.amazon.com/systems-manager/home.
+1. In the navigation pane, choose [**Session Manager**](https://console.aws.amazon.com/systems-manager/session-manager).
+1. Choose **Configure Preferences**.
+    - **Note**: If you have previously used Session Manager, choose the **Preferences** tab and choose **Edit**.
+1. Choose **Enable KMS encryption**.
+1. Choose **Select a KMS key** and choose the custom KMS key previously created from the drop-down list.
+
+    ![](media/episode-03-session-preferences.png)
+
+1. Choose **Save**.
+
 ### Confirm the EC2 instance is registered
-1. Open System Manager console at https://console.aws.amazon.com/iam/home 
-1. Go to Session Manager and click **Preferences** tab.
-1. Click edit and for KMS Key, choose the key you created in the previous session.
-    ![](/media/ep03-p14.png)
-1. Click **Save** at the bottom at the page. 
-1. On the Right menu click **Fleet Manager**.
-1. You should see your managed instance listed
-    (It might take a couple of minutes)
-    ![](/media/ep03-p15.png)
-1. System Manager and Fleet Manager are ready to go.
-1. Reboot the instance so the script you installed through user data can be triggered and proceed to the next session.
 
-You have now completed the manual setup instructions for this workshop. You can now proceed to the [Next Section](#next-section).
+1. Open System Manager console at https://console.aws.amazon.com/systems-manager/home.
+1. In the navigation pane, choose [**Fleet Manager**](https://console.aws.amazon.com/systems-manager/managed-instances).
+1. You should now see your test Windows EC2 instace in the managed instance list.
+    - **Note**: If you do not see your test Windows EC2 instance, it may take a few minutes to check in. Periodically refresh this page to confirm.
+
+    ![](/media/ep03-p15.png)
+
+You have now successfully created the test resources required for this workshop and can skip the **CloudFormation instructions** section. Proceed directly to the [**Next Section**](#next-section) to continue with the workshop.
 
 ## CloudFormation instructions
 
-The [CloudFormation template](misc/create-instance-unmanaged.yaml) creates a test Windows EC2 instance and IAM instance profile role for System Manager. if you launched the CloudFormation, skip to **Configure System Manager Fleet Manager** in the next [section](episode-03-step-02-troubleshoot.md)
+The [CloudFormation template](cfntemplates/create-instance-unmanaged.yaml) creates a test Windows EC2 instance and IAM instance profile role for System Manager.
 
 ### Create test resources using CloudFormation
 

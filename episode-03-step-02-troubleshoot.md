@@ -26,7 +26,9 @@ In this section you will configure System Manager to manage (1) the instance you
 
 I will guide you through the Steps assuming you have all the required IAM permissions and have deployed the AMI provided in the previous [step](episode-03-step-00.md).
 
+### Reboot the test Windows EC2 instance
 
+1. Reboot the instance so the script you installed through user data can be triggered and proceed to the next session.
 
 ## Create a CloudWatch Alarm and OpsItem.
 
