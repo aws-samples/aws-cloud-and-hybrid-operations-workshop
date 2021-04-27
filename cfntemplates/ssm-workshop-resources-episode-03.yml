@@ -42,6 +42,7 @@ Resources:
   #-------------------------------------------------
   ManagedInstanceRole:
     Type: AWS::IAM::Role
+    DependsOn: SystemAssociationForEnablingExplorer
     Properties:
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
@@ -241,6 +242,103 @@ Resources:
           Register-ScheduledJob -Trigger $trigger -FilePath c:\loop-and-stress.ps1 -Name StressCPU
           Restart-Computer
           </powershell>
+
+  #-------------------------------------------------
+  # Automation Service IAM role and State Manager Association to enable Explorer
+  #-------------------------------------------------
+  EnableExplorerAutomationRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - ssm.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Policies:
+      - PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - iam:ListRoles
+            - config:DescribeConfigurationRecorders
+            - compute-optimizer:GetEnrollmentStatus
+            - support:DescribeTrustedAdvisorChecks
+            Resource: "*"
+          - Effect: Allow
+            Action:
+            - ssm:UpdateServiceSetting
+            - ssm:GetServiceSetting
+            Resource:
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsitem/ssm-patchmanager"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsitem/EC2"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/ExplorerOnboarded"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/Association"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/ComputeOptimizer"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/ConfigCompliance"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/OpsData-TrustedAdvisor"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/SupportCenterCase"
+          - Effect: Allow
+            Action:
+            - iam:CreateServiceLinkedRole
+            Resource:
+              Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":iam::*:role/aws-service-role/ssm."
+                - Ref: AWS::URLSuffix
+                - "/AWSServiceRoleForAmazonSSM"
+            Condition:
+              StringEquals:
+                iam:AWSServiceName: ssm.amazonaws.com
+        PolicyName: SSMQuickSetupEnableExplorerInlinePolicy
+      RoleName: SSM-Workshop-EnableExplorerRole
+
+  SystemAssociationForEnablingExplorer:
+    Type: AWS::SSM::Association
+    Properties:
+      Name: AWS-EnableExplorer
+      AssociationName: SSM-Workshop-EnableExplorer
+      Parameters:
+        AutomationAssumeRole: 
+        - !GetAtt EnableExplorerAutomationRole.Arn
           
 Outputs:
   KMSKeyArn:
