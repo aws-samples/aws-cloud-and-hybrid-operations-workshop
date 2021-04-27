@@ -121,9 +121,9 @@ Use AWS Systems Manager Quick Setup to quickly configure frequently used AWS ser
 
 ![](/media/quick-setup-drilldown.png)
 
-### Create the KMS key
-
 In order to fully manage the instance with Fleet Manager, you need to configure a KMS Key and I assume you are following this in order.
+
+### Create the KMS key
 
 1. Open the **AWS Key Management Service (KMS)** console at https://console.aws.amazon.com/kms/home.
 1. In the navigation pane, choose **Customer managed keys**.
