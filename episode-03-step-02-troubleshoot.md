@@ -1,14 +1,11 @@
-# Create Managed Instances
+# Troubleshoot and resolve workload issues
 
 NOTE: You will incur charges as you go through either of these workshops, as they will exceed the [limits of AWS free tier](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-limits.html).
 
 ## Table of Contents
 
 - [Summary](#summary)
-- [Prerequisites](episode-03-step-00.md)
 - [Instructions](#instructions)
-    - [Enable System Manager](#)
-    - [Configure System Manager Fleet Manager](#)
     - [Create a CloudWatch Alarm and track OpsItem](#)
     - [Check performance counters](#)
     - [Connect to the instance Using Session Manager](#)
@@ -18,57 +15,73 @@ NOTE: You will incur charges as you go through either of these workshops, as the
 
 ### Summary
 
-You are going to launch an regular Windows instance and enable a script that will stress the instance CPU and consume CPU credits, if they are avaliable. Based on the alarm this action triggers, I will guide you how to troubleshoot that problem without RDPing into the instance. Additionally, we will explore some features such as the performance counters and registry explorer. If you ran the CloudFormation, skip to step 
+Now that you created the required test resources for this workshop, you are now going to create a CloudWatch alarm to monitor CPU usage on the test Windows EC2 instance. The alarm will trigger the creation of an OpsCenter OpsItem which can be used to effectively troubleshoot any issues. After the alarm has been created, you then reboot the test Windows instance to initiate the CPU stress test on the instance and consume CPU credits, if they are avaliable. You will then troubleshoot and resolve the problem without having to remotely connect to the instance using a combination of Fleet Manager, Session Manager, and Run Command. Additionally, you will explore other features of Fleet Manager, Application Manager, and Explorer to bring visibility in the context of an application.
 
-In this section you will configure System Manager to manage (1) the instance you created in setup [setup](episode-03-step-00.md) step. I will guide you through configuring Fleet Manager with a custom KMS Key (2) and you will create an OpsItem and a CloudWatch Alarm (3) and explore the performance counters via Fleet Manager (4) then connect to dig a little deeper using Session Manager(5) and once the issue is identified you will fix it using Run Command(6). This is totally inspired in the following Blog post: https://aws.amazon.com/blogs/mt/troubleshoot-and-resolve-windows-workload-issues-using-aws-systems-manager-fleet-manager/ 
+## Instructions
 
-# Instructions
+### Create a CloudWatch Alarm with OpsCenter Integration
 
-I will guide you through the Steps assuming you have all the required IAM permissions and have deployed the AMI provided in the previous [step](episode-03-step-00.md).
+1. Open the CloudWatch Alarm configuration JSON at [put_metric_alarm.json](misc/put_metric_alarm.json).
+1. Choose **Raw**.
 
-### Reboot the test Windows EC2 instance
+    ![](/media/github-raw.png)
 
-1. Reboot the instance so the script you installed through user data can be triggered and proceed to the next session.
+1. Open Notepad and copy the entire text.
+1. In the copied text, perform the following steps:
+    - Replace ```[INSTANCE_ID]``` with the EC2 instance ID created in [Step 01: Set up the workshop environment](/episode-03-step-01-initial-setup.md).
+    - Replace ```[ACCOUNT_ID]``` with the AWS account ID that you are using. **Note**: You can click your IAM user name or role in the upper-right corner to see your AWS account ID.
 
-## Create a CloudWatch Alarm and OpsItem.
+    ![](/media/episode-03-account-id.png)
 
-
-1. Download the helper json file from [here](../misc/put_metric_alarm.json).
-1. Edit the downloaded file with you [ACCOUNT_ID] and [INSTANCE_ID] with your values
-```
-{
+    ```
+    {
         "AlarmName": "[INSTANCE_ID]-BurstableInstanceCPUCreditBalanceLow",
         "AlarmDescription": "Burstable instance type cpu credit balance approaching zero",
         "ActionsEnabled": true,
         "AlarmActions": [
-                "arn:aws:ssm:us-east-1:[ACCOUNT_ID]:opsitem:2#CATEGORY=Cost"
+            "arn:aws:ssm:us-east-1:[ACCOUNT_ID]:opsitem:2#CATEGORY=Cost"
         ],
         "MetricName": "CPUCreditBalance",
         "Namespace": "AWS/EC2",
         "Statistic": "Average",
         "Dimensions": [
-                {
-                        "Name": "InstanceId",
-                        "Value": "[INSTANCE_ID]"
-                }
+            {
+                "Name": "InstanceId",
+                "Value": "[INSTANCE_ID]"
+            }
         ],
         "Period": 300,
         "EvaluationPeriods": 1,
         "Threshold": 5,
         "ComparisonOperator": "LessThanThreshold"
-}
-```
+    }
+    ```
 
-1. From an AWS CLI session, configure your cli with the credentials you created on the setup step.
+1. Save the file to your local machine as ```put_metric_alarm.json```.
 
-1. Issue the following command.
-```
+To create the CloudWatch alarm, we will use AWS CloudShell. From the AWS Management Console, you can launch AWS CloudShell by choosing the following options available on the navigation bar:
 
-aws cloudwatch put-metric-alarm --cli-input-json file://put_metric_alarm.json
+1. Choose the AWS CloudShell icon.
+1. Start typing "cloudshell" in Search box and then choose the CloudShell option.
 
-```
+    ![](https://docs.aws.amazon.com/cloudshell/latest/userguide/images/launch_options.png)
 
-Verify that the alarm was created successfully. 
+1. Once the CloudShell session has been established, choose **Actions** and choose **Upload file**.
+1. Choose **Select file**, navigate to the local ```put_metric_alarm.json``` file you created, choose **Open**, and choose **Upload**.
+    - **Note**: The ```put_metric_alarm.json``` file will be uploaded to the directory ```/home/cloudshell-user```.
+
+1. To create the CloudWatch alarm using the JSON configuration file, enter the following command:
+    ```
+    aws cloudwatch put-metric-alarm --cli-input-json file://put_metric_alarm.json
+    ```
+
+1. To verify the CloudWatch alarm has been created successfully, you can run the command:
+
+    ```
+    aws cloudwatch describe-alarms --alarm-prefix-name i-
+    ```
+    
+    ![](/media/episode-03-cloudshell-describe.png)
 
 To track CPU usage above the baseline, you might consider using the CPUUtilization metric. But depending on the size of the instance, the baseline utilization per vCPU varies from 5% to 40%. If you set an arbitrary threshold, you might wind up with too many or too few alerts.
 
@@ -82,6 +95,10 @@ To track CPU usage above the baseline, you might consider using the CPUUtilizati
 
 1. After a short period of time, the status of the alarm is OK, as shown.
     ![](/media/ep03-p17.png)
+    
+### Reboot the test Windows EC2 instance
+
+1. Reboot the instance so the script you installed through user data can be triggered and proceed to the next session.
 
 ### Track OpsItem using Systems Manager OpsCenter
 

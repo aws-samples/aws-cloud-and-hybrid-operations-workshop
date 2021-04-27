@@ -23,7 +23,7 @@ NOTE: You will incur charges as you go through either of these workshops, as the
 
 In this section of the workshop you create an Amazon Elastic Compute Cloud (EC2) Windows instance with a PowerShell script that will stress test the CPU and consume CPU credits, if any are available. In the next section, you will create an Amazon CloudWatch alarm that monitors CPU usage. You can (1) manually launch an EC2 instance and configure AWS Systems Manager or (2) you create these resources using [AWS CloudFormation](https://aws.amazon.com/cloudformation/).
 
-To create the test resources manually, skip to the section [Manual Instructions](#manual-instructions).
+To create the test resources manually, go to the section [Manual Instructions](#manual-instructions).
 
 To create the resources using CloudFormation, skip to the section [CloudFormation instructions](#cloudformation-instructions).
 
