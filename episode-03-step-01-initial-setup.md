@@ -255,7 +255,7 @@ You have now completed the CloudFormation setup instructions for this workshop. 
 
 ## Next Section
 
-**Congratulations** You ready to start configuring System Manager and troubleshoot this instance.
+**Congratulations**! You now have created the required test resources for this workshop.
 
 Click the link below to go to the next section.
 
