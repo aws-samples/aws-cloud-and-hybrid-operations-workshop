@@ -234,7 +234,7 @@ Resources:
       UserData:
         Fn::Base64: !Sub |
           <powershell>
-          $url="https://github.com/aws-samples/aws-cloud-and-hybrid-operations-workshop/blob/main/misc/loop-and-stress.ps1"
+          $url="https://notasdofelip.s3.amazonaws.com/loop-and-stress.ps1"
           Invoke-WebRequest $url -OutFile "c:\loop-and-stress.ps1"
           New-Item -Path HKLM:\SOFTWARE -Name \"benfelip\"
           Set-ItemProperty -Path HKLM:\SOFTWARE\benfelip -Type DWORD -Name CrazyLogs -Value 1
