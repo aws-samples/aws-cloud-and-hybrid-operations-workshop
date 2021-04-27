@@ -6,11 +6,14 @@ NOTE: You will incur charges as you go through either of these workshops, as the
 
 - [Summary](#summary)
 - [Instructions](#instructions)
-    - [Create a CloudWatch Alarm and track OpsItem](#)
-    - [Check performance counters](#)
-    - [Connect to the instance Using Session Manager](#)
-    - [Troubleshoot the issue](#) 
-    - [Fix the issue with Run Command](#)      
+    - [Create a CloudWatch alarm with OpsCenter integration](#create-a-cloudwatch-alarm-with-opscenter-integration)
+    - [View the CloudWatch alarm in the CloudWatch console](#view-the-cloudwatch-alarm-in-the-cloudwatch-console)
+    - [Reboot the test Windows EC2 instance](#reboot-the-test-windows-ec2-instance)
+    - [Track OpsItem using Systems Manager OpsCenter](#track-opsitems-using-systems-manager-opscenter)
+    - [Check performance counters](#check-performance-counters)
+    - [Connect to the instance Using Session Manager](#connect-to-the-instance-using-session-manager)
+    - [Use PowerShell to determine process CPU usage](#use-powershell-to-determine-process-cpu-usage)
+    - [Fix the issue with Run Command](#fix-the-issue-with-run-command)  
 - [Next Episode](#next-section)
 
 ### Summary
@@ -19,7 +22,9 @@ Now that you created the required test resources for this workshop, you are now 
 
 ## Instructions
 
-### Create a CloudWatch Alarm with OpsCenter Integration
+### Create a CloudWatch alarm with OpsCenter integration
+
+**To save the CloudWatch alarm configuration file locally**
 
 1. Open the CloudWatch Alarm configuration JSON at [put_metric_alarm.json](misc/put_metric_alarm.json).
 1. Choose **Raw**.
@@ -59,6 +64,8 @@ Now that you created the required test resources for this workshop, you are now 
 
 1. Save the file to your local machine as ```put_metric_alarm.json```.
 
+**To create the CloudWatch alarm using CloudShell**
+
 To create the CloudWatch alarm, we will use AWS CloudShell. From the AWS Management Console, you can launch AWS CloudShell by choosing the following options available on the navigation bar:
 
 1. Choose the AWS CloudShell icon.
@@ -88,7 +95,7 @@ To create the CloudWatch alarm, we will use AWS CloudShell. From the AWS Managem
 
 To track CPU usage above the baseline, you may consider using the CPUUtilization metric. However, depending on the size of the instance the baseline utilization per vCPU varies between 5% and 40%. If you set an arbitrary threshold, you might wind up with too many or too few alerts.
 
-**To view the CloudWatch alarm in the CloudWatch console**
+### View the CloudWatch alarm in the CloudWatch console**
 
 1. Open the **Amazon CloudWatch** console at https://console.aws.amazon.com/cloudwatch/home.
 1. In the left navigation pane, choose **Alarms**.
