@@ -119,7 +119,7 @@ Use AWS Systems Manager Quick Setup to quickly configure frequently used AWS ser
 1. Choose the radio button for the current account and Region and choose **View details**.    
 1. On the **Association drilldown** page, you can review the **Association status**, **Instances per status**, **Schedule rate**, and **Last updated** timestamp for each association created by **Quick Setup**.
 
-    ![](/media/quick-setup-drilldown.png)
+![](/media/quick-setup-drilldown.png)
 
 ### Create the KMS key
 
