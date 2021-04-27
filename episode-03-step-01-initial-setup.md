@@ -45,29 +45,29 @@ To create the resources using CloudFormation, skip to the section [CloudFormatio
 
 1. On the **Step 3: Configure Instance Details** screen, perform the following steps:
     - Expand the **Advanced Details** section and copy/paste the following PowerShell script in to the **User data**.
-    - **Note**: The PowerShell script below will download a test PowerShell script to stress test the CPU.
+        - **Note**: The PowerShell script below will download a test PowerShell script to stress test the CPU.
 
-```
-<powershell>
-#
-#Download the script and save to the c: drive
-#
-Invoke-WebRequest `
-    https://notasdofelip.s3.amazonaws.com/loop-and-stress.ps1 `
-    -OutFile c:\loop-and-stress.ps1
+    ```
+    <powershell>
+    #
+    #Download the script and save to the c: drive
+    #
+    Invoke-WebRequest `
+        https://notasdofelip.s3.amazonaws.com/loop-and-stress.ps1 `
+        -OutFile c:\loop-and-stress.ps1
 
-#
-#Create Registry Entry needed by the stress script
-#
-New-Item -Path HKLM:\SOFTWARE -Name "benfelip"
-Set-ItemProperty -Path HKLM:\SOFTWARE\benfelip -Type DWORD -Name CrazyLogs -Value 1
+    #
+    #Create Registry Entry needed by the stress script
+    #
+    New-Item -Path HKLM:\SOFTWARE -Name "benfelip"
+    Set-ItemProperty -Path HKLM:\SOFTWARE\benfelip -Type DWORD -Name CrazyLogs -Value 1
 
-#Setup the trigger to run everytime it boots
-$trigger = New-JobTrigger -AtStartup -RandomDelay 00:00:30
-Register-ScheduledJob -Trigger $trigger -FilePath c:\loop-and-stress.ps1 -Name StressCPU
+    #Setup the trigger to run everytime it boots
+    $trigger = New-JobTrigger -AtStartup -RandomDelay 00:00:30
+    Register-ScheduledJob -Trigger $trigger -FilePath c:\loop-and-stress.ps1 -Name StressCPU
 
-</powershell>
-```
+    </powershell>
+    ```
 
     ![](/media/episode-03-userdata.png)
 
