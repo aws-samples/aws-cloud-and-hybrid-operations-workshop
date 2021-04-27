@@ -50,7 +50,7 @@ To create the resources using CloudFormation, skip to the section [CloudFormatio
     ```
     <powershell>
     #
-    #Download the script and save to the c: drive
+    #Download the script and save to the C: drive
     #
     Invoke-WebRequest `
         https://notasdofelip.s3.amazonaws.com/loop-and-stress.ps1 `
