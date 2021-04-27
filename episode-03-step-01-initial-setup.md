@@ -125,6 +125,10 @@ In order to fully manage the instance with Fleet Manager, you need to configure 
 
 ### Create the KMS key
 
+In the next section, you will use **Fleet Manager** which leverages **Session Manager**, a capability of AWS Systems Manager, to troubleshoot the test Windows EC2 instance. AWS Key Management Service (AWS KMS) encryption must be enabled in your session preferences to use Fleet Manager features. To meet this requirement, you will now create a KMS key.
+
+**To create the custom KMS key**
+
 1. Open the **AWS Key Management Service (KMS)** console at https://console.aws.amazon.com/kms/home.
 1. In the navigation pane, choose **Customer managed keys**.
 1. Choose **Create key**.
@@ -138,6 +142,10 @@ In order to fully manage the instance with Fleet Manager, you need to configure 
     ![](media/fleet-manager-kms.png)
 
 ### Add KMS permissions to the IAM role
+
+The instance profile attached to your managed instances must provide permissions for Session Manager to use KMS encryption. For more information (outside of the workshop) about adding Session Manager permissions to an instance profile, see [Adding Session Manager permissions to an existing instance profile](https://docs.aws.amazon.com/systems-manager/latest/userguide/getting-started-add-permissions-to-existing-profile.html).
+
+**To add KMS permissions to the IAM instance profile**
 
 1. Open the **AWS Identity and Access Management (IAM)** console at https://console.aws.amazon.com/iam/home.
 1. In the navigation pane, choose **Roles**.
@@ -227,6 +235,10 @@ The CloudFormation template will create the resources depicted in the diagram be
 CloudFormation will begin provisioning the resources specified within the CloudFormation template and once complete, you will have one Windows EC2 instance to work with during this workshop. You can also use the refresh button to see the latest events related to the CloudFormation stack. Once the status of the CloudFormation stack changes to ```CREATE_COMPLETE```, you can proceed with the next steps. This process should complete within 5 minutes.
 
 ### (CloudFormation) Add KMS encryption to Session Manager preferences
+
+In the next section, you will use **Fleet Manager** which leverages **Session Manager**, a capability of AWS Systems Manager, to troubleshoot the test Windows EC2 instance. AWS Key Management Service (AWS KMS) encryption must be enabled in your session preferences to use Fleet Manager features. To meet this requirement, you will now update the Session Manager preferences.
+
+**To update the Session Manager preferences**
 
 1. Open the **AWS Systems Manager** console at https://console.aws.amazon.com/systems-manager/home.
 1. In the navigation pane, choose [**Session Manager**](https://console.aws.amazon.com/systems-manager/session-manager).
