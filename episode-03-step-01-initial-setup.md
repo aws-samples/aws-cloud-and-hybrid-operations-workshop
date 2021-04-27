@@ -12,7 +12,7 @@ NOTE: You will incur charges as you go through either of these workshops, as the
     - [Enable Quick Setup to create and attach the IAM role](#enable-quick-setup-to-create-and-attach-the-iam-role)
     - [Create the KMS key](#create-the-kms-key)
     - [Add KMS permissions to the IAM role](#add-kms-permissions-to-the-iam-role)
-    - [Confirm the EC2 instance is registered](#confirm-the-ec2-instance-is-registered]
+    - [Confirm the EC2 instance is registered](#confirm-the-ec2-instance-is-registered)
 - [CloudFormation instructions](#cloudformation-instructions)
     - [Create test resources using CloudFormation](#create-test-resources-using-cloudformation)
 - [Next Section](#next-section)
