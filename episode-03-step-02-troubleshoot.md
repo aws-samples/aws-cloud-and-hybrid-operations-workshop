@@ -104,22 +104,11 @@ To track CPU usage above the baseline, you may consider using the CPUUtilization
 
     ![](/media/ep03-p16.png)
 
-1. After a short period of time, the status of the alarm will change to ```OK``` as seen in the below screenshot.
+1. After a short period of time, the status of the alarm will change momentarily to ```OK``` as seen in the below screenshot.
 
     ![](/media/ep03-p17.png)
-    
-### Reboot the test Windows EC2 instance
 
-Now that the CloudWatch alarm has been configured to monitor CPU credits, we will reboot the test Windows EC2 instance to initiate the CPU stress test which will consume CPU credits.
-
-**To reboot the test Windows EC2 instance
-
-1. Open the **Amazon EC2** console at https://console.aws.amazon.com/ec2/v2/home.
-1. In the left navigation pane, choose **Instances**.
-1. Select the ```TestWindowsInstance```, choose **Instance state**, and choose **Reboot instance**.
-1. Choose **Reboot**.
-
-After a brief amount of time, the CloudWatch alarm will change to the ```In alarm``` state as the stress test script is bursting CPU usage which is in turn consuming CPU credits for the test instance.
+However, the stress test PowerShell script will begin bursting CPU usage which is in turn consuming CPU credits for the test Windows EC2 instance. This will cause the CloudWatch alarm to transition to the ```In alarm``` state which will create an OpsItem in OpsCenter.
 
 ### Track OpsItem using Systems Manager OpsCenter
 
