@@ -50,17 +50,15 @@ To create the resources using CloudFormation, skip to the section [CloudFormatio
         - **Note**: The PowerShell commands below will download a test PowerShell script to stress test the CPU.
 
     ```
-<powershell>
-$url="https://notasdofelip.s3.amazonaws.com/loop-and-stress.ps1"
-# Final URL
-#$url="https://raw.githubusercontent.com/aws-samples/aws-cloud-and-hybrid-operations-workshop/main/misc/loop-and-stress.ps1?"
-Invoke-WebRequest $url -OutFile "c:\loop-and-stress.ps1"
-New-Item -Path HKLM:\SOFTWARE -Name \"SampleApp\"
-Set-ItemProperty -Path HKLM:\SOFTWARE\SampleApp -Type DWORD -Name CrazyLogs -Value 1
-$trigger = New-JobTrigger -AtStartup -RandomDelay 00:00:30
-Register-ScheduledJob -Trigger $trigger -FilePath c:\loop-and-stress.ps1 -Name StressCPU
-Restart-Computer
-</powershell>
+    <powershell>
+    #$url="https://raw.githubusercontent.com/aws-samples/aws-cloud-and-hybrid-operations-workshop/main/misc/loop-and-stress.ps1"
+    Invoke-WebRequest $url -OutFile "c:\loop-and-stress.ps1"
+    New-Item -Path HKLM:\SOFTWARE -Name \"SampleApp\"
+    Set-ItemProperty -Path HKLM:\SOFTWARE\SampleApp -Type DWORD -Name CrazyLogs -Value 1
+    $trigger = New-JobTrigger -AtStartup -RandomDelay 00:00:30
+    Register-ScheduledJob -Trigger $trigger -FilePath c:\loop-and-stress.ps1 -Name StressCPU
+    Restart-Computer
+    </powershell>
     ```
 
     ![](/media/episode-03-userdata.png)
