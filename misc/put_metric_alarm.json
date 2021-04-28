@@ -1,9 +1,9 @@
 {
-    "AlarmName": "i-04db20ad17adf570d-BurstableInstanceCPUCreditBalanceLow",
+    "AlarmName": "[INSTANCE_ID]-BurstableInstanceCPUCreditBalanceLow",
     "AlarmDescription": "Burstable instance type cpu credit balance approaching zero",
     "ActionsEnabled": true,
     "AlarmActions": [
-        "arn:aws:ssm:us-east-1:803186506512:opsitem:2#CATEGORY=Cost"
+        "arn:aws:ssm:us-east-1:[ACCOUNT_ID]:opsitem:2#CATEGORY=Cost"
     ],
     "MetricName": "CPUCreditBalance",
     "Namespace": "AWS/EC2",
@@ -11,7 +11,7 @@
     "Dimensions": [
         {
             "Name": "InstanceId",
-            "Value": "i-04db20ad17adf570d"
+            "Value": "[INSTANCE_ID]"
         }
     ],
     "Period": 300,
