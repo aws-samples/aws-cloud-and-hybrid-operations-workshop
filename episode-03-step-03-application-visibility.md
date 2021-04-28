@@ -130,6 +130,20 @@ You will be brought to the saved resource group page for the new custom resource
 
 </p></details>
 
+<details>
+<summary><b>Logs tab</b></summary><p>
+
+![](/media/episode-03-logs-tab.png)
+
+</p></details>
+
+<details>
+<summary><b>Runbook tab</b></summary><p>
+
+![](/media/episode-03-runbook-tab.png)
+
+</p></details>
+
 
 
 ## Next Section
