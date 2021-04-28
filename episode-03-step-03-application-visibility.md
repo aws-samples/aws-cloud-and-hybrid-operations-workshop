@@ -2,6 +2,8 @@
 
 NOTE: You will incur charges as you go through either of these workshops, as they will exceed the [limits of AWS free tier](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-limits.html).
 
+To go back to the previous section, click here: [Troubleshoot and resolve workload issues](/episode-03-step-02-troubleshoot.md)
+
 ## Table of Contents
 
 - [Summary](#summary)

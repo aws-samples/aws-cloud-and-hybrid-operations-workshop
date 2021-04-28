@@ -4,6 +4,8 @@
 
 NOTE: You will incur charges as you go through either of these workshops, as they will exceed the [limits of AWS free tier](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-limits.html).
 
+To go back to the previous section, click here: [Episode 3: Create Actionable Visibility for Enterprise Cloud Applications and Resources](/episode-03-step-00-overview.md)
+
 ## Table of Contents
 
 - [Summary](#summary)

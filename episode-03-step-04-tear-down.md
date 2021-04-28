@@ -2,6 +2,8 @@
 
 ![](media/ssm-aws-logo.png)
 
+To go back to the previous section, click here: [View and take action on operational data in the context of an application](/episode-03-step-03-application-visibility.md)
+
 **Congratulations!** You have completed the **Episode 3: Create Actionable Visibility for Enterprise Cloud Applications and Resources** workshop.
 
 ## Tear down instructions
