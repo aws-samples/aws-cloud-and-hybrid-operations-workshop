@@ -62,7 +62,74 @@ To see an example of a real-world Explorer dashboard with all OpsData widgets en
 
 ### Create a custom application
 
+To view the CloudWatch alarm, OpsCenter OpsItem, and our CloudFormation stack resources within Application Manager, we will create a Resource Group which in turn can be viewed as a custom application in Application Manager.
+
+**To create a Resource Group**
+
+1. Open the AWS Resource Groups console at https://console.aws.amazon.com/resource-groups/home.
+1. In the navigation pane, choose [**Create Resource Group**](https://console.aws.amazon.com/resource-groups/groups/new) or choose **Create resource group**.
+1. For **Group type** choose **Tag based**.
+1. In the **Grouping criteria** section, perform the following steps:
+    - For **Resource types**, ensure **All supported resource types** is selected.
+    - For **Tag key**, enter ```SSMWorkshop```.
+    - For **Tag value**, enter ```true```.
+    - Choose **Add**.
+    - Choose **Preview group resources**. You should see seven (7) resources listed.
+    
+    ![](/media/episode-03-resource-group.png)
+    
+1. In the **Group details** section, perform the following steps:
+    - For **Group name**, enter ```SSMWorkshop```.
+    - For **Group description**, optionally enter a description such as ```Resources created during the Systems Manager workshop```.
+1. Choose **Create group**.
+
+You will be brought to the saved resource group page for the new custom resource group and can continue with the next steps.
+
 ### View the custom application in Application Manager
+
+1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/home.
+1. In the navigation pane, choose [**Application Manager**](https://console.aws.amazon.com/systems-manager/appmanager).
+1. Choose the **Applications** tab.
+1. Choose **Custom applications** and then choose the **SSMWorkshop** custom application.
+
+    ![](/media/episode-03-custom-application.png)
+
+1. You will be brought to the **Overview** screen for your custom application **SSMWorkshop** where you can view the current CloudWatch alarms, OpsItems, and runbooks pertaining to the resources in the group.
+
+    ![](/media/episode-03-app-overview.png)
+    
+1. Navigate between the various tabs, **Resources**, **Compliance**, **Monitoring**, **OpsItems**, **Logs**, and **Runbooks** to see information that is aggregated about the resources in the custom application.
+
+    - **Note**: The **Compliance** tab will show ```Insufficient data``` for AWS Config resource compliance if you have not enabled AWS Config previously. Additionally, if you did not use **Quick Setup** then you may not have data for **Associations compliance**.
+
+<details>
+<summary><b>Resources tab</b></summary><p>
+
+![](/media/episode-03-resources-tab.png)
+
+</p></details>
+
+<details>
+<summary><b>Compliance tab</b></summary><p>
+
+![](/media/episode-03-compliance-tab.png)
+
+</p></details>
+
+<details>
+<summary><b>Monitoring tab</b></summary><p>
+
+![](/media/episode-03-monitoring-tab.png)
+
+</p></details>
+
+<details>
+<summary><b>OpsItem tab</b></summary><p>
+
+![](/media/episode-03-opsitems-tab.png)
+
+</p></details>
+
 
 
 ## Next Section
