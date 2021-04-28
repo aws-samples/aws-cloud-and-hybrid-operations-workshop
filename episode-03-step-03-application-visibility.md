@@ -144,11 +144,22 @@ You will be brought to the saved resource group page for the new custom resource
 
 </p></details>
 
+(Optional) Using Application Manager, you can quickly initiate **Automation runbooks** against the resources within the application group. To try this out, perform the following steps:
+
+1. Choose **Start runbook**.
+1. In the **Start runbook** window, enter ```AWS-Restart``` in the search field, choose the runbook **AWS-RestartEC2Instance**, and select **Choose**.
+    - You are brought to the **Automation** console to begin the runbook workflow.
+1. In the **Targets** section, for **Parameter** choose **InstanceId** from the drop-down menu.
+1. Leave the other options as their defaults and choose **Execute**.
+
+The Automation runbook will now run against the corresponding test Windows EC2 instance within the Resource Group **SSMWorkshop**. You can wait for the instance to successfully reboot in the Automation console or navigate back to the custom application in Application Manager to view the runbook results.
+
+![](/media/episode-03-runbook-results.png)
 
 
 ## Next Section
 
-You have now completed the workshop **Episode 3: Create Actionable Visibility for Enterprise Cloud Applications and Resources**.
+You have now completed the workshop **Episode 3: Create Actionable Visibility for Enterprise Cloud Applications and Resources**!
 
 Click the link below to go to the next section to tear down the resources created during the workshop.
 
