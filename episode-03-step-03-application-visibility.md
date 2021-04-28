@@ -55,7 +55,9 @@ To see an example of a real-world Explorer dashboard with all OpsData widgets en
 
 <details>
 <summary><b>Example Explorer Dashboard</b></summary><p>
+
 ![](/media/episode-03-example-explorer.png)
+
 </p></details>
 
 ### Create a custom application
