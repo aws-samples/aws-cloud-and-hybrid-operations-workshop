@@ -51,7 +51,7 @@ To create the resources using CloudFormation, skip to the section [CloudFormatio
 
     ```
     <powershell>
-    #$url="https://raw.githubusercontent.com/aws-samples/aws-cloud-and-hybrid-operations-workshop/main/misc/loop-and-stress.ps1"
+    $url="https://raw.githubusercontent.com/aws-samples/aws-cloud-and-hybrid-operations-workshop/main/misc/loop-and-stress.ps1"
     Invoke-WebRequest $url -OutFile "c:\loop-and-stress.ps1"
     New-Item -Path HKLM:\SOFTWARE -Name \"SampleApp\"
     Set-ItemProperty -Path HKLM:\SOFTWARE\SampleApp -Type DWORD -Name CrazyLogs -Value 1
