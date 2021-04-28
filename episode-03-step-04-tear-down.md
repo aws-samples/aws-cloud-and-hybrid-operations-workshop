@@ -86,4 +86,5 @@ Click the link below to go to the next episode, **Episode 4: Automating Changes 
 ## Special Thanks
 
 This workshop is inspired in part by the following AWS Management & Governance blog post: 
+
 [Troubleshoot and resolve Windows workload issues using AWS Systems Manager Fleet Manager](https://aws.amazon.com/blogs/mt/troubleshoot-and-resolve-windows-workload-issues-using-aws-systems-manager-fleet-manager/)
