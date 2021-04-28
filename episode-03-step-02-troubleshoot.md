@@ -95,7 +95,7 @@ To create the CloudWatch alarm, we will use AWS CloudShell. From the AWS Managem
 
 To track CPU usage above the baseline, you may consider using the CPUUtilization metric. However, depending on the size of the instance the baseline utilization per vCPU varies between 5% and 40%. If you set an arbitrary threshold, you might wind up with too many or too few alerts.
 
-### View the CloudWatch alarm in the CloudWatch console**
+### View the CloudWatch alarm in the CloudWatch console
 
 1. Open the **Amazon CloudWatch** console at https://console.aws.amazon.com/cloudwatch/home.
 1. In the left navigation pane, choose **Alarms**.
