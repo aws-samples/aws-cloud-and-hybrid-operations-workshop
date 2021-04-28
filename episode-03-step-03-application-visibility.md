@@ -16,6 +16,7 @@ NOTE: You will incur charges as you go through either of these workshops, as the
 In this section of the workshop, we will review the AWS Systems Manager capabilities: **Explorer** and **Application Manager**.
 
 **AWS Systems Manager Explorer** is a customizable operations dashboard that reports information about your AWS resources. Explorer displays an aggregated view of operations data (OpsData) for your AWS accounts and across Regions. Explorer retrieves OpsData from the following sources:
+
     - **Amazon Elastic Compute Cloud (Amazon EC2)**: Data displayed in Explorer includes: total number of instances, total number of managed and unmanaged instances, and a count of instances using a specific Amazon Machine Image (AMI).
     - **Systems Manager OpsCenter**: Data displayed in Explorer includes: a count of OpsItems by status, a count of OpsItems by severity, a count of open OpsItems across groups and across 30-day time periods, and historical data of OpsItems over time.
     - **Systems Manager Patch Manager**: Data displayed in Explorer includes a count of instances that aren't patch compliant.
