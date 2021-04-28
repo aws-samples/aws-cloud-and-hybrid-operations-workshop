@@ -14,8 +14,6 @@ NOTE: You will incur charges as you go through either of these workshops, as the
     - [Connect to the instance Using Session Manager](#connect-to-the-instance-using-session-manager)
     - [Use PowerShell to determine process CPU usage](#use-powershell-to-determine-process-cpu-usage)
     - [Fix the issue with Run Command](#fix-the-issue-with-run-command)
-    - [Use Application Manager to view resources in the application context](#use-application-manager-to-view-resources-in-the-application-context)
-    - [Use Explorer to view operational data at scale](#use-explorer-to-view-operational-data-at-scale)
 - [Next Episode](#next-section)
 
 ## Summary
