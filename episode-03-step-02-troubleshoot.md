@@ -13,10 +13,12 @@ NOTE: You will incur charges as you go through either of these workshops, as the
     - [Check performance counters](#check-performance-counters)
     - [Connect to the instance Using Session Manager](#connect-to-the-instance-using-session-manager)
     - [Use PowerShell to determine process CPU usage](#use-powershell-to-determine-process-cpu-usage)
-    - [Fix the issue with Run Command](#fix-the-issue-with-run-command)  
+    - [Fix the issue with Run Command](#fix-the-issue-with-run-command)
+    - [Use Application Manager to view resources in the application context)(#use-application-manager-to-view-resources-in-the-application-context)
+    - [Use Explorer to view operational data at scale](#use-explorer-to-view-operational-data-at-scale)
 - [Next Episode](#next-section)
 
-### Summary
+## Summary
 
 Now that you created the required test resources for this workshop, you are now going to create a CloudWatch alarm to monitor CPU usage on the test Windows EC2 instance. The alarm will trigger the creation of an OpsCenter OpsItem which can be used to effectively troubleshoot any issues. After the alarm has been created, you then reboot the test Windows instance to initiate the CPU stress test on the instance and consume CPU credits, if they are avaliable. You will then troubleshoot and resolve the problem without having to remotely connect to the instance using a combination of Fleet Manager, Session Manager, and Run Command. Additionally, you will explore other features of Fleet Manager, Application Manager, and Explorer to bring visibility in the context of an application.
 
@@ -250,8 +252,6 @@ Now that the issue is resolved, we can return to OpsCenter and resolve the OpsIt
 
 ## Next Section
 
-You have now completed the workshop **Episode 3: Create Actionable Visibility for Enterprise Cloud Applications and Resources**.
+Click the link below to go to the next section.
 
-Click the link below to go to the next section to tear down the resources created during the workshop.
-
-[![](media/tear-down.png)](/episode-03-step-03-tear-down.md)
+[![](media/episode-03-troubleshoot.png)](/episode-03-step-03-application-visibility.md)

@@ -133,6 +133,8 @@ Resources:
       Tags:
       - Key: Name
         Value: SSM-Workshop-CF
+      - Key: SSMWorkshop
+        Value: true
   VPCGatewayAttachment:
     Type: 'AWS::EC2::VPCGatewayAttachment'
     Properties:
@@ -148,6 +150,8 @@ Resources:
       Tags:
       - Key: Name
         Value: SSM-Workshop-CF
+      - Key: SSMWorkshop
+        Value: true
   RouteTablePublic:
     Type: 'AWS::EC2::RouteTable'
     Properties:
@@ -155,6 +159,8 @@ Resources:
       Tags:
       - Key: Name
         Value: SSM-Workshop-CF
+      - Key: SSMWorkshop
+        Value: true
   RouteTableAssociationPublic:
     Type: 'AWS::EC2::SubnetRouteTableAssociation'
     Properties:
@@ -174,6 +180,8 @@ Resources:
       Tags:
       - Key: Name
         Value: SSM-Workshop-CF
+      - Key: SSMWorkshop
+        Value: true
   SubnetNetworkAclAssociationPublic:
     Type: 'AWS::EC2::SubnetNetworkAclAssociation'
     Properties:
@@ -210,6 +218,8 @@ Resources:
       Tags: 
         - Key: Name
           Value: SSM-Workshop-CF
+        - Key: SSMWorkshop
+          Value: true
       VpcId: !Ref VPC
       
   #-------------------------------------------------
@@ -231,6 +241,8 @@ Resources:
       Tags:
         - Key: Name
           Value: TestWindowsInstance
+        - Key: SSMWorkshop
+          Value: true
       UserData:
         Fn::Base64: !Sub |
           <powershell>

@@ -17,5 +17,11 @@
     "Period": 300,
     "EvaluationPeriods": 1,
     "Threshold": 5,
-    "ComparisonOperator": "LessThanThreshold"
+    "ComparisonOperator": "LessThanThreshold",
+    "Tags": [
+        {
+            "Key": "SSMWorkshop",
+            "Value": "true"
+        }
+    ]
 }
