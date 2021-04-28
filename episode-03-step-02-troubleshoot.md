@@ -254,4 +254,4 @@ Now that the issue is resolved, we can return to OpsCenter and resolve the OpsIt
 
 Click the link below to go to the next section.
 
-[![](media/episode-03-troubleshoot.png)](/episode-03-step-03-application-visibility.md)
+[![](media/episode-03-step-03-application-visibility.png)](/episode-03-step-03-application-visibility.md)

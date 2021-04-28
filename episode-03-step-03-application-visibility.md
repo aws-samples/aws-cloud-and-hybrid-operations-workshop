@@ -34,6 +34,8 @@ In Application Manager, an application is a logical group of AWS resources that 
 
 ### View operational data using the Explorer dashboard
 
+
+
 ### Create a custom application
 
 ### View the custom application in Application Manager
@@ -45,7 +47,4 @@ You have now completed the workshop **Episode 3: Create Actionable Visibility fo
 
 Click the link below to go to the next section to tear down the resources created during the workshop.
 
-## Special Thanks
-
-This workshop is inspired in part by the following AWS Management & Governance blog post: 
-[Troubleshoot and resolve Windows workload issues using AWS Systems Manager Fleet Manager](https://aws.amazon.com/blogs/mt/troubleshoot-and-resolve-windows-workload-issues-using-aws-systems-manager-fleet-manager/)
+[![](media/tear-down.png)](/episode-03-step-04-tear-down.md)
