@@ -214,7 +214,7 @@ In order to change the Windows registry key mentioned in the developer's message
     ![](/media/episode-03-set-registry.png)
 
 1. In the **Command parameters** section, perform the following steps:
-    1. For **Path**, enter ```HKLM:\SOFTWARE\benfelip```.
+    1. For **Path**, enter ```HKLM:\SOFTWARE\SampleApp```.
     1. For **Name**, enter ```CrazyLogs```.
     1. For **Kind**, choose **DWord** from the drop-down list.
     1. For **Value**, enter ```0```.
