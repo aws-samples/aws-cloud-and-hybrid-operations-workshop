@@ -34,7 +34,29 @@ In Application Manager, an application is a logical group of AWS resources that 
 
 ### View operational data using the Explorer dashboard
 
+1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
+1. In the navigation pane, choose [**Explorer**](https://console.aws.amazon.com/systems-manager/explorers).
+1. Choose **Dashboard actions** and choose **Configure dashboard**.
+    - On the resulting page, you can see the various OpsData sources and widgets for Explorer.
+    - Choose the radio button for each OpsData source to see the corresponding widgets available. Depending on the services you have enabled within your account, you may choose to enable additional sources.
+    
+    ![](/media/episode-03-explorer-configure.png)
 
+1. Choose the **Explorer settings** tab.
+    - In the **Explorer settings** tab, you can review the default rules for OpsItems and custom rules created. You can also configure data export as a CSV file for Explorer OpsData to an Amazon Simple Storage Service (S3) bucket.
+    - You can also create a **Resource Data Sync** for Explorer which will aggregate OpsData from other accounts/Regions within your AWS Organization. For the purpose of this workshop, we will not create a resource data sync. However, for more information on setting up Explorer to aggregate data see, [Setting up Systems Manager Explorer to display data from multiple accounts and Regions ](https://docs.aws.amazon.com/systems-manager/latest/userguide/Explorer-resource-data-sync.html).
+
+1. Navigate back to the **Explorer** dashboard at https://console.aws.amazon.com/systems-manager/explorer.
+    - Scroll through the dashboard to see the various widgets available.
+    - Each widget can be customized to modify the shape and size of the widget as well as the location of each widget. Take time to move around the widgets to bring the most relevant widgets to the top.
+    - **Note**: Widgets that are not enabled or the corresponding service is not enabled, will show the status message **No data to display**. To troubleshoot in a real-world environment, see [Troubleshooting Explorer](https://docs.aws.amazon.com/console/systems-manager/Explorer-troubleshooting).
+    
+To see an example of a real-world Explorer dashboard with all OpsData widgets enabled, expand the following section.
+
+<details>
+<summary><b>Example Explorer Dashboard</b></summary><p>
+![](/media/episode-03-example-explorer.png)
+</p></details>
 
 ### Create a custom application
 
