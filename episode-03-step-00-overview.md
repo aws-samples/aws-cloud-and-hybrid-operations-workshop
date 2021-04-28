@@ -16,13 +16,13 @@ The ability for the right people to see the right information, when they need it
 
 In episode three, you will create an [Amazon CloudWatch alarm](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html) to monitor the performance of an Amazon Elastic Cloud Compute (EC2) instance. You then use various capabilities of [AWS Systems Manager](https://aws.amazon.com/systems-manager/) to gain visibility into operational issues and resolve them, including:
 
-- [Quick Setup](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-quick-setup.html)
+- [Application Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/application-manager.html)
+- [Explorer](https://docs.aws.amazon.com/systems-manager/latest/userguide/Explorer.html)
 - [Fleet Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/fleet.html)
 - [OpsCenter](https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html)
-- [Explorer](https://docs.aws.amazon.com/systems-manager/latest/userguide/Explorer.html)
-- [Application Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/application-manager.html)
-- [Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html)
+- [Quick Setup](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-quick-setup.html)
 - [Run Command](https://docs.aws.amazon.com/systems-manager/latest/userguide/execute-remote-commands.html)
+- [Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html)
 
 ## Learning Objectives
 
