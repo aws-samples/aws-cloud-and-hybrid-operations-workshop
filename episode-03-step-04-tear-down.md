@@ -60,6 +60,20 @@
 
 </p></details>
 
+### Delete the Resource Group
+
+<details>
+<summary><b>To delete the Resource Group</b></summary><p>
+
+**To manually terminate the EC2 Instance**
+
+1. Open the AWS Resource Group console at https://console.aws.amazon.com/resource-groups/home.
+1. In the navigation pane, choose **Saved Resource Groups**.
+1. Choose the **SSMWorkshop** and choose **View details**.
+1. Choose **Delete**.
+
+</p></details>
+
 
 ## Next Section
 
