@@ -177,7 +177,7 @@ To continue troubleshooting, we will connect to the test Windows EC2 instance us
     Enter-PSHostProcess -Id pid
     ```
     
-    - Example ```Enter-PSHostProcess``` where the Id value is ```3540```.
+    - Example ```Enter-PSHostProcess``` where the Id value is ```3740```.
     
     ![](/media/episode-03-pid.png)
 
