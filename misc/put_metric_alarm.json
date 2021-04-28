@@ -1,21 +1,27 @@
 {
-    "AlarmName": "i-0331997364ff1c5b6-BurstableInstanceCPUCreditBalanceLow",
+    "AlarmName": "[INSTANCE_ID]-BurstableInstanceCPUCreditBalanceLow",
     "AlarmDescription": "Burstable instance type cpu credit balance approaching zero",
     "ActionsEnabled": true,
     "AlarmActions": [
-            "arn:aws:ssm:us-east-1:062241367565:opsitem:2#CATEGORY=Cost"
+        "arn:aws:ssm:us-east-1:[ACCOUNT_ID]:opsitem:2#CATEGORY=Cost"
     ],
     "MetricName": "CPUCreditBalance",
     "Namespace": "AWS/EC2",
     "Statistic": "Average",
     "Dimensions": [
-            {
-                    "Name": "InstanceId",
-                    "Value": "i-0331997364ff1c5b6"
-            }
+        {
+            "Name": "InstanceId",
+            "Value": "[INSTANCE_ID]"
+        }
     ],
     "Period": 300,
     "EvaluationPeriods": 1,
     "Threshold": 5,
-    "ComparisonOperator": "LessThanThreshold"
+    "ComparisonOperator": "LessThanThreshold",
+    "Tags": [
+        {
+            "Key": "SSMWorkshop",
+            "Value": "true"
+        }
+    ]
 }

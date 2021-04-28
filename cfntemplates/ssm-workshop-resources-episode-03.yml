@@ -38,10 +38,11 @@ Parameters :
 
 Resources:
   #-------------------------------------------------
-  # IAM role and instance profile to enable Systems Manager registration on the EC2 instance
+  # IAM role and instance profile to enable Systems Manager registration on EC2 instances
   #-------------------------------------------------
   ManagedInstanceRole:
     Type: AWS::IAM::Role
+    DependsOn: SystemAssociationForEnablingExplorer
     Properties:
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
@@ -55,7 +56,16 @@ Resources:
       - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
       Path: "/"
       RoleName: !Join [ '-', ['AmazonSSMManagedInstanceCore', !Ref 'AWS::Region'] ]
-
+      Policies:
+      - PolicyName: KMS_Permissions
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - kms:Decrypt
+            Resource: !Sub 'arn:${AWS::Partition}:kms:${AWS::Region}:${AWS::AccountId}:key:*'
+              
   ManagedInstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
@@ -63,6 +73,46 @@ Resources:
       Roles:
       - !Ref ManagedInstanceRole
       InstanceProfileName: !Sub 'ManagedInstanceProfile-${AWS::Region}'
+      
+  #-------------------------------------------------
+  # Key used to encrypt CloudWatch and Session Manager related data
+  #-------------------------------------------------
+  SessionManagerDataEncryptionKey:
+    DependsOn: ManagedInstanceRole
+    Type: AWS::KMS::Key
+    Properties:
+      Description: Key used to encrypt Session Manager related data
+      Enabled: True
+      EnableKeyRotation: True
+      KeyPolicy:
+        Version: '2012-10-17'
+        Id: AccountPolicy
+        Statement:
+        - Sid: Enable IAM User Permissions
+          Effect: Allow
+          Principal:
+            AWS: !Sub arn:aws:iam::${AWS::AccountId}:root
+          Action: kms:*
+          Resource: '*'
+        - Sid: Allow use of the key by the instance
+          Effect: Allow
+          Principal:
+            AWS: 
+            - !Join [ '', ['arn',':', !Ref 'AWS::Partition',':', 'iam','::', !Ref 'AWS::AccountId',':', 'role/AmazonSSMManagedInstanceCore-', !Ref 'AWS::Region'] ]
+          Action:
+            - kms:DescribeKey
+            - kms:Encrypt
+            - kms:Decrypt
+            - kms:ReEncrypt*
+            - kms:GenerateDataKey
+            - kms:GenerateDataKeyWithoutPlaintext
+          Resource: '*'
+
+  SessionManagerDataEncryptionKeyAlias:
+    Type: AWS::KMS::Alias
+    Properties:
+      AliasName: alias/fleet-manager
+      TargetKeyId: !Ref SessionManagerDataEncryptionKey
 
   #-------------------------------------------------
   # VPC and required resources to enable network connectivity to AWS Systems Manager
@@ -83,6 +133,8 @@ Resources:
       Tags:
       - Key: Name
         Value: SSM-Workshop-CF
+      - Key: SSMWorkshop
+        Value: true
   VPCGatewayAttachment:
     Type: 'AWS::EC2::VPCGatewayAttachment'
     Properties:
@@ -98,6 +150,8 @@ Resources:
       Tags:
       - Key: Name
         Value: SSM-Workshop-CF
+      - Key: SSMWorkshop
+        Value: true
   RouteTablePublic:
     Type: 'AWS::EC2::RouteTable'
     Properties:
@@ -105,6 +159,8 @@ Resources:
       Tags:
       - Key: Name
         Value: SSM-Workshop-CF
+      - Key: SSMWorkshop
+        Value: true
   RouteTableAssociationPublic:
     Type: 'AWS::EC2::SubnetRouteTableAssociation'
     Properties:
@@ -124,6 +180,8 @@ Resources:
       Tags:
       - Key: Name
         Value: SSM-Workshop-CF
+      - Key: SSMWorkshop
+        Value: true
   SubnetNetworkAclAssociationPublic:
     Type: 'AWS::EC2::SubnetNetworkAclAssociation'
     Properties:
@@ -160,6 +218,8 @@ Resources:
       Tags: 
         - Key: Name
           Value: SSM-Workshop-CF
+        - Key: SSMWorkshop
+          Value: true
       VpcId: !Ref VPC
       
   #-------------------------------------------------
@@ -180,15 +240,119 @@ Resources:
       IamInstanceProfile: !Sub 'ManagedInstanceProfile-${AWS::Region}'
       Tags:
         - Key: Name
-          Value: Windows
+          Value: TestWindowsInstance
+        - Key: SSMWorkshop
+          Value: true
       UserData:
         Fn::Base64: !Sub |
           <powershell>
-          $url="https://notasdofelip.s3.amazonaws.com/loop-and-stress.ps1"
+          $url="https://raw.githubusercontent.com/aws-samples/aws-cloud-and-hybrid-operations-workshop/main/misc/loop-and-stress.ps1"
           Invoke-WebRequest $url -OutFile "c:\loop-and-stress.ps1"
-          New-Item -Path HKLM:\SOFTWARE -Name \"benfelip\"
-          Set-ItemProperty -Path HKLM:\SOFTWARE\benfelip -Type DWORD -Name CrazyLogs -Value 1
+          New-Item -Path HKLM:\SOFTWARE -Name \"SampleApp\"
+          Set-ItemProperty -Path HKLM:\SOFTWARE\SampleApp -Type DWORD -Name CrazyLogs -Value 1
           $trigger = New-JobTrigger -AtStartup -RandomDelay 00:00:30
           Register-ScheduledJob -Trigger $trigger -FilePath c:\loop-and-stress.ps1 -Name StressCPU
           Restart-Computer
           </powershell>
+
+  #-------------------------------------------------
+  # Automation Service IAM role and State Manager Association to enable Explorer
+  #-------------------------------------------------
+  EnableExplorerAutomationRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service:
+            - ssm.amazonaws.com
+          Action:
+          - sts:AssumeRole
+      Policies:
+      - PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - iam:ListRoles
+            - config:DescribeConfigurationRecorders
+            - compute-optimizer:GetEnrollmentStatus
+            - support:DescribeTrustedAdvisorChecks
+            Resource: "*"
+          - Effect: Allow
+            Action:
+            - ssm:UpdateServiceSetting
+            - ssm:GetServiceSetting
+            Resource:
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsitem/ssm-patchmanager"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsitem/EC2"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/ExplorerOnboarded"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/Association"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/ComputeOptimizer"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/ConfigCompliance"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/OpsData-TrustedAdvisor"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/SupportCenterCase"
+          - Effect: Allow
+            Action:
+            - iam:CreateServiceLinkedRole
+            Resource:
+              Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":iam::*:role/aws-service-role/ssm."
+                - Ref: AWS::URLSuffix
+                - "/AWSServiceRoleForAmazonSSM"
+            Condition:
+              StringEquals:
+                iam:AWSServiceName: ssm.amazonaws.com
+        PolicyName: SSMQuickSetupEnableExplorerInlinePolicy
+      RoleName: SSM-Workshop-EnableExplorerRole
+
+  SystemAssociationForEnablingExplorer:
+    Type: AWS::SSM::Association
+    Properties:
+      Name: AWS-EnableExplorer
+      AssociationName: SSM-Workshop-EnableExplorer
+      Parameters:
+        AutomationAssumeRole: 
+        - !GetAtt EnableExplorerAutomationRole.Arn
+          
+Outputs:
+  KMSKeyArn:
+    Description: The ARN of the custom KMS key.
+    Value: !GetAtt SessionManagerDataEncryptionKey.Arn

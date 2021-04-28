@@ -44,9 +44,9 @@ To delete the Config recorder and Config delivery channel, perform the following
 From the AWS Management Console, you can launch AWS CloudShell by choosing the following options available on the navigation bar:
 
 1. Choose the AWS CloudShell icon.
-2. Start typing "cloudshell" in Search box and then choose the CloudShell option.
+1. Start typing "cloudshell" in Search box and then choose the CloudShell option.
 
-![](https://docs.aws.amazon.com/cloudshell/latest/userguide/images/launch_options.png)
+    ![](https://docs.aws.amazon.com/cloudshell/latest/userguide/images/launch_options.png)
 
 1. To delete the Config recorder, enter the following command:
     
