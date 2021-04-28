@@ -81,7 +81,7 @@ To go back to the previous section, click here: [View and take action on operati
 
 Click the link below to go to the next episode, **Episode 4: Automating Changes and Preventative Maintenance in an Enterprise / Cloud Environment**.
 
-[![](media/.png)](/episode-04-step-01.md)
+[![](media/episode-04-link.png)](/episode-04-step-00-overview.md)
 
 ## Special Thanks
 
