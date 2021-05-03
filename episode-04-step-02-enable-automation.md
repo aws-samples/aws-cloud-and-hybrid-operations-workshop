@@ -144,7 +144,16 @@ Rather than waiting for the association to be applied during the next cron inter
 
 1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
 1. In the navigation pane, choose [**State Manager**](https://console.aws.amazon.com/systems-manager/state-manager).
-1. Choose the association **SSMWorkshop-MultiAccountPatch** and choose **Apply association now**.
+1. Choose the association **SSMWorkshop-MultiAccountPatch**, choose **Apply association now**, and choose **Apply**.
+1. Choose the **Execution history** tab.
+1. Choose the most recent **Execution id**.
+1. Choose **Output** to view the resulting Automation workflow.
+
+    - You will then be brought to the Automation console where you can view the output of the Automation runbook.
+    
+    ![](/media/state-multi-account.png)
+
+
 
 ## Next Section
 
