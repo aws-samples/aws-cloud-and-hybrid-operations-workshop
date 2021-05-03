@@ -18,9 +18,9 @@ Balancing flexibility and time-to-market with control and stability to maximize 
 
 During this workshop episode, we will work towards the following learning objectives:
 
+- Learn how to report patching compliance status across your server fleet.
 - Learn how to schedule and automate centralized patching operations across your AWS accounts and Regions and hybrid cloud environments.
 - Learn how to manage change approvals, execution, and reporting.
-- Learn how to report patching compliance status across your server fleet.
 
 ## Getting Started
 
