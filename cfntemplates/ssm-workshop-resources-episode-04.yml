@@ -125,6 +125,73 @@ Resources:
             Action:
             - resource-groups:listGroupResources
             Resource: "*"
+            
+  #-------------------------------------------------
+  # Automation document to run AWS-RunPatchBaseline on target resources
+  #-------------------------------------------------
+  AutomationDocumentRunPatchBaseline:
+    Type: AWS::SSM::Document
+    Properties: 
+      DocumentType: Automation
+      Content:
+        description: >-
+          This document runs the Command document ```AWS-RunPatchBaseline``` on the specified instances.
+        schemaVersion: '0.3'
+        assumeRole: '{{ AutomationAssumeRole }}'
+        parameters:
+          AutomationAssumeRole: 
+            type: String
+            description: The ARN of the Automation service role to assume.
+          InstallOverrideList:
+            type: String
+            default: ""
+            description: >-
+              (Optional) An https URL or an Amazon S3 path-style URL to the list of patches to be installed. This patch installation list overrides the patches specified by the default patch baseline.
+          Operation:
+            type: String
+            default: Scan
+            description: >-
+              (Required) The update or configuration to perform on the instance. The
+              system checks if patches specified in the patch baseline are installed on
+              the instance. The install operation installs patches missing from the
+              baseline.
+          RebootOption:
+            type: String
+            default: RebootIfNeeded
+            description: >-
+              (Optional) Reboot behavior after a patch Install operation. If you choose
+              NoReboot and patches are installed, the instance is marked as non-compliant 
+              until a subsequent reboot and scan.
+          ResourceGroupName:
+            description: The name of the Resource Group to target.
+            type: String
+            default: !Ref ManagedInstancesResourceGroup
+          SnapshotId:
+            type: String
+            default: ""
+            description: >-
+              (Optional) The snapshot ID to use to retrieve a patch baseline snapshot.
+        mainSteps:
+          - name: runPatchBaseline
+            action: 'aws:runCommand'
+            timeoutSeconds: 7200
+            onFailure: Abort
+            inputs:
+              DocumentName: AWS-RunPatchBaseline
+              Targets:
+              - Key: 'resource-groups:Name'
+                Values:
+                  - '{{ ResourceGroupName }}'
+              Parameters:
+                Operation: '{{ Operation }}'
+                RebootOption: '{{ RebootOption }}'
+                SnapshotId: '{{ SnapshotId }}'
+                InstallOverrideList: '{{ InstallOverrideList }}'
+              OutputS3BucketName: !Ref CommandLogsBucket
+              OutputS3KeyPrefix: 'patching/accountid={{global:ACCOUNT_ID}}/region={{global:REGION}}/executionid={{automation:EXECUTION_ID}}'
+            description: >-
+              This command runs the Command document ```AWS-RunPatchBaseline``` on the
+              specified instances.
 
   #-------------------------------------------------
   # Bucket used to store resource data sync data
@@ -201,33 +268,15 @@ Resources:
         BlockPublicPolicy: true
         IgnorePublicAcls: true
         RestrictPublicBuckets: true
-          
-  #-------------------------------------------------
-  # Bucket policy to add to S3 bucket to store command logs
-  #-------------------------------------------------
-  # CommandLogsBucketPolicy:
-    # Type: AWS::S3::BucketPolicy
-    # Properties:
-      # Bucket: !Ref CommandLogsBucket
-      # PolicyDocument:
-        # Statement:
-        # - Sid: SSMWrite
-          # Effect: Allow
-          # Principal: "*"
-          # Action: 
-            # - s3:PutObject
-            # - s3:PutObjectAcl
-          # Resource: 
-            # - !Join [ '', [!GetAtt CommandLogsBucket.Arn, '/*'] ]
-
+        
   #-------------------------------------------------
   # Resource Group to target for multi-account/multi-Region Automation
   #-------------------------------------------------
-  WebServersRG:
+  ManagedInstancesResourceGroup:
     Type: AWS::ResourceGroups::Group
     Properties: 
       Description: 'This is a test Resource Group for the SSM workshop'
-      Name: WebServers
+      Name: ManagedInstances
       ResourceQuery: 
         Type: "TAG_FILTERS_1_0"
         Query: 
@@ -237,7 +286,7 @@ Resources:
             -
               Key: "Patch"
               Values: 
-                - "True"
+                - "true"
 
   #-------------------------------------------------
   # IAM role and instance profile to enable Systems Manager registration on EC2 instances
@@ -494,7 +543,7 @@ Resources:
         - Key: Name
           Value: App1
         - Key: Patch
-          Value: True
+          Value: 'true'
   LinuxEc2InstanceTwo: 
     Type: AWS::EC2::Instance
     Properties: 
@@ -512,7 +561,7 @@ Resources:
         - Key: Name
           Value: App2
         - Key: Patch
-          Value: True
+          Value: 'true'
   LinuxEc2InstanceThree: 
     Type: AWS::EC2::Instance
     Properties: 
@@ -530,7 +579,7 @@ Resources:
         - Key: Name
           Value: Web1
         - Key: Patch
-          Value: True
+          Value: 'true'
   LinuxEc2InstanceFour: 
     Type: AWS::EC2::Instance
     Properties: 
@@ -548,7 +597,7 @@ Resources:
         - Key: Name
           Value: Web2
         - Key: Patch
-          Value: True
+          Value: 'true'
 
 Outputs:
   ResouceSyncBucketName:

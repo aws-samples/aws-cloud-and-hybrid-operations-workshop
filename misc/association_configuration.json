@@ -1,0 +1,35 @@
+{
+    "Name": "[DOCUMENT-NAME]",
+    "Parameters": {
+        "AutomationAssumeRole": [
+            "arn:aws:iam::[ACCOUNT-ID]:role/AWS-SystemsManager-AutomationAdministrationRole"
+        ],
+        "ResourceGroupName": [
+            "ManagedInstances"
+        ],
+        "RebootOption": [
+            "NoReboot"
+        ],
+        "Operation": [
+            "Scan"
+        ]
+    },
+    "ScheduleExpression": "cron(30 09 ? * * *)",
+    "AssociationName": "SSMWorkshop-MultiAccountPatch",
+    "ComplianceSeverity": "MEDIUM",
+    "SyncCompliance": "AUTO",
+    "ApplyOnlyAtCronInterval": true,
+    "TargetLocations": [
+        {
+            "Accounts": [
+                "[ACCOUNT-ID]"
+            ],
+            "Regions": [
+                "us-east-1"
+            ],
+            "TargetLocationMaxConcurrency": "1",
+            "TargetLocationMaxErrors": "1",
+            "ExecutionRoleName": "arn:aws:iam::[ACCOUNT-ID]:role/AWS-SystemsManager-AutomationAdministrationRole"
+        }
+    ]
+}

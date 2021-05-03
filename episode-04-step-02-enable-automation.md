@@ -4,148 +4,118 @@
 
 NOTE: You will incur charges as you go through either of these workshops, as they will exceed the [limits of AWS free tier](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-limits.html).
 
+To go back to the previous section, click here: [Enabling Patch Management](/episode-04-step-01-enable-patch.md)
+
 ## Table of Contents
 
 - [Summary](#summary)
+    - [Running automations in multiple AWS regions and accounts](#running-automations-in-multiple-aws-regions-and-accounts)
 - [Instructions](#instructions)
-    - [Enable AWS Config](#enable-aws-config)
-    - [Use Systems Manager Quick Setup](#use-systems-manager-quick-setup)
-    - [Create and configure an S3 bucket for resource data sync](#create-and-configure-an-s3-bucket-for-resource-data-sync)
-    - [Create a Resource Data Sync](#create-a-resource-data-sync)
+    - [View the custom Automation runbook](#view-the-custom-automation-runbook)
+    - [Create a multi-account / multi-Region State Manager association]()
 - [Next Section](#next-section)
 
 ## Summary
 
-In this section you will (1) enable AWS Config to monitor and record your AWS resource configurations,(2) use Systems Manager Quick Setup to enable Systems Manager best practices, (3) create an S3 bucket to store Systems Manager Inventory data, (4) create a resource data sync to send inventory data to the S3 bucket, and (5) use the detailed view tab for Inventory.
+In this section you will use the multi-account / multi-Region functionality of Systems Manager Automation to perform patching operations. The patching operation is scheduled using a State Manager association which initiates a custom Automation runbook for patching. You will then review the information populated by the Resource Data Sync created in [Enabling Patch Management](/episode-04-step-01-enable-patch.md). Additionally, you will review Explorer to see a patch compliance dashboard.
+
+### Running automations in multiple AWS regions and accounts
+
+You can run AWS Systems Manager automations across multiple AWS Regions and AWS accounts or AWS Organizational Units (OUs) from an Automation management account. Running automations in multiple Regions and accounts or OUs reduces the time required to administer your AWS resources while enhancing the security of your computing environment. For example, you can centrally implement patching and security updates, remediate compliance drift on VPC configurations or S3 bucket policies, and manage resources, such as EC2 instances, at scale.
+
+Running automations across multiple Regions and accounts or OUs works by leveraging two IAM roles. In the section [Enabling Patch Management](/episode-04-step-01-enable-patch.md), you created a CloudFormation stack which created the two IAM roles for Systems Manager Automation multi-account / multi-Region. The default names and their functions are as follows:
+
+- **AWS-SystemsManager-AutomationAdministrationRole**: This role gives the user permission to run automations in multiple AWS accounts and OUs. 
+- **AWS-SystemsManager-AutomationExecutionRole**: This role gives the service permission to run automations in the target account and OUs.
 
 ## Instructions
 
-### Enable AWS Config
+### View the custom Automation runbook
 
-AWS Config is a service that enables you to assess, audit, and evaluate the configurations of your AWS resources. Config continuously monitors and records your AWS resource configurations and allows you to automate the evaluation of recorded configurations against desired configurations. With Config, you can review changes in configurations and relationships between AWS resources, dive into detailed resource configuration histories, and determine your overall compliance against the configurations specified in your internal guidelines. This enables you to simplify compliance auditing, security analysis, change management, and operational troubleshooting.
+In the section [Enabling Patch Management](/episode-04-step-01-enable-patch.md), you created a CloudFormation stack which created a custom Automation runbook. The Automation runbook initiates a Run Command task for the document ```AWS-RunPatchBaseline``` and stores the command output an the S3 bucket.
 
-**To enable AWS Config**
-
-1. Open the [AWS Config console](https://console.aws.amazon.com/config/home).
-1. Select **1-click setup**.
-
-    ![](/media/aws-config-1-click.png)
-    
-1. Select **Confirm**.
-
-    ![](/media/aws-config-confirm.png)
-    
-1. Once AWS Config completes setting up, you will be brought to the AWS Config dashboard and can continue with the next steps.
-
-### Use Systems Manager Quick Setup
-
-Use AWS Systems Manager Quick Setup to quickly configure frequently used AWS services and features with recommended best practices. You can use Quick Setup in an individual account or across multiple accounts and AWS Regions by integrating with AWS Organizations. Quick Setup simplifies setting up services, including AWS Systems Manager, by automating common or recommended tasks. These tasks include, for example, creating required AWS Identity and Access Management (IAM) instance profile roles and setting up operational best practices, such as periodic patch scans and inventory collection.
-
-**To setup Quick Setup Host Management**
+**To view the custom Automation runbook**
 
 1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
-1. In the navigation pane, choose [**Quick Setup**](https://console.aws.amazon.com/systems-manager/quick-setup).
-1. Choose **Create**.
-1. Choose **Host Management** and choose **Next**.
-
-    - **Note**: If your AWS account is part of an AWS Organization and you are logged in to the root organization account, you also have an option to configure the Change Manager capability of Systems Manager.
+1. In the navigation pane, choose [**Documents**](https://console.aws.amazon.com/systems-manager/documents).
+1. Choose the tab **Owned by me**.
+1. Choose the Automation runbook created the CloudFormation stack. **Note**: The Automation runbook is named similar to ```ssm-workshop-ep04-document-vgTzxXmhVB0c```.
+1. On the **Description** tab, expand the section **Step 1: runPatchBaseline** to view details about the first step.
     
-1. On the **Customize Host Management configuration options**, ensure the defaults for **Systems Manager** are enabled:
+    - This step initiates a Run Command task for ```AWS-RunPatchBaseline``` and targets managed instances using a Resource Group. The command output details are then sent to the S3 bucket created by the CloudFormation template. The **OutputS3KeyPrefix** value leverages [Automation system variables](https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-variables.html) to dynamically build the S3 key prefix during the workflow operation. This allows the command output logs to be segmented by account ID, region, and Automation execution ID.
+    - **Important**: Managed instances in other accounts and Regions must have access to the S3 bucket specified in order to output the command logs centrally. The [S3 bucket policy](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html) and the [EC2 IAM instance profile role](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html) must allow access. The ```PutObject``` and ```PutObjectAcl``` API calls are made by SSM Agent on the managed instance. For more information about the EC2 IAM instance profile role, see [Task 1: (Optional) Create a custom policy for S3 bucket access ](https://docs.aws.amazon.com/systems-manager/latest/userguide/setup-instance-profile.html#instance-profile-custom-s3-policy).
 
-    - Update Systems Manager (SSM) Agent every two weeks.
-    - Collect inventory from your instances every 30 minutes.
-    - Scan instances for missing patches daily.
+### Create a multi-account / multi-Region State Manager association
 
-1. In the **Targets** section, choose **Current Region** and choose **All instances**.
-1. Choose **Create**.
+Currently, creating multi-account and multi-Region State Manager associations are not supported in the AWS Management console, so instead you will use AWS CloudShell to create the association using the AWS CLI.
 
-    ![](/media/quick-setup-create.png)
-    
-    - Systems Manager Quick Setup will begin deploying a CloudFormation stack which creates the corresponding resources to enable Systems Manager best practices. After a few moments, the **Host Management** page should refresh and you can see the **Configuration deployment status**, **Configuration association status**, and **Configuration details** for the **Quick Setup** deployment.
+**To save the State Manager association configuration file locally**
 
-    ![](/media/quick-setup-host-mgmt.png)
+1. Open the State Manager association configuration JSON at [association_configuration.json](misc/association_configuration.json).
+1. Choose **Raw**.
 
-1. Choose the radio button for the current account and Region and choose **View details**.    
-1. On the **Association drilldown** page, you can review the **Association status**, **Instances per status**, **Schedule rate**, and **Last updated** timestamp for each association created by **Quick Setup**.
+    ![](/media/github-raw.png)
 
-    ![](/media/quick-setup-drilldown.png)
+1. Open Notepad and copy the entire text.
+1. In the copied text, perform the following steps:
+    - Replace ```[DOCUMENT-NAME]``` with the name of the Automation runbook created in [Step 01: Enabling Patch Management](/episode-04-step-01-enable-patch.md).
+    - Replace the three occurrences of ```[ACCOUNT-ID]``` with the AWS account ID that you are using; lines 05, 25, and 32. **Note**: You can click your IAM user name or role in the upper-right corner to see your AWS account ID.
 
-### Create and configure an S3 bucket for resource data sync
+    ![](/media/episode-03-account-id.png)
 
-Now that AWS Config is enabled, you will create an S3 bucket to store Systems Manager inventory data collected from all of your managed instances. The resource data sync created in the next section  automatically updates the centralized data when new inventory data is collected.
-
-**To create and configure an S3 bucket for resource data sync**
-
-1. Navigate to the [S3](https://s3.console.aws.amazon.com/s3) console.
-1. Select **Create Bucket**.
-1. For the **Bucket name** enter: ```YOURFIRSTNAME-sm-workshop```.
-1. For **Region** select **US-East (N. Virginia)**.
-1. Keep all defaults including **Block all public access**.
-1. Choose **Create Bucket**.
-1. Select your newly created bucket to access the configuration details.
-1. Navigate to the **Permissions** tab.
-1. Navigate to **Bucket Policy** and select **Edit**.
-1. Copy and paste the policy below into the bucket policy, replace the two _ENTERYOURBUCKET_ entries below with your **Bucket Name**, and select **Save changes**.
-
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "SSMBucketPermissionsCheck",
-            "Effect": "Allow",
-            "Principal": {
-                "Service": "ssm.amazonaws.com"
-            },
-            "Action": "s3:GetBucketAcl",
-            "Resource": "arn:aws:s3:::ENTERYOURBUCKET"
-        },
-        {
-            "Sid": " SSMBucketDelivery",
-            "Effect": "Allow",
-            "Principal": {
-                "Service": "ssm.amazonaws.com"
-            },
-            "Action": "s3:PutObject",
-            "Resource": [
-                "arn:aws:s3:::ENTERYOURBUCKET/inventory/*"
+    ```
+    {
+        "Name": "[DOCUMENT-NAME]",
+        "Parameters": {
+            "AutomationAssumeRole": [
+                "arn:aws:iam::[ACCOUNT-ID]:role/AWS-SystemsManager-AutomationAdministrationRole"
             ],
-            "Condition": {
-                "StringEquals": {
-                    "s3:x-amz-acl": "bucket-owner-full-control"
-                }
+            "ResourceGroupName": [
+                "ManagedInstances"
+            ],
+            "RebootOption": [
+                "NoReboot"
+            ],
+            "Operation": [
+                "Scan"
+            ]
+        },
+        "ScheduleExpression": "cron(30 09 ? * * *)",
+        "AssociationName": "SSMWorkshop-MultiAccountPatch",
+        "ComplianceSeverity": "MEDIUM",
+        "SyncCompliance": "AUTO",
+        "ApplyOnlyAtCronInterval": true,
+        "TargetLocations": [
+            {
+                "Accounts": [
+                    "[ACCOUNT-ID]"
+                ],
+                "Regions": [
+                    "us-east-1"
+                ],
+                "TargetLocationMaxConcurrency": "1",
+                "TargetLocationMaxErrors": "1",
+                "ExecutionRoleName": "arn:aws:iam::[ACCOUNT-ID]:role/AWS-SystemsManager-AutomationAdministrationRole"
             }
-        }
-    ]
-}
-```
+        ]
+    }
+    ```
 
-![](/media/inventory-bucket-policy.png)
+1. Save the file to your local machine as ```put_metric_alarm.json```.
 
-### Create a Resource Data Sync
+**To create the State Manager association using CloudShell**
 
-1. Now we will configure the **Resource Data Sync** which will ship the inventory data to an S3 bucket for further processing.
-1. Open the Resource Data Sync console at https://console.aws.amazon.com/systems-manager/managed-instances/resource-data-sync.
-1. Select **Create resource data sync**.
-1. Configuration details:
+From the AWS Management Console, you can launch AWS CloudShell by choosing the following options available on the navigation bar:
 
-    - For **Sync name** enter **YOURNAME-inventory-s3-sync**.
-    - For **Bucket name** enter the name of the bucket you created previously.
-    - For **Bucket prefix** enter **inventory**.
-    - For **Bucket region** enter **This region (us-east-1)**.
-    - For **KMS Key ARN - optional** leave this blank for the purpose of the workshop.
-    - Choose **Create**
+1. Choose the AWS CloudShell icon.
+1. Start typing "cloudshell" in Search box and then choose the CloudShell option.
 
-1. Switch back to your bucket and you can now see the data being synced.
+    ![](https://docs.aws.amazon.com/cloudshell/latest/userguide/images/launch_options.png)
 
-    ![](/media/image23.png)
+1. Once the CloudShell session has been established, choose **Actions** and choose **Upload file**.
 
-    - Now we have a clean data structure for inventory data.
-    - From here you can utilize Athena and Quicksight to gain deeper insight about the inventory data gathered. **Note:** For the purpose of this workshop, we will not be covering these steps.
-    - **User Guide Documentation:**
-        <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-datasync.html>
+    ![](/media/episode-03-cloudshell-upload.png)
 
-    ![](/media/image24.png)
 
 ## Next Section
 
