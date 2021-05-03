@@ -12,7 +12,7 @@ NOTE: You will incur charges as you go through either of these workshops, as the
     - [Create a change template](#create-a-change-template)
     - [Create a change request](#create-a-change-request)
     - [Approve a change request](#approve-a-change-request)
-    - [Review the change request results)(#review-the-change-request-results)
+    - [Review the change request results](#review-the-change-request-results)
 - [Next Section](#next-section)
 
 ## Summary
