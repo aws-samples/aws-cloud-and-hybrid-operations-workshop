@@ -4,7 +4,7 @@
 
 NOTE: You will incur charges as you go through either of these workshops, as they will exceed the [limits of AWS free tier](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-limits.html).
 
-To go back to the previous section, click here: [# Episode 4: Automating Changes and Preventative Maintenance in an Enterprise Cloud Environment](/episode-04-step-00-overview.md)
+To go back to the previous section, click here: [Episode 4: Automating Changes and Preventative Maintenance in an Enterprise Cloud Environment](/episode-04-step-00-overview.md)
 
 ## Table of Contents
 
@@ -270,4 +270,4 @@ The patch export process will then begin and you can view the status on the subs
 
 Click the link below to go to the next section.
 
-[![](media/codify-runbooks.png)](/episode-01-step-02-codify-runbooks.md)
+[![](media/schedule-patching-operations.png)](/episode-04-step-02-enable-automation.md)

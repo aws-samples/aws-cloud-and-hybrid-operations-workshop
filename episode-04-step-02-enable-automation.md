@@ -1,4 +1,4 @@
-# Enabling Inventory
+# Scheduling and Automating Patching Operations
 
 ![](media/ssm-aws-logo.png)
 
