@@ -46,157 +46,6 @@ Conditions:
 Resources:
 
   #-------------------------------------------------
-  # Key used to encrypt AWS Config data
-  #-------------------------------------------------
-  ConfigDataEncryptionKey:
-    Type: AWS::KMS::Key
-    Properties:
-      Description: Key used to encrypt AWS Config data
-      Enabled: True
-      EnableKeyRotation: True
-      KeyPolicy:
-        Version: '2012-10-17'
-        Id: Policy_ID
-        Statement:
-        - Sid: Enable IAM User Permissions
-          Effect: Allow
-          Principal:
-            AWS: !Sub arn:aws:iam::${AWS::AccountId}:root
-          Action: kms:*
-          Resource: '*'
-        - Sid: AWSConfigKMSPolicy
-          Effect: Allow
-          Principal:
-            Service: config.amazonaws.com
-          Action:
-          - kms:Decrypt
-          - kms:GenerateDataKey
-          Resource: "*"
-
-  ConfigEncryptionKeyAlias:
-    Type: AWS::KMS::Alias
-    Properties:
-      AliasName: alias/Config-DataEncryptionKey
-      TargetKeyId: !Ref ConfigDataEncryptionKey
-
-  #-------------------------------------------------
-  # Bucket used to store AWS Config data
-  #-------------------------------------------------
-  ConfigCentralBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: !Sub aws-config-ssm-workshop-${AWS::AccountId}
-      AccessControl: BucketOwnerFullControl
-      VersioningConfiguration:
-        Status: Enabled
-      BucketEncryption:
-        ServerSideEncryptionConfiguration:
-          - ServerSideEncryptionByDefault:
-              KMSMasterKeyID: !Ref ConfigDataEncryptionKey
-              SSEAlgorithm: aws:kms
-      PublicAccessBlockConfiguration:
-        BlockPublicAcls: true
-        BlockPublicPolicy: true
-        IgnorePublicAcls: true
-        RestrictPublicBuckets: true
-
-  #-------------------------------------------------
-  # Bucket policy to add to S3 bucket to store AWS Config data
-  #-------------------------------------------------
-  ConfigCentralBucketPolicy:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket: !Ref ConfigCentralBucket
-      PolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-        - Sid: AWSConfigBucketPermissionsCheck
-          Effect: Allow
-          Principal:
-            Service:
-            - config.amazonaws.com
-          Action: s3:GetBucketAcl
-          Resource: !GetAtt ConfigCentralBucket.Arn
-        - Sid: AWSConfigBucketExistenceCheck
-          Effect: Allow
-          Principal:
-            Service:
-            - config.amazonaws.com
-          Action: s3:ListBucket
-          Resource: !GetAtt ConfigCentralBucket.Arn
-        - Sid: AWSConfigBucketDelivery
-          Effect: Allow
-          Principal:
-            Service:
-            - config.amazonaws.com
-          Action: s3:PutObject
-          Resource: 
-            - !Sub arn:aws:s3:::${ConfigCentralBucket}/AWSLogs/${AWS::AccountId}/Config/*
-          Condition:
-            StringEquals:
-              s3:x-amz-acl: bucket-owner-full-control
-
-  #-------------------------------------------------
-  # SNS Topic for AWS Config
-  #-------------------------------------------------
-  ConfigSNSTopic:
-    Type: AWS::SNS::Topic
-    Properties: 
-      KmsMasterKeyId: !Ref ConfigDataEncryptionKey
-      TopicName: aws-config-sns
-
-  #-------------------------------------------------
-  # SNS Topic policy for AWS Config
-  #-------------------------------------------------
-  ConfigSNSTopicPolicy:
-    Type: AWS::SNS::TopicPolicy
-    Properties: 
-      PolicyDocument: 
-        Id: Policy_ID
-        Statement:
-        - Sid: AWSConfigSNSPolicy
-          Effect: Allow
-          Principal:
-            Service: config.amazonaws.com
-          Action: SNS:Publish
-          Resource: !Ref ConfigSNSTopic
-      Topics: 
-        - !Ref ConfigSNSTopic
-
-  #-------------------------------------------------
-  # IAM service role for AWS Config
-  #-------------------------------------------------
-  ConfigRole:
-    Type: AWS::IAM::ServiceLinkedRole
-    Properties:
-      AWSServiceName: config.amazonaws.com
-
-  #-------------------------------------------------
-  # AWS Config Recorder
-  #-------------------------------------------------
-  ConfigRecorder:
-    Type: AWS::Config::ConfigurationRecorder
-    Properties:
-      RecordingGroup:
-        ResourceTypes:
-          - 'AWS::EC2::Instance'
-          - 'AWS::SSM::PatchCompliance'
-          - 'AWS::SSM::AssociationCompliance'
-          - 'AWS::SSM::FileData'
-      RoleARN:
-        Fn::Sub:
-          "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/aws-service-role/config.amazonaws.com/AWSServiceRoleForConfig"
-
-  #-------------------------------------------------
-  # AWS Config Delivery Channel
-  #-------------------------------------------------
-  ConfigDeliveryChannel:
-    Type: AWS::Config::DeliveryChannel
-    Properties:
-      S3BucketName: !Ref ConfigCentralBucket
-      SnsTopicARN: !Ref ConfigSNSTopic
-
-  #-------------------------------------------------
   # Automation Administration role for multi-account/Region Automation capabilities
   #-------------------------------------------------
   AutomationAdministrationServiceRole:
@@ -278,44 +127,6 @@ Resources:
             Resource: "*"
 
   #-------------------------------------------------
-  # Key used to encrypt resource data sync data
-  #-------------------------------------------------
-  ManagedInstanceDataEncryptionKey:
-    Type: AWS::KMS::Key
-    Properties:
-      Description: Key used to encrypt instance data
-      Enabled: True
-      EnableKeyRotation: True
-      KeyPolicy:
-        Version: '2012-10-17'
-        Id: AccountPolicy
-        Statement:
-        - Sid: Enable IAM User Permissions
-          Effect: Allow
-          Principal:
-            AWS: !Sub arn:aws:iam::${AWS::AccountId}:root
-          Action: kms:*
-          Resource: '*'
-        - Sid: Allow use of the key by Systems Manager
-          Effect: Allow
-          Principal:
-            Service: ssm.amazonaws.com
-          Action:
-            - kms:DescribeKey
-            - kms:Encrypt
-            - kms:Decrypt
-            - kms:ReEncrypt*
-            - kms:GenerateDataKey
-            - kms:GenerateDataKeyWithoutPlaintext
-          Resource: '*'
-
-  ManagedInstanceDataEncryptionKeyAlias:
-    Type: AWS::KMS::Alias
-    Properties:
-      AliasName: alias/SSM-ManagedInstanceDataEncryptionKey
-      TargetKeyId: !Ref ManagedInstanceDataEncryptionKey
-
-  #-------------------------------------------------
   # Bucket used to store resource data sync data
   #-------------------------------------------------
   ResouceSyncBucket:
@@ -325,11 +136,6 @@ Resources:
       AccessControl: BucketOwnerFullControl
       VersioningConfiguration:
         Status: Enabled
-      BucketEncryption:
-        ServerSideEncryptionConfiguration:
-          - ServerSideEncryptionByDefault:
-              KMSMasterKeyID: !Ref ManagedInstanceDataEncryptionKey
-              SSEAlgorithm: aws:kms
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         BlockPublicPolicy: true
@@ -374,9 +180,8 @@ Resources:
         BucketName: !Ref ResouceSyncBucket
         BucketPrefix: inventory
         BucketRegion: !Ref "AWS::Region"
-        KMSKeyArn: !GetAtt ManagedInstanceDataEncryptionKey.Arn
         SyncFormat: 'JsonSerDe'
-          
+        
   #-------------------------------------------------
   # Bucket used to store instance command logs
   #-------------------------------------------------
@@ -421,7 +226,7 @@ Resources:
   WebServersRG:
     Type: AWS::ResourceGroups::Group
     Properties: 
-      Description: 'This is a test Resource Group'
+      Description: 'This is a test Resource Group for the SSM workshop'
       Name: WebServers
       ResourceQuery: 
         Type: "TAG_FILTERS_1_0"
@@ -453,7 +258,7 @@ Resources:
       Path: "/"
       RoleName: !Join [ '-', ['AmazonSSMManagedInstanceCore', !Ref 'AWS::Region'] ]
       Policies:
-      - PolicyName: CWL_S3_KMS_Permissions
+      - PolicyName: S3_Permissions
         PolicyDocument:
           Version: '2012-10-17'
           Statement:
@@ -465,23 +270,6 @@ Resources:
             Resource: 
               - !Join [ '', [!GetAtt CommandLogsBucket.Arn] ]
               - !Join [ '', [!GetAtt CommandLogsBucket.Arn, '/*'] ]
-          - Effect: Allow
-            Action:
-            - kms:Decrypt
-            Resource: !Sub 'arn:${AWS::Partition}:kms:${AWS::Region}:${AWS::AccountId}:key:*'
-          - Effect: Allow
-            Action:
-            - logs:DescribeLogGroups
-            - logs:DescribeLogStreams
-            Resource: '*'
-          - Effect: Allow
-            Action:
-            - logs:CreateLogStream
-            Resource: !Sub 'arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:session-manager:*'
-          - Effect: Allow
-            Action:
-            - logs:PutLogEvents
-            Resource: !Sub 'arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:session-manager:log-stream:*'
               
   ManagedInstanceProfile:
     Type: AWS::IAM::InstanceProfile
@@ -492,100 +280,101 @@ Resources:
       InstanceProfileName: !Sub 'ManagedInstanceProfile-${AWS::Region}'
       
   #-------------------------------------------------
-  # Key used to encrypt CloudWatch and Session Manager related data
+  # Automation Service IAM role and State Manager Association to enable Explorer
   #-------------------------------------------------
-  SessionManagerDataEncryptionKey:
-    DependsOn: ManagedInstanceRole
-    Type: AWS::KMS::Key
+  EnableExplorerAutomationRole:
+    Type: AWS::IAM::Role
     Properties:
-      Description: Key used to encrypt Session Manager related data
-      Enabled: True
-      EnableKeyRotation: True
-      KeyPolicy:
+      AssumeRolePolicyDocument:
         Version: '2012-10-17'
-        Id: AccountPolicy
         Statement:
-        - Sid: Enable IAM User Permissions
-          Effect: Allow
+        - Effect: Allow
           Principal:
-            AWS: !Sub arn:aws:iam::${AWS::AccountId}:root
-          Action: kms:*
-          Resource: '*'
-        - Sid: Allow use of the key by the instance
-          Effect: Allow
-          Principal:
-            AWS: 
-            - !Join [ '', ['arn',':', !Ref 'AWS::Partition',':', 'iam','::', !Ref 'AWS::AccountId',':', 'role/AmazonSSMManagedInstanceCore-', !Ref 'AWS::Region'] ]
+            Service:
+            - ssm.amazonaws.com
           Action:
-            - kms:DescribeKey
-            - kms:Encrypt
-            - kms:Decrypt
-            - kms:ReEncrypt*
-            - kms:GenerateDataKey
-            - kms:GenerateDataKeyWithoutPlaintext
-          Resource: '*'
-        - Sid: Allow use of the key by CloudWatch Logs
-          Effect: Allow
-          Principal:
-            Service: !Join [ '.', ['logs', !Ref 'AWS::Region', 'amazonaws.com'] ]
-          Action:
-          - kms:Encrypt*
-          - kms:Decrypt*
-          - kms:ReEncrypt*
-          - kms:GenerateDataKey*
-          - kms:Describe*
-          Resource: "*"
-          # Condition:
-            # ArnLike:
-              # !Sub 'kms:EncryptionContext:aws:logs:arn: arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:session-manager'
+          - sts:AssumeRole
+      Policies:
+      - PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - iam:ListRoles
+            - config:DescribeConfigurationRecorders
+            - compute-optimizer:GetEnrollmentStatus
+            - support:DescribeTrustedAdvisorChecks
+            Resource: "*"
+          - Effect: Allow
+            Action:
+            - ssm:UpdateServiceSetting
+            - ssm:GetServiceSetting
+            Resource:
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsitem/ssm-patchmanager"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsitem/EC2"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/ExplorerOnboarded"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/Association"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/ComputeOptimizer"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/ConfigCompliance"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/OpsData-TrustedAdvisor"
+            - Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":ssm:*:*:servicesetting/ssm/opsdata/SupportCenterCase"
+          - Effect: Allow
+            Action:
+            - iam:CreateServiceLinkedRole
+            Resource:
+              Fn::Join:
+              - ''
+              - - 'arn:'
+                - Ref: AWS::Partition
+                - ":iam::*:role/aws-service-role/ssm."
+                - Ref: AWS::URLSuffix
+                - "/AWSServiceRoleForAmazonSSM"
+            Condition:
+              StringEquals:
+                iam:AWSServiceName: ssm.amazonaws.com
+        PolicyName: SSMQuickSetupEnableExplorerInlinePolicy
+      RoleName: SSM-Workshop-EnableExplorerRole
 
-  #-------------------------------------------------
-  #!Sub 'kms:EncryptionContext:aws:logs:arn: arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:session-manager'
-  #kms:EncryptionContext:aws:logs:arn: arn:aws:logs:us-west-2:052160528869:log-group:session-manager
-  #kms:EncryptionContext:aws:logs:arn: arn:aws:logs:us-east-1:286949207354:log-group:session-manager
-
-  SessionManagerDataEncryptionKeyAlias:
-    Type: AWS::KMS::Alias
+  SystemAssociationForEnablingExplorer:
+    Type: AWS::SSM::Association
     Properties:
-      AliasName: alias/session-manager
-      TargetKeyId: !Ref SessionManagerDataEncryptionKey
-
-  #-------------------------------------------------
-  # CloudWatch Log Group for Session Manager logs
-  #-------------------------------------------------
-  CloudWatchLogGroupSessionManager:
-    Type: AWS::Logs::LogGroup
-    Properties: 
-      KmsKeyId: !GetAtt SessionManagerDataEncryptionKey.Arn
-      LogGroupName: 'session-manager'
-      RetentionInDays: 60
-
-  #-------------------------------------------------
-  # Session Manager preferences document
-  #-------------------------------------------------
-  SessionManagerPreferencesDocument:
-    Type: AWS::SSM::Document
-    Properties: 
-      Content:
-        schemaVersion: '1.0'
-        description: Document to hold regional settings for Session Manager
-        sessionType: Standard_Stream
-        inputs:
-          s3BucketName: ''
-          s3KeyPrefix: ''
-          s3EncryptionEnabled: false
-          cloudWatchLogGroupName: !Ref CloudWatchLogGroupSessionManager
-          cloudWatchEncryptionEnabled: true
-          idleSessionTimeout: '20'
-          cloudWatchStreamingEnabled: true
-          kmsKeyId: !Ref SessionManagerDataEncryptionKey
-          runAsEnabled: true
-          runAsDefaultUser: ec2-user
-          shellProfile:
-            windows: ''
-            linux: ''
-      DocumentType: Session
-      Name: SSM-SessionManagerRunShell
+      Name: AWS-EnableExplorer
+      AssociationName: SSM-Workshop-EnableExplorer
+      Parameters:
+        AutomationAssumeRole: 
+        - !GetAtt EnableExplorerAutomationRole.Arn
 
   #-------------------------------------------------
   # VPC and required resources to enable network connectivity to AWS Systems Manager
@@ -691,7 +480,7 @@ Resources:
   LinuxEc2InstanceOne: 
     Type: AWS::EC2::Instance
     Properties: 
-      InstanceType: t2.small
+      InstanceType: t2.micro
       ImageId: !Ref LatestAmazonLinuxAmiId
       NetworkInterfaces: 
         - AssociatePublicIpAddress: "true"
@@ -707,7 +496,7 @@ Resources:
   LinuxEc2InstanceTwo: 
     Type: AWS::EC2::Instance
     Properties: 
-      InstanceType: t2.small
+      InstanceType: t2.micro
       ImageId: !Ref LatestAmazonLinuxAmiId
       NetworkInterfaces: 
         - AssociatePublicIpAddress: "true"
@@ -723,7 +512,7 @@ Resources:
   LinuxEc2InstanceThree: 
     Type: AWS::EC2::Instance
     Properties: 
-      InstanceType: t2.small
+      InstanceType: t2.micro
       ImageId: !Ref LatestAmazonLinuxAmiId
       NetworkInterfaces: 
         - AssociatePublicIpAddress: "true"
@@ -739,7 +528,7 @@ Resources:
   LinuxEc2InstanceFour: 
     Type: AWS::EC2::Instance
     Properties: 
-      InstanceType: t2.small
+      InstanceType: t2.micro
       ImageId: !Ref LatestAmazonLinuxAmiId
       NetworkInterfaces: 
         - AssociatePublicIpAddress: "true"
@@ -760,6 +549,3 @@ Outputs:
   CommandLogsBucketName:
     Description: The name of the S3 bucket used to store command logs centrally.
     Value: !Ref CommandLogsBucket
-  ManagedInstanceDataEncryptionKey:
-    Description: The ARN of the KMS key used to encrypt resource data sync logs.
-    Value: !GetAtt ManagedInstanceDataEncryptionKey.Arn

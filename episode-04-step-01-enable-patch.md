@@ -25,7 +25,38 @@ In this section you will first create prerequisite resources for AWS Systems Man
 
 ### Create prerequisite resources using CloudFormation
 
-Need to include steps on enabling Config, create S3 bucket, create Resource Data Sync, create EC2 instances, create SSM IAM role
+The [CloudFormation template](cfntemplates/ssm-workshop-resources-episode-04.yml) creates a test Windows EC2 instance and IAM instance profile role for System Manager.
+
+### Create test resources using CloudFormation
+
+**To save the CloudFormation template locally**
+    
+1. Open the CloudFormation template [ssm-workshop-resources-episode-04.yml](cfntemplates/ssm-workshop-resources-episode-04.yml).
+1. Choose **Raw**.
+
+    ![](/media/github-raw.png)
+
+1. Open Notepad and copy the entire text.
+1. Save the file to your local machine as ```ssm-workshop-resources-episode-03.yml```.
+
+The CloudFormation template will create the resources depicted in the diagram below.
+
+![](/media/ep04-st01.png)
+
+**To create the workshop test resources**
+    
+1. Open the [AWS CloudFormation console](https://console.aws.amazon.com/cloudformation/home).
+1. Choose **Create stack**.
+1. For **Specify template**, choose **Upload a template file**, choose the file you saved locally ```ssm-workshop-resources-episode-04.yml```, and choose **Next**.
+
+    ![](/media/cloudformation-create-stack-ep04.png)
+
+1. For **Stack name**, enter ```ssm-workshop-ep04```, and choose **Next**.
+1. On the **Configure stack options** page, leave the defaults and choose **Next**.
+1. On the **Review ssm-workshop-ep03** page, choose **I acknowledge that AWS CloudFormation might create IAM resources with custom names.**
+1. Choose **Create stack**.
+
+CloudFormation will begin provisioning the resources specified within the CloudFormation template and once complete, you will have one Windows EC2 instance to work with during this workshop. You can also use the refresh button to see the latest events related to the CloudFormation stack. Once the status of the CloudFormation stack changes to ```CREATE_COMPLETE```, you can proceed with the next steps. This process should complete within 5 minutes.
 
 ### Create a patch baseline
 
