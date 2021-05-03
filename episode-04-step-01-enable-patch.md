@@ -37,7 +37,7 @@ The [CloudFormation template](cfntemplates/ssm-workshop-resources-episode-04.yml
     ![](/media/github-raw.png)
 
 1. Open Notepad and copy the entire text.
-1. Save the file to your local machine as ```ssm-workshop-resources-episode-03.yml```.
+1. Save the file to your local machine as ```ssm-workshop-resources-episode-04.yml```.
 
 The CloudFormation template will create the resources depicted in the diagram below.
 
@@ -53,10 +53,10 @@ The CloudFormation template will create the resources depicted in the diagram be
 
 1. For **Stack name**, enter ```ssm-workshop-ep04```, and choose **Next**.
 1. On the **Configure stack options** page, leave the defaults and choose **Next**.
-1. On the **Review ssm-workshop-ep03** page, choose **I acknowledge that AWS CloudFormation might create IAM resources with custom names.**
+1. On the **Review ssm-workshop-ep04** page, choose **I acknowledge that AWS CloudFormation might create IAM resources with custom names.**
 1. Choose **Create stack**.
 
-CloudFormation will begin provisioning the resources specified within the CloudFormation template and once complete, you will have one Windows EC2 instance to work with during this workshop. You can also use the refresh button to see the latest events related to the CloudFormation stack. Once the status of the CloudFormation stack changes to ```CREATE_COMPLETE```, you can proceed with the next steps. This process should complete within 5 minutes.
+CloudFormation will begin provisioning the resources specified within the CloudFormation template and once complete, you will have one Windows EC2 instance to work with during this workshop. You can also use the refresh button to see the latest events related to the CloudFormation stack. Once the status of the CloudFormation stack changes to ```CREATE_COMPLETE```, you can proceed with the next steps. This process should complete within 7 minutes.
 
 ### Create a patch baseline
 
