@@ -138,6 +138,13 @@ From the AWS Management Console, you can launch AWS CloudShell by choosing the f
     
 ### Manually apply the association
 
+Rather than waiting for the association to be applied during the next cron interval, we will manually apply the association using the State Manager console.
+
+**To manually apply the association**
+
+1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
+1. In the navigation pane, choose [**State Manager**](https://console.aws.amazon.com/systems-manager/state-manager).
+1. Choose the association **SSMWorkshop-MultiAccountPatch** and choose **Apply association now**.
 
 ## Next Section
 
