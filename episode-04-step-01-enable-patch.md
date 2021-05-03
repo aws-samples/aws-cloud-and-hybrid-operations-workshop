@@ -236,11 +236,33 @@ Depending on the release date of the AMI used, the test instances may not be mis
 Outside of the workshop, you can orchestrate multi-step custom patch processes using the Systems Manager document **AWS-RunPatchBaselineWithHooks**. Patch lifecycle hooks extend existing Patch Manager functionality to include new pre-patching and post-patching hooks that allow custom, customer-specified steps to be run at different phases of the patching workflow. For more information, see:
 
 - [[AWS Management & Governance Blog] Orchestrating multi-step, custom patch processes using AWS Systems Manager Patch Manager](https://aws.amazon.com/blogs/mt/orchestrating-custom-patch-processes-aws-systems-manager-patch-manager/)
-- [About the AWS-RunPatchBaselineWithHooks SSM document](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-about-aws-runpatchbaselinewithhooks.html)
+- [[AWS Systems Manager User Guide] About the AWS-RunPatchBaselineWithHooks SSM document](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-about-aws-runpatchbaselinewithhooks.html)
 
-### Export patch results
+### Export patch results for all instances
 
 Patch Manager supports the ability to generate patch compliance reports for your instances and save the report in an Amazon S3 bucket of your choice, in .csv format. Then, using a tool like [Amazon QuickSight](https://docs.aws.amazon.com/quicksight/latest/user/), you can analyze the patch compliance report data. You can generate a patch compliance report for a single instance, or for all instances in your account. You can generate a one-time report on demand, or set up a schedule for reports to be created automatically. You can also specify an Amazon Simple Notification Service topic to provide notifications when a report is generated. For reference after this workshop, see [Generating CSV patch compliance reports](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-compliance-reports-to-s3.html). 
+
+**To export patch results for all instances**
+
+1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
+1. In the navigation pane, choose [**Patch Manager**](https://console.aws.amazon.com/systems-manager/patch-manager).
+1. Choose the [**Reporting**](https://console.aws.amazon.com/systems-manager/patch-manager/reporting) tab.
+1. Choose **Export to S3**. Do not select an instance ID.
+1. For **Report name**, enter ```ssm-workshop```.
+1. For **Reporting frequency**, choose **On demand** to generate a one-time report.
+    
+    - Outside of the workshop, you may decide to choose **On a schedule** instead where you can specify a recurring schedule for automatically generating reports.
+
+1. For **Bucket name**, choose the S3 bucket created by the CloudFormation template. **Note**: The S3 bucket is named similar to ```ssm-command-logs-us-east-1-123456789012```.
+1. Choose **Submit**.
+
+![](/media/patch-export-report.png)
+
+The patch export process will then begin and you can view the status on the subsequent page. Once the status changes to **Success**, you can choose **View report** to view the CSV file generated.
+
+1. On the resulting S3 page, choose **Object actions** and **Open** to download the CSV file locally.
+
+![](/media/patch-s3-report.png)
 
 ## Next Section
 
