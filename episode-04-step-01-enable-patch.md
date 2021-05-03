@@ -1,4 +1,4 @@
-# Enabling Inventory
+# Enabling Patch Management
 
 ![](media/ssm-aws-logo.png)
 

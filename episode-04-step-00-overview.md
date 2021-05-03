@@ -1,4 +1,4 @@
-# Episode 4: Automating Changes and Preventative Maintenance in an Enterprise / Cloud Environment
+# Episode 4: Automating Changes and Preventative Maintenance in an Enterprise Cloud Environment
 
 ![](media/ssm-aws-logo.png)
 
@@ -19,11 +19,11 @@ Balancing flexibility and time-to-market with control and stability to maximize 
 During this workshop episode, we will work towards the following learning objectives:
 
 - Learn how to schedule and automate centralized patching operations across your AWS accounts and Regions and hybrid cloud environments.
-- Learn how to manage change approvals, execution, and reporting
-- Learn how to report patching compliance status across your server fleet
+- Learn how to manage change approvals, execution, and reporting.
+- Learn how to report patching compliance status across your server fleet.
 
 ## Getting Started
 
 Click the link below to go to the next section.
 
-[![](media/enable-inventory.png)](/episode-04-step-01-enable-patch.md)
+[![](media/enabling-patch-management.png)](/episode-04-step-01-enable-patch.md)

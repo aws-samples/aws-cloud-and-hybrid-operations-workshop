@@ -16,7 +16,7 @@ In episode two, you will learn how to enable compliance automation and reporting
 
 In episode three, you will learn how to use AWS services and processes to enable visibility of applications and resources in cloud and hybrid cloud environments -- and take action.
 
-#### [Episode 4: Automating Changes and Preventative Maintenance in an Enterprise / Cloud Environment](/episode-04-step-00-overview.md)
+#### [Episode 4: Automating Changes and Preventative Maintenance in an Enterprise Cloud Environment](/episode-04-step-00-overview.md)
 
 In episode four, you will learn how to use the services and processes to manage application and resource changes and patching across your cloud or hybrid cloud environment.
 
@@ -37,4 +37,3 @@ See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more inform
 ## License
 
 This library is licensed under the MIT-0 License. See the LICENSE file.
-
