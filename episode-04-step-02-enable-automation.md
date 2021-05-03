@@ -136,7 +136,9 @@ From the AWS Management Console, you can launch AWS CloudShell by choosing the f
     
     - **Note**: The association will remain in a ```Pending``` status as the parameter ```ApplyOnlyAtCronInterval``` was specified as ```true```, meaning that the association will only be applied during the specified cron schedule ```cron(30 09 ? * * *)```.
     
-:exclamation: **Important**: For the purpose of this workshop, the State Manager association only invokes an Automation workflow in the same account and region. Outside of the workshop, you can target other accounts and Regions by (1) creating the IAM role **AWS-SystemsManager-AutomationExecutionRole** in each target account and (2) updating the State Manager association configuration to specify the additional accounts and/or Regions. To see an example State Manager association configuration which targets two accounts (123456789012, 987654321098) and two regions (us-east-1, us-east-2), expand the section below. You can also use AWS Organizational Unit (OU) IDs for targeting in-place of AWS account IDs.
+:exclamation: **Important**: For the purpose of this workshop, the State Manager association only invokes an Automation workflow in the same account and region. Outside of the workshop, you can target other accounts and Regions by (1) creating the IAM role **AWS-SystemsManager-AutomationExecutionRole** in each target account and (2) updating the State Manager association configuration to specify the additional accounts and/or Regions. 
+
+:exclamation: **Important**: To see an example State Manager association configuration which targets two accounts (123456789012, 987654321098) and two regions (us-east-1, us-east-2), expand the section below. You can also use AWS Organizational Unit (OU) IDs for targeting in-place of AWS account IDs.
 
 <details>
 <summary><b>Example multi-account and multi-Region State Manager association</b></summary><p>
