@@ -12,7 +12,8 @@ To go back to the previous section, click here: [Enabling Patch Management](/epi
     - [Running automations in multiple AWS regions and accounts](#running-automations-in-multiple-aws-regions-and-accounts)
 - [Instructions](#instructions)
     - [View the custom Automation runbook](#view-the-custom-automation-runbook)
-    - [Create a multi-account / multi-Region State Manager association]()
+    - [Create a multi-account / multi-Region State Manager association](#create-a-multi-account--multi-region-state-manager-association)
+    - [Manually apply the association](#manually-apply-the-association)
 - [Next Section](#next-section)
 
 ## Summary
@@ -59,7 +60,7 @@ Currently, creating multi-account and multi-Region State Manager associations ar
 1. Open Notepad and copy the entire text.
 1. In the copied text, perform the following steps:
     - Replace ```[DOCUMENT-NAME]``` with the name of the Automation runbook created in [Step 01: Enabling Patch Management](/episode-04-step-01-enable-patch.md).
-    - Replace the three occurrences of ```[ACCOUNT-ID]``` with the AWS account ID that you are using; lines 05, 25, and 32.
+    - Replace the two occurrences of ```[ACCOUNT-ID]``` with the AWS account ID that you are using; lines 05 and 25.
 
     ```
     {
@@ -103,7 +104,7 @@ Currently, creating multi-account and multi-Region State Manager associations ar
 
     ![](/media/episode-03-account-id.png)
 
-1. Save the file to your local machine as ```put_metric_alarm.json```.
+1. Save the file to your local machine as ```association_configuration.json```.
 
 **To create the State Manager association using CloudShell**
 
@@ -117,6 +118,25 @@ From the AWS Management Console, you can launch AWS CloudShell by choosing the f
 1. Once the CloudShell session has been established, choose **Actions** and choose **Upload file**.
 
     ![](/media/episode-03-cloudshell-upload.png)
+    
+1. Choose **Select file**, navigate to the local ```association_configuration.json``` file you created, choose **Open**, and choose **Upload**.
+    - **Note**: The ```association_configuration.json``` file will be uploaded to the directory ```/home/cloudshell-user```.
+
+1. To create the State Manager association using the JSON configuration file, enter the following command:
+
+    ```
+    aws ssm create-association --cli-input-json file://association_configuration.json
+    ```
+
+1. To list the State Manager associations, enter the following command:
+
+    ```
+    aws ssm list-associations --association-filter-list key=AssociationName,value=SSMWorkshop-MultiAccountPatch
+    ```
+    
+    - **Note**: The association will remain in a ```Pending``` status as the parameter ```ApplyOnlyAtCronInterval``` was specified as ```true```, meaning that the association will only be applied during the specified cron schedule ```cron(30 09 ? * * *)```.
+    
+### Manually apply the association
 
 
 ## Next Section

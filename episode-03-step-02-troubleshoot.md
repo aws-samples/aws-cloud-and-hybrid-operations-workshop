@@ -35,46 +35,32 @@ Now that you created the required test resources for this workshop, you are now 
 
 1. Open Notepad and copy the entire text.
 1. In the copied text, perform the following steps:
-    - Replace ```[DOCUMENT-NAME]``` with the name of the Automation runbook created in [Step 01: Enabling Patch Management](/episode-04-step-01-enable-patch.md).
-    - Replace the three occurrences of ```[ACCOUNT-ID]``` with the AWS account ID that you are using. **Note**: You can click your IAM user name or role in the upper-right corner to see your AWS account ID.
+    - Replace ```[INSTANCE_ID]``` with the EC2 instance ID created in [Step 01: Set up the workshop environment](/episode-03-step-01-initial-setup.md).
+    - Replace ```[ACCOUNT_ID]``` with the AWS account ID that you are using. **Note**: You can click your IAM user name or role in the upper-right corner to see your AWS account ID.
 
     ![](/media/episode-03-account-id.png)
 
     ```
     {
-        "Name": "[DOCUMENT-NAME]",
-        "Parameters": {
-            "AutomationAssumeRole": [
-                "arn:aws:iam::[ACCOUNT-ID]:role/AWS-SystemsManager-AutomationAdministrationRole"
-            ],
-            "ResourceGroupName": [
-                "ManagedInstances"
-            ],
-            "RebootOption": [
-                "NoReboot"
-            ],
-            "Operation": [
-                "Scan"
-            ]
-        },
-        "ScheduleExpression": "cron(30 09 ? * * *)",
-        "AssociationName": "SSMWorkshop-MultiAccountPatch",
-        "ComplianceSeverity": "MEDIUM",
-        "SyncCompliance": "AUTO",
-        "ApplyOnlyAtCronInterval": true,
-        "TargetLocations": [
+        "AlarmName": "[INSTANCE_ID]-BurstableInstanceCPUCreditBalanceLow",
+        "AlarmDescription": "Burstable instance type cpu credit balance approaching zero",
+        "ActionsEnabled": true,
+        "AlarmActions": [
+            "arn:aws:ssm:us-east-1:[ACCOUNT_ID]:opsitem:2#CATEGORY=Cost"
+        ],
+        "MetricName": "CPUCreditBalance",
+        "Namespace": "AWS/EC2",
+        "Statistic": "Average",
+        "Dimensions": [
             {
-                "Accounts": [
-                    "[ACCOUNT-ID]"
-                ],
-                "Regions": [
-                    "us-east-1"
-                ],
-                "TargetLocationMaxConcurrency": "1",
-                "TargetLocationMaxErrors": "1",
-                "ExecutionRoleName": "arn:aws:iam::[ACCOUNT-ID]:role/AWS-SystemsManager-AutomationAdministrationRole"
+                "Name": "InstanceId",
+                "Value": "[INSTANCE_ID]"
             }
-        ]
+        ],
+        "Period": 300,
+        "EvaluationPeriods": 1,
+        "Threshold": 5,
+        "ComparisonOperator": "LessThanThreshold"
     }
     ```
 
