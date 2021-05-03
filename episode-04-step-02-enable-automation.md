@@ -14,6 +14,8 @@ To go back to the previous section, click here: [Enabling Patch Management](/epi
     - [View the custom Automation runbook](#view-the-custom-automation-runbook)
     - [Create a multi-account / multi-Region State Manager association](#create-a-multi-account--multi-region-state-manager-association)
     - [Manually apply the association](#manually-apply-the-association)
+    - [Review the S3 bucket and Resource Data Sync contents](#review-the-s3-bucket-and-resource-data-sync-contents)
+    - [Review patch compliance using Explorer](#review-patch-compliance-using-explorer)
 - [Next Section](#next-section)
 
 ## Summary
@@ -202,7 +204,36 @@ Rather than waiting for the association to be applied during the next cron inter
     
     ![](/media/state-multi-account.png)
 
+### Review the S3 bucket and Resource Data Sync contents
 
+1. Open the Amazon S3 console at https://s3.console.aws.amazon.com/s3/home.
+1. Choose the resource data sync S3 bucket named similarly to **ssm-resource-sync-us-east-1-123456789012**.
+1. Choose the **inventory/** prefix.
+1. Within the **inventory** prefix, you will find the data populated by the Resource Data Sync.
+
+    ![](/media/resource-data-sync-contents.png)
+    
+    - **Note** If you have enabled [Systems Manager Inventory](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-inventory.html) then you will have additional data types stored.
+
+1. (Optionally) Open one of the data types to see that the objects are further segmented by account ID, region, and resource type. Each managed instance has an individual JSON object stored which contains data pertaining to the specific data type.
+
+    ![](/media/resource-data-sync-individual.png)
+    
+### Review patch compliance using Explorer
+
+1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
+1. In the navigation pane, choose [**Explorer**](https://console.aws.amazon.com/systems-manager/explorer).
+1. Scroll through the console to the widget named **Non-compliant instances for patching** to view patch compliance for the current account and Region.
+
+    - **Note**: If your test managed instances are not missing updates, then you should see zero non-compliant resources.
+    
+In a real-world environment, you can create a Resource Data Sync for Explorer which enables Explorer to aggregate data from multiple AWS Regions and accounts using the integration with AWS Organizations. After you set up and configure AWS Organizations, you can aggregate data in Explorer by organizational unit (OU) or for an entire organization.
+
+The following diagram shows a resource data sync configured to work with AWS Organizations. In this scenario, the user has two accounts defined in AWS Organizations. Resource data sync aggregates data from both accounts and multiple AWS Regions into the AWS Organizations management account where it is then displayed in Explorer. 
+
+![](https://docs.aws.amazon.com/systems-manager/latest/userguide/images/ExplorerSyncFromSource.png)
+
+For more information, see [Setting up Systems Manager Explorer to display data from multiple accounts and Regions](https://docs.aws.amazon.com/systems-manager/latest/userguide/Explorer-resource-data-sync.html).
 
 ## Next Section
 
