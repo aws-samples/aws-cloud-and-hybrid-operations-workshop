@@ -132,8 +132,8 @@ You create a patch group by using resource tags. Unlike other tagging scenarios 
 
     ![](/media/ec2-tags-patch-group-app.png)
 
-1. Select instances with **Name** ```Web1``` and ```Web2```
-1. Add Tag
+1. Select instances with **Name** ```Web1``` and ```Web2```.
+1. Add Tag.
 
     - **Key:** ```Patch Group```
     - **Value:** ```Web```
@@ -150,6 +150,8 @@ You create a patch group by using resource tags. Unlike other tagging scenarios 
     ![](/media/patch-add-group.png)
 
 From here you can utilize the AWS provided Command document **AWS-RunPatchBaseline** to scan or patch your instances.
+
+:information_source: For the purpose of this workshop, we are adding only one patch group (```App```) to the custom baseline. By doing this, our four Amazon Linux 2 instances will use two different baselines. The instances with the resource tag ```Patch Group : App``` will use the custom baseline created **AmazonLinux2SecAndNonSecBaseline**. The other two instances will use the default AWS provided baseline for Amazon Linux 2 **AWS-AmazonLinux2DefaultPatchBaseline** as there is not a corresponding baseline with the ```Patch Group : Web``` relationship.
 
 :information_source: **Note**: Outside of this workshop, you can also select Configure Patching and link the Patch Baseline to the Maintenance Window (or create a new Maintenance Window), it will register the run task with the maintenance window and also register the Patch Group as a target. It utilizes the existing role AWSServiceRoleforAmazonSSM.
 
