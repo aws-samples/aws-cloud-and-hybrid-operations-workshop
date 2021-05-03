@@ -206,7 +206,36 @@ After your instances have successfully completed a **Scan** or **Install** opera
 
 ### Install missing updates
 
-Depending on the release date of the AMI used
+Depending on the release date of the AMI used, the test instances may not be missing updates. For hands-on experience, you can still perform an install operation to see the differences.
+
+**To run an install operation**
+
+1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
+1. In the navigation pane, choose [**Patch Manager**](https://console.aws.amazon.com/systems-manager/patch-manager).
+1. Choose **Patch now**.
+1. For **Patch operation**, choose **Scan and install**.
+1. For **Reboot option**, leave the default as **Reboot if needed**.
+    - :information_source: **Note**: The option **Reboot if needed** means that if there are any approved missing updates, then the instance will enforce a reboot. If no approved missing updates are installed, the instance does not reboot.
+1. For **Instances to patch**, choose **Patch all instances**.
+1. For **Patching log storage**, choose the S3 bucket created by the CloudFormation template. **Note**: The S3 bucket is named similar to ```ssm-command-logs-us-east-1-123456789012```.
+1. Leave **Lifecycle hooks** disabled for the time being.
+1. Choose **Patch now**.
+
+    ![](/media/patch-install-now.png)
+
+    - **Note**: A [State Manager association](https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-state-about.html) is then created to perform a **Scan and install** operation on your EC2 instances using the document ```AWS-RunPatchBaseline```. 
+
+1. (Optional) To view the association, choose the **Association ID** link.
+
+    ![](/media/patch-now-results.png)
+
+1. (Optional) To view the command log details, choose the **Execution ID** link and then choose **Output** for one of the targeted managed instances. This will bring you to the corresponding Run Command output results for the **Scan** operation.
+    
+    - In **Step 2**, expand **Output** to view the command output details. You can then optionally choose **Amazon S3** to open the logs exported to the S3 bucket.
+
+Outside of the workshop, you can orchestrate multi-step custom patch processes using the Systems Manager document **AWS-RunPatchBaselineWithHooks**. Patch lifecycle hooks extend existing Patch Manager functionality to include new pre-patching and post-patching hooks that allow custom, customer-specified steps to be run at different phases of the patching workflow. For more information, see:
+    - [[AWS Management & Governance Blog] Orchestrating multi-step, custom patch processes using AWS Systems Manager Patch Manager](https://aws.amazon.com/blogs/mt/orchestrating-custom-patch-processes-aws-systems-manager-patch-manager/)
+    - [About the AWS-RunPatchBaselineWithHooks SSM document](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-about-aws-runpatchbaselinewithhooks.html)
 
 ### Export patch results
 
