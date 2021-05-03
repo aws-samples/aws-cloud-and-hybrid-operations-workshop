@@ -62,8 +62,7 @@ CloudFormation will begin provisioning the resources specified within the CloudF
 
 Patch Manager uses **patch baselines**, which include rules for auto-approving patches within days of their release, as well as a list of approved and rejected patches. Later in this workshop we will schedule patching to occur on a regular basis using a Systems Manager Maintenance Window task. Patch Manager integrates with AWS Identity and Access Management (IAM), AWS CloudTrail, and Amazon EventBridge to provide a secure patching experience that includes event notifications and the ability to audit usage.
 
-{{% notice warning %}} AWS does not test patches for Windows Server or Linux before making them available in Patch Manager. Also, Patch Manager doesn't support upgrading major versions of operating systems, such as Windows Server 2016 to Windows Server 2019, or SUSE Linux Enterprise Server (SLES) 12.0 to SLES 15.0. Always test patches thoroughly before deploying to production environments. This is a customer owned responsibility.
-{{% /notice %}}
+:warning: AWS does not test patches for Windows Server or Linux before making them available in Patch Manager. Also, Patch Manager doesn't support upgrading major versions of operating systems, such as Windows Server 2016 to Windows Server 2019, or SUSE Linux Enterprise Server (SLES) 12.0 to SLES 15.0. Always test patches thoroughly before deploying to production environments. This is a customer owned responsibility.
 
 **To create a patch baseline**
 
