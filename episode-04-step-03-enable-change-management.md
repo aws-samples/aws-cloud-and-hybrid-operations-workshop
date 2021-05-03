@@ -28,13 +28,13 @@ Change Manager provides accountability with a consistent way to report and audit
 
 ### Terminology
 
-**Change Template**
+**Change Template**: 
 
 Every **change request** is created from a **change template**. Templates define common parameters for all change requests based on them, such as the change request approvers, the actions to perform, or the SNS topic to send notifications of progress. You can enforce the review and approval of templates before they can be used. It makes sense to create multiple templates to handle different type of changes. For example, you can create one template for standard changes, and one for emergency changes that overrides the change calendar. Or you can create different templates for different types of automation run books (documents).
 
 **Emergency change templates**
 
-**Emergency change templates** allow change requests to bypass the Change Calendar integration.
+An **emergency change template** is used for situations when a change must be made even if changes are otherwise blocked by an event in the calendar in use by AWS Systems Manager Change Calendar. Change requests created from an emergency change template must still be approved by its designated approvers, but the requested changes can still run even when the calendar is blocked.
 
 **Change request**
 
