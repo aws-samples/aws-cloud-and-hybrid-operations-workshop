@@ -94,7 +94,7 @@ Currently, creating multi-account and multi-Region State Manager associations ar
                 ],
                 "TargetLocationMaxConcurrency": "1",
                 "TargetLocationMaxErrors": "1",
-                "ExecutionRoleName": "arn:aws:iam::[ACCOUNT-ID]:role/AWS-SystemsManager-AutomationAdministrationRole"
+                "ExecutionRoleName": "AWS-SystemsManager-AutomationExecutionRole"
             }
         ]
     }
