@@ -15,8 +15,8 @@ To go back to the previous section, click here: [Episode 4: Automating Changes a
     - [Create and assign a patch group](#create-and-assign-a-patch-group)
     - [Scan instances for missing updates](#scan-instances-for-missing-updates)
     - [Review patch compliance](#review-patch-compliance)
-    - [Export patch compliance](#export-patch-compliance)
     - [Install missing updates](#install-missing-updates)
+    - [Export patch results for all instances](#export-patch-results-for-all-instances)
 - [Next Section](#next-section)
 
 ## Summary
