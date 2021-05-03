@@ -7,6 +7,7 @@ NOTE: You will incur charges as you go through either of these workshops, as the
 ## Table of Contents
 
 - [Summary](#summary)
+    - [Terminology](#terminology)
 - [Instructions](#instructions)
     - [Configure Change Manager](#configure-change-manager)
     - [Create a change template](#create-a-change-template)
@@ -25,6 +26,20 @@ Using Change Manager has two primary advantages. First, it can improve the safet
 
 Change Manager provides accountability with a consistent way to report and audit changes made across your organization, their intent, and who approved and implemented them.
 
+### Terminology
+
+**Change Template**
+
+Every **change request** is created from a **change template**. Templates define common parameters for all change requests based on them, such as the change request approvers, the actions to perform, or the SNS topic to send notifications of progress. You can enforce the review and approval of templates before they can be used. It makes sense to create multiple templates to handle different type of changes. For example, you can create one template for standard changes, and one for emergency changes that overrides the change calendar. Or you can create different templates for different types of automation run books (documents).
+
+**Emergency change templates**
+
+**Emergency change templates** allow change requests to bypass the Change Calendar integration.
+
+**Change request**
+
+A **change request** is a request in Change Manager to run an Automation runbook that updates one or more resources in your AWS or on-premises environments. A **change request** is created using a change template. 
+
 ## Instructions
 
 ### Configure Change Manager
@@ -34,6 +49,13 @@ Change Manager provides accountability with a consistent way to report and audit
 1. Choose **Set up Change Manager**.
 
     ![](/media/change-manager-set-up.png)
+    
+1. Choose the **Settings** tab.
+1. Choose **Edit** and perform the following actions:
+    
+    - In the **User identity management** section, choose **AWS Identity and Access Management (IAM)**.
+    - Skip the sections **Template reviewer notification** and **Template reviewers**.
+        - **Note**: In a real-world environment, it is best practice to specify template reviewers.
 
 ### Create a change template
 
