@@ -8,7 +8,11 @@ NOTE: You will incur charges as you go through either of these workshops, as the
 
 - [Summary](#summary)
 - [Instructions](#instructions)
-
+    - [Configure Change Manager](#configure-change-manager)
+    - [Create a change template](#create-a-change-template)
+    - [Create a change request](#create-a-change-request)
+    - [Approve a change request](#approve-a-change-request)
+    - [Review the change request results)(#review-the-change-request-results)
 - [Next Section](#next-section)
 
 ## Summary
@@ -23,6 +27,27 @@ Change Manager provides accountability with a consistent way to report and audit
 
 ## Instructions
 
+### Configure Change Manager
+
+1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
+1. In the navigation pane, choose [**Change Manager**](https://console.aws.amazon.com/systems-manager/change-manager).
+1. Choose **Set up Change Manager**.
+
+    ![](/media/change-manager-set-up.png)
+
+### Create a change template
+
+
+
+### Create a change request
+
+
+
+### Approve a change request
+
+
+
+### Review the change request results
 
 
 ## Next Section
