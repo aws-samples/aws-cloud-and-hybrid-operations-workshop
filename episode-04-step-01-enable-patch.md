@@ -127,8 +127,8 @@ You create a patch group by using resource tags. Unlike other tagging scenarios 
 1. Select the two EC2 instances with the tag ```Name``` and values: ```App1``` and ```App2```.
 1. In the **Add Tag** section:
 
-    - **Key:** Patch Group
-    - **Value:** App
+    - **Key:** ```Patch Group```
+    - **Value:** ```App```
 
     ![](/media/ec2-tags-patch-group-app.png)
 
@@ -151,8 +151,7 @@ You create a patch group by using resource tags. Unlike other tagging scenarios 
 
 From here you can utilize the AWS provided Command document **AWS-RunPatchBaseline** to scan or patch your instances.
 
-{{% notice note %}} Outside of this workshop, you can also select Configure Patching and link the Patch Baseline to the Maintenance Window (or create a new Maintenance Window), it will register the run task with the maintenance window and also register the Patch Group as a target. It utilizes the existing role AWSServiceRoleforAmazonSSM.
-{{% /notice %}}
+:information_source: **Note**: Outside of this workshop, you can also select Configure Patching and link the Patch Baseline to the Maintenance Window (or create a new Maintenance Window), it will register the run task with the maintenance window and also register the Patch Group as a target. It utilizes the existing role AWSServiceRoleforAmazonSSM.
 
 ### Scan instances for missing updates
 

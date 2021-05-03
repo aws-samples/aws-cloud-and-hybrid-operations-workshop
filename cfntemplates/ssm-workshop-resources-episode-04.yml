@@ -493,6 +493,8 @@ Resources:
       Tags:
         - Key: Name
           Value: App1
+        - Key: Patch
+          Value: True
   LinuxEc2InstanceTwo: 
     Type: AWS::EC2::Instance
     Properties: 
@@ -509,6 +511,8 @@ Resources:
       Tags:
         - Key: Name
           Value: App2
+        - Key: Patch
+          Value: True
   LinuxEc2InstanceThree: 
     Type: AWS::EC2::Instance
     Properties: 
@@ -525,6 +529,8 @@ Resources:
       Tags:
         - Key: Name
           Value: Web1
+        - Key: Patch
+          Value: True
   LinuxEc2InstanceFour: 
     Type: AWS::EC2::Instance
     Properties: 
@@ -541,6 +547,8 @@ Resources:
       Tags:
         - Key: Name
           Value: Web2
+        - Key: Patch
+          Value: True
 
 Outputs:
   ResouceSyncBucketName:
