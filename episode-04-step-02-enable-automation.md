@@ -1,4 +1,4 @@
-# Scheduling and Automating Patching Operations
+# Schedule and Automate Patching Operations
 
 ![](media/ssm-aws-logo.png)
 
