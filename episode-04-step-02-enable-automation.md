@@ -136,6 +136,53 @@ From the AWS Management Console, you can launch AWS CloudShell by choosing the f
     
     - **Note**: The association will remain in a ```Pending``` status as the parameter ```ApplyOnlyAtCronInterval``` was specified as ```true```, meaning that the association will only be applied during the specified cron schedule ```cron(30 09 ? * * *)```.
     
+:exclamation: **Important**: For the purpose of this workshop, the State Manager association only invokes an Automation workflow in the same account and region. Outside of the workshop, you can target other accounts and Regions by (1) creating the IAM role **AWS-SystemsManager-AutomationExecutionRole** in each target account and (2) updating the State Manager association configuration to specify the additional accounts and/or Regions. For example, if you wanted to target two accounts (123456789012, 987654321098) and two regions (us-east-1, us-east-2) then the State Manager association configuration would looks as follows:
+
+<details>
+<summary><b>Example multi-account and multi-Region State Manager association</b></summary><p>
+
+```
+{
+    "Name": "[DOCUMENT-NAME]",
+    "Parameters": {
+        "AutomationAssumeRole": [
+            "arn:aws:iam::[CENTRAL-ACCOUNT-ID]:role/AWS-SystemsManager-AutomationAdministrationRole"
+        ],
+        "ResourceGroupName": [
+            "ManagedInstances"
+        ],
+        "RebootOption": [
+            "NoReboot"
+        ],
+        "Operation": [
+            "Scan"
+        ]
+    },
+    "ScheduleExpression": "cron(30 09 ? * * *)",
+    "AssociationName": "SSMWorkshop-MultiAccountPatch",
+    "ComplianceSeverity": "MEDIUM",
+    "SyncCompliance": "AUTO",
+    "ApplyOnlyAtCronInterval": true,
+    "TargetLocations": [
+        {
+            "Accounts": [
+                "123456789012",
+                "987654321098"
+            ],
+            "Regions": [
+                "us-east-1",
+                "us-east-2"
+            ],
+            "TargetLocationMaxConcurrency": "1",
+            "TargetLocationMaxErrors": "1",
+            "ExecutionRoleName": "AWS-SystemsManager-AutomationExecutionRole"
+        }
+    ]
+}
+```
+
+</p></details>
+    
 ### Manually apply the association
 
 Rather than waiting for the association to be applied during the next cron interval, we will manually apply the association using the State Manager console.
