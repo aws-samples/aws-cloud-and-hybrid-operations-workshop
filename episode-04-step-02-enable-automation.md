@@ -241,4 +241,4 @@ For more information, see [Setting up Systems Manager Explorer to display data f
 
 Click the link below to go to the next section.
 
-[![](media/codify-runbooks.png)](/episode-01-step-02-codify-runbooks.md)
+[![](media/enable-change-management.png)](/episode-04-step-03-enable-change-management.md)
