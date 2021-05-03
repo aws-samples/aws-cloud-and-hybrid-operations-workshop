@@ -234,6 +234,7 @@ Depending on the release date of the AMI used, the test instances may not be mis
     - In **Step 2**, expand **Output** to view the command output details. You can then optionally choose **Amazon S3** to open the logs exported to the S3 bucket.
 
 Outside of the workshop, you can orchestrate multi-step custom patch processes using the Systems Manager document **AWS-RunPatchBaselineWithHooks**. Patch lifecycle hooks extend existing Patch Manager functionality to include new pre-patching and post-patching hooks that allow custom, customer-specified steps to be run at different phases of the patching workflow. For more information, see:
+
     - [[AWS Management & Governance Blog] Orchestrating multi-step, custom patch processes using AWS Systems Manager Patch Manager](https://aws.amazon.com/blogs/mt/orchestrating-custom-patch-processes-aws-systems-manager-patch-manager/)
     - [About the AWS-RunPatchBaselineWithHooks SSM document](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-manager-about-aws-runpatchbaselinewithhooks.html)
 
