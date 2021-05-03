@@ -16,6 +16,7 @@ To go back to the previous section, click here: [Enabling Patch Management](/epi
     - [Manually apply the association](#manually-apply-the-association)
     - [Review the S3 bucket and Resource Data Sync contents](#review-the-s3-bucket-and-resource-data-sync-contents)
     - [Review patch compliance using Explorer](#review-patch-compliance-using-explorer)
+- [Recap](#recap)
 - [Next Section](#next-section)
 
 ## Summary
@@ -236,6 +237,12 @@ The following diagram shows a resource data sync configured to work with AWS Org
 ![](https://docs.aws.amazon.com/systems-manager/latest/userguide/images/ExplorerSyncFromSource.png)
 
 For more information, see [Setting up Systems Manager Explorer to display data from multiple accounts and Regions](https://docs.aws.amazon.com/systems-manager/latest/userguide/Explorer-resource-data-sync.html).
+
+## Recap
+
+In this section, you created a State Manager association to invoke a custom Automation runbook on a cron expression based schedule. The Automation runbook subsequently called the Command document ```AWS-RunPatchBaseline``` to perform a scan operation on the target managed instances. There are other options to schedule the multi-account and multi-Region patching operation, such as [Amazon EventBridge rules that trigger on a schedule](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-create-rule-schedule.html) and [Systems Manager Maintenance Windows](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-maintenance.html).
+
+For a more detailed overview of centralizing operational management for inventory, patching, and compliance see the [AWS Management and Governance samples](https://github.com/aws-samples/aws-management-and-governance-samples) repository package [Operational Management: Inventory, Patching, and Compliance](https://github.com/aws-samples/aws-management-and-governance-samples/tree/master/AWSSystemsManager/CentralizedPatchManagement).
 
 ## Next Section
 
