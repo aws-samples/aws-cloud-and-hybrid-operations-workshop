@@ -54,16 +54,67 @@ A **change request** is a request in Change Manager to run an Automation runbook
 1. Choose **Edit** and perform the following actions:
     
     - In the **User identity management** section, choose **AWS Identity and Access Management (IAM)**.
-    - Skip the sections **Template reviewer notification** and **Template reviewers**.
-        - **Note**: In a real-world environment, it is best practice to specify template reviewers.
+    - Skip the sections **Template reviewer notification**, **Template reviewers**, and **Approvers for change freeze events**.
+        - **Note**: In a real-world environment, it is best practice to specify template reviewers and approvers for change freeze events.
+    - In the **Best practices** section, review the available options to enable or disable.
+        - To specify that Change Manager checks a calendar in Change Calendar to make sure changes are not blocked by scheduled events, you would select the Enabled check box for **Check Change Calendar for restricted change events**, and then select the calendar to check for restricted events from the Change Calendar list. 
+        - If you want to ensure that all templates for your organization or account specify an Amazon CloudWatch alarm to monitor your change operation, you would select the Enabled check box for **Require monitors for all templates**. 
+        - To ensure that no change requests are created, and no runbook workflows run, without being based on a template that has been reviewed and approved, you would select the Enabled check box for **Require template review and approval before use**.
+    - Ensure **Require template review and approval before use** is not enabled.
+    
+    ![](/media/review-template-disabled.png)
+
+1. Choose **Save**.
 
 ### Create a change template
 
+1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
+1. In the navigation pane, choose **Change Manager**.
+1. Choose **Create template**.
+1. For **Name**, enter ```RestartEC2InstanceTemplate```.
+1. For **Description**, optionally enter a description such as, ```This is an example template to restart an EC2 instance```.
+1. For **Change template type**, leave the default option as **Standard change template**.
+1. For **Runbook options**, leave the default option as **Select a single runbook**.
+1. For **Runbook**, select ```AWS-RestartEC2Instance``` from the drop-down menu.
+1. Leave the default content for **Template information**.
+1. For **Change request approvals**, select **Add approvers** under **First-level approvals**, and select **Request specified approvers**.
+1. For **Amazon SNS topic for approval notifications**, choose **Create an Amazon SNS topic**, enter ```ssm-workshop-sns``` for the name, and choose **Add notification**.
+1. Skip the **Monitoring** section.
+1. For **Notifications**, choose **Enter an SNS Amazon Resource Name (ARN)**, enter the ARN of the SNS topic created for the approval notification, and choose **Add notification**.
+    
+    - The SNS Topic ARN should be similar to the following: ```arn:aws:sns:us-east-1:1234567890:ssm-workshop-sns```.
 
+1. Select **Save and preview**.
+1. Select **Submit for review**.
+
+    ![](/media/change-create-template.png)
+    
+1. (Optionally) Choose the **Templates** tab, choose the **RestartEC2InstanceTemplate** template, and choose **View details**. You can then navigate between the various tabs to review the template details, tasks included, change requests created using the template, and the version history of the template.
 
 ### Create a change request
 
+1. Choose **Create request**.
+1. For **Select change template**, choose ```RestartEC2InstanceTemplate``` and choose **Next**.
+1. For **Name**, enter ```RestartEC2Instance```.
+1. Optionally fill out the **Change request information** section.
+1. For **Workflow start time**, leave the default **Run the operation as soon as possible after approval**.
+1. For **Change request approvals**, choose **Add approver**, select the current IAM user or role you are logged in with, and choose **Add approvers**.
+1. Choose **Next**.
 
+    ![](/media/change-manager-change-details.png)
+
+1. For **Automation assume role**, choose the **AWS-SystemsManager-AutomationExecutionRole** created previously.
+1. For **Deployment location**, leave the default value as **Apply change to this account**.
+1. For **Deployment targets**, perform the following steps:
+    - For **Target resources**, choose **Multiple resources**.
+    - For **Parameter**, chose **InstanceId**.
+    - For **Specify resources**, choose **Choose a resource group**.
+    - Choose **ManagedInstances** from the search field.
+1. Choose **Next**.
+
+    ![](/media/change-manager-change-parameters.png)
+
+1. On the **Review and submit** page, review the change request details and choose **Submit for approval**.
 
 ### Approve a change request
 
