@@ -227,6 +227,8 @@ Rather than waiting for the association to be applied during the next cron inter
 
     - **Note**: If your test managed instances are not missing updates, then you should see zero non-compliant resources.
     
+    ![](/media/state-explorer.png)
+    
 In a real-world environment, you can create a Resource Data Sync for Explorer which enables Explorer to aggregate data from multiple AWS Regions and accounts using the integration with AWS Organizations. After you set up and configure AWS Organizations, you can aggregate data in Explorer by organizational unit (OU) or for an entire organization.
 
 The following diagram shows a resource data sync configured to work with AWS Organizations. In this scenario, the user has two accounts defined in AWS Organizations. Resource data sync aggregates data from both accounts and multiple AWS Regions into the AWS Organizations management account where it is then displayed in Explorer. 
