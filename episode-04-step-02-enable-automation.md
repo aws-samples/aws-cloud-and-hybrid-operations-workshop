@@ -59,9 +59,7 @@ Currently, creating multi-account and multi-Region State Manager associations ar
 1. Open Notepad and copy the entire text.
 1. In the copied text, perform the following steps:
     - Replace ```[DOCUMENT-NAME]``` with the name of the Automation runbook created in [Step 01: Enabling Patch Management](/episode-04-step-01-enable-patch.md).
-    - Replace the three occurrences of ```[ACCOUNT-ID]``` with the AWS account ID that you are using; lines 05, 25, and 32. **Note**: You can click your IAM user name or role in the upper-right corner to see your AWS account ID.
-
-    ![](/media/episode-03-account-id.png)
+    - Replace the three occurrences of ```[ACCOUNT-ID]``` with the AWS account ID that you are using; lines 05, 25, and 32.
 
     ```
     {
@@ -100,6 +98,10 @@ Currently, creating multi-account and multi-Region State Manager associations ar
         ]
     }
     ```
+    
+    - **Note**: You can click your IAM user name or role in the upper-right corner to see your AWS account ID.
+
+    ![](/media/episode-03-account-id.png)
 
 1. Save the file to your local machine as ```put_metric_alarm.json```.
 
