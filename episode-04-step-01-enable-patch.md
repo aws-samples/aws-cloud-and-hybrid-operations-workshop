@@ -78,7 +78,6 @@ Patch Manager uses **patch baselines**, which include rules for auto-approving p
     - For **Name**, enter ```AmazonLinux2SecAndNonSecBaseline```.
     - For **Description**, optionally enter a description, such as: ```Amazon Linux 2 patch baseline including security and non-security patches```.
     - For **Operating system**, choose **Amazon Linux 2** from the list.
-    - Choose **Set this patch baseline as the default patch baseline for Amazon Linux 2 instances.**
 
 1. In the **Approval rules** section, perform the following steps:
 
@@ -111,7 +110,16 @@ Patch Manager uses **patch baselines**, which include rules for auto-approving p
 
 1.  Select **Create patch baseline** and you will go to the **Patch Baselines** page where the AWS provided default patch baselines are displayed. Your custom baseline can be found on the second page or choose **View details** in the banner displayed.
 
-![](/media/patch-view-baseline.png)
+    ![](/media/patch-view-baseline.png)
+    
+1. Choose **Actions** and **Modify patch groups**.
+1. On the **Modify patch groups** page, perform the following steps:
+
+    - For **Patch groups**, enter ```App``` and choose **Add**.
+
+    ![](/media/patch-patch-group.png)
+
+    - Choose **Close**.
 
 ### Create and assign a patch group
 
@@ -174,7 +182,7 @@ Now that we have created a patch baseline to define the criteria for the type of
 
     ![](/media/patch-scan-now.png)
 
-A [State Manager association](https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-state-about.html) is then created to perform a **Scan** operation on your EC2 instances using the document ```AWS-RunPatchBaseline```. 
+    - **Note**: A [State Manager association](https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-state-about.html) is then created to perform a **Scan** operation on your EC2 instances using the document ```AWS-RunPatchBaseline```. 
 
 1. (Optional) To view the association, choose the **Association ID** link.
 
@@ -192,17 +200,17 @@ After your instances have successfully completed a **Scan** or **Install** opera
 
 1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
 1. In the navigation pane, choose [**Patch Manager**](https://console.aws.amazon.com/systems-manager/patch-manager).
-1. On the **Dashboard** tab you can review the compliance status of the EC2 instances created.
+1. On the **Dashboard** tab you can review the compliance status of the managed EC2 instances created.
 
     ![](/media/patch-dashboard.png)
+
+### Install missing updates
+
+Depending on the release date of the AMI used
 
 ### Export patch results
 
 Patch Manager supports the ability to generate patch compliance reports for your instances and save the report in an Amazon S3 bucket of your choice, in .csv format. Then, using a tool like [Amazon QuickSight](https://docs.aws.amazon.com/quicksight/latest/user/), you can analyze the patch compliance report data. You can generate a patch compliance report for a single instance, or for all instances in your account. You can generate a one-time report on demand, or set up a schedule for reports to be created automatically. You can also specify an Amazon Simple Notification Service topic to provide notifications when a report is generated. For reference after this workshop, see [Generating CSV patch compliance reports](https://docs.aws.amazon.com/systems-manager/latest/userguide/patch-compliance-reports-to-s3.html). 
-
-### Install missing updates
-
-
 
 ## Next Section
 
