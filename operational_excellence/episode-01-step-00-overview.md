@@ -36,4 +36,4 @@ During this workshop episode, we will work towards the following learning object
 
 Click the link below to go to the next section.
 
-[![](/operational_excellence/media/episode-01-step-01-manage-ec2.png)](/episode-01-step-01-manage-ec2.md)
+[![](/operational_excellence/media/episode-01-step-01-manage-ec2.png)](/operational_excellence/episode-01-step-01-manage-ec2.md)
