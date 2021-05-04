@@ -10,8 +10,9 @@ NOTE: You will incur charges as you go through either of these workshops, as the
 - [Instructions](#instructions)
     - [Create test EC2 instance](#create-test-ec2-instance)
     - [Create a State Manager Association to install CloudWatch agent](#create-a-state-manager-association-to-install-cloudwatch-agent)
+    - [Connect to the instance using Session Manager](#connect-to-the-instance-using-session-manager)
+    - [View the configuration file in Parameter Store](#view-the-configuration-file-in-parameter-store)
     - [Create a State Manager Association to configure CloudWatch agent](#create-a-state-manager-association-to-configure-cloudwatch-agent)
-    - [View metrics gathered by CloudWatch agent](#view-metrics-gathered-by-cloudwatch-agent)
 - [Next Section](#next-section)
 
 ## Summary
