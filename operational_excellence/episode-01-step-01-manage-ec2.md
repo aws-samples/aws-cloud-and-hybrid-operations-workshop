@@ -44,11 +44,9 @@ The unified [Amazon CloudWatch agent](https://docs.aws.amazon.com/AmazonCloudWat
 
 ## Instructions
 
-In this section you will (1) create test Amazon Linux 2 Elastic Cloud Compute (EC2) instances, (2) install the Amazon CloudWatch agent, (3) connect to the managed instance using Session Manager, (4) use the CloudWatch agent configuration wizard, (5) store the configuration in Systems Manager Parameter Store, (6) create a CloudWatch alarm, (7) review the Systems Manager OpsCenter OpsItem created by the alarm, and (8) resolve the OpsItem using Systems Manager Automation.
+In this section you will (1) create test Amazon Linux 2 Elastic Cloud Compute (EC2) instances, (2) install the Amazon CloudWatch agent, (3) connect to the managed instance using Session Manager, (4) use the CloudWatch agent configuration wizard, (5) store the configuration in Systems Manager Parameter Store, and (6) create a State Manager association to configure the CloudWatch agent.
 
 To create the test Amazon Linux 2 EC2 instance, you will use [AWS CloudFormation](https://aws.amazon.com/cloudformation/). AWS CloudFormation gives you an easy way to model a collection of related AWS and third-party resources, provision them quickly and consistently, and manage them throughout their lifecycles, by treating infrastructure as code.
-
-In this lab we will create a Parameter Store parameter which includes a basic configuration for the [Amazon CloudWatch agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Install-CloudWatch-Agent.html). The basic configuration collects disk usage and memory usage as percentages. We will then create **State Manager Associations** to install and configure the CloudWatch agent on a routine basis to ensure the configuration state is maintained.
 
 ### Create test EC2 instance
 
@@ -191,32 +189,8 @@ The CloudWatch agent configuration wizard should then successfully put the confi
 
     - Review the various tabs of the association to see different information about the association. After the status of the association changes to **Success**, continue with the next steps.
 
-### View metrics gathered by CloudWatch agent
-
-**To view the metrics pushed by CloudWatch agent**
-
-1. Open the CloudWatch console at https://console.aws.amazon.com/cloudwatch.
-1. In the navigation pane, choose **Metrics**.
-1. Under **Custom Namespaces**, choose **CWAgent**.
-1. Choose **CWAgent > ImageId, InstanceId, InstanceType, device, fstype, path**.
-1. Choose a metric listed to display the disk used percentage metric on the graph. **Note**: You can select multiple metrics to be displayed at a single time.
-    
-    ![](/operational_excellence/media/cloudwatch-disk-used.png)
-
-1. Return back to **CWAgent** and then choose **ImageId, InstanceId, InstanceType** to display the memeory used percentage metric.
-
-    ![](/operational_excellence/media/cloudwatch-mem-used.png)
-    
-### Add an alarm action to create an OpsItem
-
-
-### Review the OpsItem
-
-
-### Resolve the OpsItem
-
 ## Next Section
 
 Click the link below to go to the next section.
 
-[![](media/codify-runbooks.png)](/episode-01-step-02-codify-runbooks.md)
+[![](media/episode-01-step-02-enable-alarm-actions.png)](/episode-01-step-02-enable-alarm-actions.md)
