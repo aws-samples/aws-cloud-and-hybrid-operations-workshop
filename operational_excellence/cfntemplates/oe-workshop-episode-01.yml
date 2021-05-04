@@ -55,6 +55,7 @@ Resources:
       ManagedPolicyArns:
       - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
       - arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
+      - arn:aws:iam::aws:policy/CloudWatchAgentAdminPolicy
       Path: "/"
       RoleName: !Join [ '-', ['AmazonSSMManagedInstanceCore', !Ref 'AWS::Region'] ]
               

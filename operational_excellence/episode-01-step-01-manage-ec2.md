@@ -94,7 +94,7 @@ CloudFormation will begin provisioning the resources specified within the CloudF
         - Leave the default values for **Action** and **Installation Type**.
         - For **Name**, enter ```AmazonCloudWatchAgent```.
     - For **Targets**, choose **Choose instances manually**.
-        - Choose the two instances created in [Step 1: Enabling Inventory](/episode-01-step-01-enable-inventory.md).
+        - Choose the instance created above.
     - In the **Specify schedule** section, perform the following steps:
         - For **Specify with**, select **CRON/Rate expression**.
         - For **CRON/Rate expression**, enter ```rate(1 day)```.
@@ -106,11 +106,47 @@ CloudFormation will begin provisioning the resources specified within the CloudF
     
 ### Connect to the instance using Session Manager
 
+1. Open the Systems Manager console at https://console.aws.amazon.com/systems-manager/.
+1. In the navigation pane, choose [**Session Manager**](https://console.aws.amazon.com/systems-manager/session-manager/sessions).
+1. Choose **Start session**.
+1. On the **Start a session** page, choose the **TestAmazonLinuxInstance** and choose **Start session**.
+    - You will then have an interactive session established with the EC2 instance.
+    
+    ![](/operational_excellence/media/oe-create-session.png)
 
+#### Configure the CloudWatch Agent
 
-### Configure the CloudWatch Agent
+1. Start the CloudWatch agent configuration wizard by entering the following command:
 
+    ```
+    sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard
+    ```
+    
+    ![](/operational_excellence/media/session-cwa-wizard.png)
+    
+1. Navigate through the CloudWatch agent configuration wizard by entering the following choices:
 
+Question | Choice
+------------- | -------------
+**On which OS are you planning to use the agent?**  | ```1```
+**Are you using EC2 or On-Premises hosts?**  | ```1```
+**Which user are you planning to run the agent?** | ```1```
+**Do you want to turn on StatsD daemon?** | ```2```
+**Do you want to monitor metrics from CollectD??** | ```2```
+**Do you want to monitor any host metrics? e.g. CPU, memory, etc.** | ```1```
+**Do you want to monitor cpu metrics per core? Additional CloudWatch charges may apply.** | ```2```
+**Do you want to add ec2 dimensions (ImageId, InstanceId, InstanceType, AutoScalingGroupName) into all of your metrics if the info is available?** | ```1```
+**Would you like to collect your metrics at high resolution (sub-minute resolution)? This enables sub-minute resolution for all metrics, but you can customize forspecific metrics in the output json file.** | ```4```
+**Which default metrics config do you want?** | ```1```
+**Are you satisfied with the above config? Note: it can be manually customized after the wizard completes to add additional items.** | ```1```
+**Do you have any existing CloudWatch Log Agent (http://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AgentReference.html) configuration file to import for migration?** | ```2```
+**Do you want to monitor any log files?** | ```2```
+**Do you want to store the config in the SSM parameter store?** | ```1```
+**What parameter store name do you want to use to store your config? (Use 'AmazonCloudWatch-' prefix if you use our managed AWS policy)** | ```AmazonCloudWatch-linux```
+**Which region do you want to store the config in the parameter store?** | ```us-east-1```
+**Which AWS credential should be used to send json config to parameter store?** | ```1```
+
+The CloudWatch agent configuration wizard should then successfully put the config to parameter store using the name **AmazonCloudWatch-linux** and the program will exit.
     
 ### View metrics gathered by CloudWatch agent
 
