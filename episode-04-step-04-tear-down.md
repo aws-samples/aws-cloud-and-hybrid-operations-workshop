@@ -4,7 +4,7 @@
 
 To go back to the previous section, click here: [Enable Change Management](/episode-04-step-03-enable-change-management.md)
 
-**Congratulations!** You have completed the **Episode 4: Proactive ops and automation / preventative maintenance** workshop.
+**Congratulations!** You have completed the **Episode 4: Automating Changes and Preventative Maintenance in an Enterprise Cloud Environment** workshop.
 
 ## Tear down instructions
 
