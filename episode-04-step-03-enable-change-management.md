@@ -4,6 +4,8 @@
 
 NOTE: You will incur charges as you go through either of these workshops, as they will exceed the [limits of AWS free tier](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-limits.html).
 
+To go back to the previous section, click here: [Schedule and Automate Patching Operations](/episode-04-step-02-enable-automation.md)
+
 ## Table of Contents
 
 - [Summary](#summary)
@@ -57,7 +59,9 @@ First, we will create an Identity and Access Management (IAM) user that will act
     ![](/media/iam-add-user.png)
 
 1. In the **Set permissions** section, choose **Attach existing policies directly**.
-1. In the search bar, enter ```AmazonSSMFullAccess```, select **AmazonSSMFullAccess** from the results list, and choose **Next: Tags**.
+    1. In the search bar, enter ```AmazonSSMFullAccess``` and select **AmazonSSMFullAccess** from the results list.
+    1. In the search bar, enter ```AWSCloudFormationReadOnlyAccess``` and select **AWSCloudFormationReadOnlyAccess** from the results list.
+1. Choose **Next: Tags**
 1. Skip adding tags and select **Next: Review**.
 1. Choose **Create user**.
 1. On the resulting screen, copy the AWS Management console sign-in URL to Notepad for use later in the workshop.
@@ -183,6 +187,8 @@ Perform the task in this procedure the first time you access Change Manager. You
 1. Select the **Requests** tab, select the **RestartEC2Instance** change request and choose **View details**.
 1. Navigate between the various tabs to see the request details and tasks for the submitted change request.
 1. Choose **Approve**, optionally enter any comments, and choose **Approve**.
+
+    ![](/media/change-manager-approve-request.png)
 
 ### Review the change request results
 
