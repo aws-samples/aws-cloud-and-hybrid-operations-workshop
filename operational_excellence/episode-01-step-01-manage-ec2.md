@@ -195,4 +195,4 @@ The Amazon CloudWatch agent has now been successfully installed and configured o
 
 Click the link below to go to the next section.
 
-[![](media/episode-01-step-02-enable-alarm-actions.png)](/episode-01-step-02-enable-alarm-actions.md)
+[![](media/episode-01-step-02-enable-alarm-actions.png)](/operational_excellence/episode-01-step-02-enable-alarm-actions.md)
