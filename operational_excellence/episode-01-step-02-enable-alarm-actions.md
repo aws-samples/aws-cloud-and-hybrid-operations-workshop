@@ -38,7 +38,7 @@ In this section you will (1) view the metrics in CloudWatch pushed by the CloudW
 
 **To view the metrics pushed by CloudWatch agent**
 
-1. Open the CloudWatch console at https://console.aws.amazon.com/cloudwatch.
+1. Open the Amazon CloudWatch console at https://console.aws.amazon.com/cloudwatch.
 1. In the navigation pane, choose **Metrics**.
 1. Under **Custom Namespaces**, choose **CWAgent**.
 1. Choose **CWAgent > ImageId, InstanceId, InstanceType, device, fstype, path**.
@@ -50,11 +50,59 @@ In this section you will (1) view the metrics in CloudWatch pushed by the CloudW
 
     ![](/operational_excellence/media/cloudwatch-mem-used.png)
     
-### Add an alarm action to create an OpsItem
+### Create a CloudWatch alarm and add an alarm action
 
+1. Open the CloudWatch console at https://console.aws.amazon.com/cloudwatch.
+1. In the navigation pane, choose **Alarms**.
+1. Choose **Create alarm**.
+1. For **Graph**, choose **Select metric**.
+1. Under **Custom Namespaces**, choose **CWAgent**.
+1. Choose **ImageId, InstanceId, InstanceType**.
+1. Select **mem_used_percent** and choose **Select metric**.
+
+    ![](/operational_excellence/media/alarm-memory-used.png)
+    
+1. Leave the defaults specified in the **Metric** section.
+1. In the **Conditions** section, specify **Static**, **Greater**, and ```15```.
+
+    ![](/operational_excellence/media/alarm-conditions.png)
+    
+    - **Note**: This configures the CloudWatch alarm to change to the ```Alarm``` state when memory usage exceeds 15%. For testing purposes in this workshop, 15% is being used. Outside of the workshop, you can specify a higher value.
+
+1. Choose **Next**.
+1. For **Notification**, choose **Remove**.
+1. For **Systems Manager OpsCenter action**, choose **Add Systems Manager OpsCenter action**.
+    1. Leave the default value for **Severity**.
+    1. For **Category**, choose **Performance** from the drop-down list.
+
+    ![](/operational_excellence/media/alarm-opsitem.png)
+
+1. Choose **Next**.
+1. For **Alarm name**, enter ```memory-used-alarm```.
+1. For **Alarm description**, optionally enter a description such as ```This alarm is configured to trigger when memory usage exceeds 15%.```.
+
+    ![](/operational_excellence/media/alarm-name.png)
+    
+1. Choose **Next**.
+1. On the **Preview and create** page, reivew the inputs and choose **Create alarm**.
+
+    ![](/operational_excellence/media/alarm-review.png)
+
+### Trigger the alarm
+
+```
+sudo amazon-linux-extras install epel -y
+sudo yum install stress -y
+stress -m 1 --vm-bytes 516M -t 1200s
+```
+
+    ![](/operational_excellence/media/alarm-in-alarm-state.png)
 
 ### Review the OpsItem
 
+1. Open the Systems Manager console at https://console.aws.amazon.com/systems-manager/.
+1. In the navigation pane, choose [**OpsCenter**](https://console.aws.amazon.com/systems-manager/opsitems).
+1. Choose the **OpsItems** tab and choose the OpsItem created by the CloudWatch Alarm.
 
 ### Resolve the OpsItem
 
