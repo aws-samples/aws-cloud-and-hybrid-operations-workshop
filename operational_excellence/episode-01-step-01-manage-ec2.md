@@ -158,6 +158,8 @@ The CloudWatch agent configuration wizard should then successfully put the confi
 
 1. In the **Value** section, you can see the basic CloudWatch agent configuration created using the CloudWatch agent configuration wizard. You can then reference this Parameter Store parameter to configure the CloudWatch agent on other managed instances using the Systems Manager document ```AmazonCloudWatch-ManageAgent```.
 
+    ![](/operational_excellence/media/parameter-store-details.png)
+
 ### Create a State Manager Association to configure CloudWatch agent
 
 **To create a State Manager association to configure the CloudWatch agent**
