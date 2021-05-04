@@ -2,7 +2,7 @@
 
 ![](media/ssm-aws-logo.png)
 
-**Congratulations!** You have completed the **Episode 1: Introduction and building a foundation for enterprise cloud operations** workshop.
+**Congratulations!** You have completed the **Episode 1: Using Amazon Systems Manager as a Foundation for Operationally Excellent Workloads** workshop.
 
 ## Tear down instructions
 

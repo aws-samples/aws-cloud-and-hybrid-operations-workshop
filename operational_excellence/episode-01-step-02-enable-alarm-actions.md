@@ -11,6 +11,10 @@ To go back to the previous section, click here: [Using AWS Systems Manager to ma
 - [Summary](#summary)
 - [Instructions](#instructions)
     - [View metrics gathered by CloudWatch agent](#view-metrics-gathered-by-cloudwatch-agent)
+    - [Create a CloudWatch alarm and add an alarm action](#create-a-cloudwatch-alarm-and-add-an-alarm-action)
+    - [Trigger the CloudWatch alarm](#trigger-the-cloudwatch-alarm)
+    - [Review the OpsItem](#review-the-opsitem)
+    - [Resolve the OpsItem](#resolve-the-opsitem)
 - [Next Section](#next-section)
 
 ## Summary
@@ -90,7 +94,7 @@ In this section you will (1) view the metrics in CloudWatch pushed by the CloudW
 
     ![](/operational_excellence/media/alarm-review.png)
 
-### Trigger the alarm
+### Trigger the CloudWatch alarm
 
 To trigger the CloudWatch alarm for testing purposes we will use the ```stress``` Linux package via Run Command.
 
@@ -111,7 +115,7 @@ To trigger the CloudWatch alarm for testing purposes we will use the ```stress``
 
 In the command issued, the stress test will run for 1200s or 20 minutes. We can now navigate back to the CloudWatch alarm for [**memory-used-alarm**](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#alarmsV2:alarm/memory-used-alarm?) and see the memory usage begin to spike in a few moments.
 
-    ![](/operational_excellence/media/alarm-in-alarm-state.png)
+![](/operational_excellence/media/alarm-in-alarm-state.png)
 
 ### Review the OpsItem
 
@@ -139,11 +143,11 @@ In this workshop, we are aware that the stress test is causing the issue on the 
     1. In the **Related resources** section, select the radio button for the EC2 instance.
     1. In the **Runbooks** section, enter ```AWS-RestartEC2Instance```, choose **AWS-RestartEC2Instance** from the list and choose **Execute**.
     
-    ![](/operational_excellence/media/initiate-runbook.png)
+        ![](/operational_excellence/media/initiate-runbook.png)
     
     1. The EC2 instance ID will then be pre-populated since we previously selected it. Choose **Execute** to start the Automation runbook.
     
-    ![](/operational_excellence/media/run-automation.png)
+        ![](/operational_excellence/media/run-automation.png)
     
     1. You can view the direct results of the Automation runbook by choosing the **Execution ID** which will bring you to the Automation console.
 
