@@ -8,50 +8,47 @@ NOTE: You will incur charges as you go through either of these workshops, as the
 
 - [Summary](#summary)
 - [Instructions](#instructions)
-    - [Create test EC2 instances](#create-test-ec2-instances)
-    - [Enable AWS Config using Quick Setup](#enable-aws-config-using-quick-setup)
-    - [Enable Host Management using Quick Setup](#enable-host-management-using-quick-setup)
-    - [Create and configure an S3 bucket for resource data sync](#create-and-configure-an-s3-bucket-for-resource-data-sync)
-    - [Create a Resource Data Sync](#create-a-resource-data-sync)
+    - [Create test EC2 instance](#create-test-ec2-instance)
+
 - [Next Section](#next-section)
 
 ## Summary
 
-In this section you will (1) create test Amazon Linux 2 Elastic Cloud Compute (EC2) instances, (2) enable AWS Config to monitor and record your AWS resource configurations, (3) use AWS Systems Manager Quick Setup to enable Systems Manager best practices, (4) create an Amazon Simple Storage Service (S3) bucket to store Systems Manager Inventory data, and (5) create a resource data sync to send inventory data to the S3 bucket.
+In this section you will (1) create test Amazon Linux 2 Elastic Cloud Compute (EC2) instances, (2) install the Amazon CloudWatch agent, (3) connect to the managed instance using Session Manager, (4) use the CloudWatch agent configuration wizard, (5) store the configuration in Systems Manager Parameter Store, (6) create a CloudWatch alarm, (7) review the Systems Manager OpsCenter OpsItem created by the alarm, and (8) resolve the OpsItem using Systems Manager Automation.
 
-Prior to enabling these features, you will create two test Amazon Linux 2 EC2 instances using [AWS CloudFormation](https://aws.amazon.com/cloudformation/). AWS CloudFormation gives you an easy way to model a collection of related AWS and third-party resources, provision them quickly and consistently, and manage them throughout their lifecycles, by treating infrastructure as code.
+To create the test Amazon Linux 2 EC2 instance, you will use [AWS CloudFormation](https://aws.amazon.com/cloudformation/). AWS CloudFormation gives you an easy way to model a collection of related AWS and third-party resources, provision them quickly and consistently, and manage them throughout their lifecycles, by treating infrastructure as code.
 
 ## Instructions
 
-### Create test EC2 instances
+### Create test EC2 instance
 
 **To save the CloudFormation template locally**
     
-1. Open the CloudFormation template [ssm-workshop-resources-episode-01.yml](cfntemplates/ssm-workshop-resources-episode-01.yml).
+1. Open the CloudFormation template [oe-workshop-episode-01.yml](cfntemplates/oe-workshop-episode-01.yml).
 1. Choose **Raw**.
 
     ![](/media/github-raw.png)
 
 1. Open Notepad and copy the entire text.
-1. Save the file to your local machine as ```ssm-workshop-resources-episode-01.yml```.
+1. Save the file to your local machine as ```oe-workshop-episode-01.yml```.
 
 The CloudFormation template will create the resources depicted in the diagram below.
 
 ![](/media/ep01-st01.png)
 
-**To create the test EC2 instances**
+**To create the test EC2 instance**
     
 1. Open the [AWS CloudFormation console](https://console.aws.amazon.com/cloudformation/home).
 1. Choose **Create stack**.
-1. For **Specify template**, choose **Upload a template file**, choose the file you saved locally ```ssm-workshop-resources-episode-01.yml```, and choose **Next**.
+1. For **Specify template**, choose **Upload a template file**, choose the file you saved locally ```oe-workshop-episode-01.yml```, and choose **Next**.
 
     ![](/media/cloudformation-create-stack-ep01.png)
 
-1. For **Stack name**, enter ```ssm-workshop```, and choose **Next**.
+1. For **Stack name**, enter ```oe-workshop```, and choose **Next**.
 1. On the **Configure stack options** page, leave the defaults and choose **Next**.
 1. On the **Review** page, choose **Create stack**.
 
-CloudFormation will begin provisioning the resources specified within the CloudFormation template and once complete, you will have two Amazon Linux 2 EC2 instances to test using Systems Manager. You can also use the refresh button to see the latest events related to the CloudFormation stack. Once the status of the CloudFormation stack changes to ```CREATE_COMPLETE```, you can proceed with the next steps. This process should complete within 5 minutes.
+CloudFormation will begin provisioning the resources specified within the CloudFormation template and once complete, you will have one Amazon Linux 2 EC2 instance to test and configure using Systems Manager. You can also use the refresh button to see the latest events related to the CloudFormation stack. Once the status of the CloudFormation stack changes to ```CREATE_COMPLETE```, you can proceed with the next steps. This process should complete within 5 minutes.
 
 ### Enable AWS Config using Quick Setup
 
