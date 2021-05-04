@@ -146,8 +146,49 @@ Question | Choice
 **Which region do you want to store the config in the parameter store?** | ```us-east-1```
 **Which AWS credential should be used to send json config to parameter store?** | ```1```
 
-The CloudWatch agent configuration wizard should then successfully put the config to parameter store using the name **AmazonCloudWatch-linux** and the program will exit.
-    
+The CloudWatch agent configuration wizard should then successfully put the config to parameter store using the name **AmazonCloudWatch-linux** and the program will exit. You can now exit the Session Manager session by choosing **Terminate** and then on the **Terminate session** window choosing **Terminate**.
+
+### View the configuration file in Parameter Store
+
+1. Open the Systems Manager console at https://console.aws.amazon.com/systems-manager/.
+1. In the navigation pane, choose [**Parameter Store**](https://console.aws.amazon.com/systems-manager/parameters).
+1. Choose the parameter **AmazonCloudWatch-linux** and choose **View details**.
+
+    ![](/operational_excellence/media/cwa-parameter.png)
+
+1. In the **Value** section, you can see the basic CloudWatch agent configuration created using the CloudWatch agent configuration wizard. You can then reference this Parameter Store parameter to configure the CloudWatch agent on other managed instances using the Systems Manager document ```AmazonCloudWatch-ManageAgent```.
+
+### Create a State Manager Association to configure CloudWatch agent
+
+**To create a State Manager association to configure the CloudWatch agent**
+
+1. Open the Systems Manager console at https://console.aws.amazon.com/systems-manager/.
+1. In the navigation pane, choose [**State Manager**](https://console.aws.amazon.com/systems-manager/state-manager).
+1. Choose **Create association** and perform the following steps:
+
+    - For **Name**, enter ```CloudWatchAgent-Configure```.
+    - For **Document**, search for the document **AmazonCloudWatch-ManageAgent** and select the radio button for the document **AmazonCloudWatch-ManageAgent**.
+    - In the **Parameters** section, perform the following steps:
+        - Leave the default values for **Action**, **Mode**, and **Optional Configuration Source**.
+        - For **Optional Configuration Location**, enter the name of the Parameter Store parameter: ```AmazonCloudWatch-linux```.
+            - **Important:** The name of the parameter is case-sensitive.
+        - Leave the default values for **Optional Open Telemetry Collector Configuration Source**, **Optional Open Telemetry Collector Configuration Location**, and **Optional Restart**.
+        
+    ![](/operational_excellence/media/state-association-configure-parameters.png)
+        
+    - For **Targets**, choose **Choose instances manually**.
+        - Choose the instance created above.
+    - In the **Specify schedule** section, perform the following steps:
+        - For **Specify with**, select **CRON/Rate expression**.
+        - For **CRON/Rate expression**, enter ```rate(1 day)```.
+    - Choose **Create Association**.
+
+    ![](/operational_excellence/media/state-association-configure-details.png)
+
+1. Select radio button next to the **CloudWatchAgent-Configure** **Association ID** to review the **Association details**
+
+    - Review the various tabs of the association to see different information about the association. After the status of the association changes to **Success**, continue with the next steps.
+
 ### View metrics gathered by CloudWatch agent
 
 **To view the metrics pushed by CloudWatch agent**
@@ -158,11 +199,11 @@ The CloudWatch agent configuration wizard should then successfully put the confi
 1. Choose **CWAgent > ImageId, InstanceId, InstanceType, device, fstype, path**.
 1. Choose a metric listed to display the disk used percentage metric on the graph. **Note**: You can select multiple metrics to be displayed at a single time.
     
-    ![](/media/cloudwatch-disk-used.png)
+    ![](/operational_excellence/media/cloudwatch-disk-used.png)
 
 1. Return back to **CWAgent** and then choose **ImageId, InstanceId, InstanceType** to display the memeory used percentage metric.
 
-    ![](/media/cloudwatch-mem-used.png)
+    ![](/operational_excellence/media/cloudwatch-mem-used.png)
     
 ### Add an alarm action to create an OpsItem
 
