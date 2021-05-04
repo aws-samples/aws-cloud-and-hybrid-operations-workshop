@@ -202,8 +202,6 @@ Perform the task in this procedure the first time you access Change Manager. You
 
     ![](/media/change-manager-automation.png)
 
-For more information on Change Manager, see [AWS Systems Manager Change Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/change-manager.html).
-
 ## Next Section
 
 You have now completed the workshop **Episode 4: Automating Changes and Preventative Maintenance in an Enterprise Cloud Environment**!
