@@ -52,12 +52,12 @@ First, we will create an Identity and Access Management (IAM) user that will act
 1. In the **Set user details** section, enter ```approval-user```
 1. In the **Select AWS access type** section, choose **AWS Management Console access** 
 1. For **Console password**, choose **Custom password** and enter a password
-1. For **Require password reset**, unselect **User must create a new password at next sign-in** and choose **Next: Permissions**
+1. For **Require password reset**, deselect **User must create a new password at next sign-in** and choose **Next: Permissions**
 
     ![](/media/iam-add-user.png)
 
 1. In the **Set permissions** section, choose **Attach existing policies directly**
-1. In the search bar, enter ```AdministratorAccess```, select **AdministratorAccess** from the results list, and choose **Next: Tags**
+1. In the search bar, enter ```AmazonSSMFullAccess```, select **AmazonSSMFullAccess** from the results list, and choose **Next: Tags**
 1. Skip adding tags and select **Next: Review**
 1. Choose **Create user**
 1. On the resulting screen, copy the AWS Management console sign-in URL to Notepad for use later in the lab
