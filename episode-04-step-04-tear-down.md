@@ -2,84 +2,88 @@
 
 ![](media/ssm-aws-logo.png)
 
-**Congratulations!** You have completed the **Episode 4: Proactive ops and automation / preventative maintenance** workshop.
+To go back to the previous section, click here: [Enable Change Management](/episode-04-step-03-enable-change-management.md)
+
+**Congratulations!** You have completed the **Episode 4: Automating Changes and Preventative Maintenance in an Enterprise Cloud Environment** workshop.
 
 ## Tear down instructions
 
-**To disable AWS Config**
+### Delete objects in the S3 buckets
 
-**To delete the Quick Setup Host Management**
-
-1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
-1. In the navigation pane, choose [**Quick Setup**](https://console.aws.amazon.com/systems-manager/quick-setup).
-1. Choose the **Host Management** configuration created previously, choose **Actions**, and choose **Delete Configuration**.
-
-    1. Choose **Remove all OUs and Regions**.
-    1. This process will take a few moments to complete, once complete proceed with the next step.
-
-1. Choose **Actions** and choose **Delete configuration**.
-
-    1. In the **Delete Configuration** window, type **delete**, and choose **Delete**
-
-**To delete the resource data sync**
-
-1. Open the Resource Data Sync console at https://console.aws.amazon.com/systems-manager/managed-instances/resource-data-sync.
-1. Choose the resource data sync **YOURNAME-inventory-s3-sync** and choose **Delete**.
-1. In the **Delete resource data sync** window, choose **Delete resource data sync**. 
-
-**To delete the S3 bucket created for the resource data sync**
+<details>
+<summary><b>To delete command logs stored by AWS Systems Manager</b></summary><p>
 
 1. Open the Amazon S3 console at https://s3.console.aws.amazon.com/s3.
-1. Choose the S3 bucket **YOURFIRSTNAME-sm-workshop** and choose **Empty**.
+1. Choose the S3 bucket for command logs. The name will be similar to ```ssm-command-logs-us-east-1-123456789012```.
+1. Choose **Empty**.
 
     1. On the **Empty bucket** page, type **permanently delete** to confirm deletion of the objects in the S3 bucket.
     1. Choose **Empty**.
 
-1. Choose the S3 bucket **YOURFIRSTNAME-sm-workshop** and choose **Delete**.
-    
-    1. On the **Delete bucket** page, type the name of the S3 bucket to confirm deletion of the S3 bucket.
-    1. Choose **Delete bucket**.
+</p></details>
 
-**To delete the Command document**
+<details>
+<summary><b>To delete inventory data stored by AWS Systems Manager</b></summary><p>
 
-1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
-1. In the navigation pane, choose [**Documents**](https://console.aws.amazon.com/systems-manager/documents).
-1. Choose the **Owned by me** tab.
-1. Choose the document **org-install-app**, choose **Actions**, and choose **Delete document**.
-1. In the **Delete document** window, choose **Delete**.
+1. Open the Amazon S3 console at https://s3.console.aws.amazon.com/s3.
+1. Choose the S3 bucket for command logs. The name will be similar to ```ssm-resource-sync-us-east-1-123456789012```.
+1. Choose **Empty**.
 
-**To delete the Change calendar**
+    1. On the **Empty bucket** page, type **permanently delete** to confirm deletion of the objects in the S3 bucket.
+    1. Choose **Empty**.
 
-1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
-1. In the navigation pane, choose [**Change Calendar**](https://console.aws.amazon.com/systems-manager/change-calendar/).
-1. Choose the calendar **YOURNAME-cal-open** and choose **Delete**.
-1. In the **Delete calendar** window, choose **Delete**.
+</p></details>
 
-**To delete the Automation document**
+### Delete the CloudFormation stack
 
-1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
-1. In the navigation pane, choose [**Documents**](https://console.aws.amazon.com/systems-manager/documents).
-1. Choose the **Owned by me** tab.
-1. Choose the document **yourname-stop-instances-check-calendar**, choose **Actions**, and choose **Delete document**.
-1. In the **Delete document** window, choose **Delete**.
+<details>
+<summary><b>To delete the CloudFormation stack</b></summary><p>
 
-**To delete the Parameter Store parameter**
+1. Open the AWS CloudFormation console at https://console.aws.amazon.com/cloudformation/home.
+1. In the navigation pane, choose **Stacks**.
+1. Choose the stack **ssm-workshop-ep04** and click **Delete**.
+1. Choose **Delete stack**.
 
-1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
-1. In the navigation pane, choose [**Parameter Store**](https://console.aws.amazon.com/systems-manager/parameters).
-1. Choose the parameter **CloudWatchAgent-AmazonLinux** and choose **Delete**.
-1. In the **Delete parameters** window, choose **Delete parameters**.
+</p></details>
 
-**To delete the State Manager associations**
+### Delete the SNS Topic
+
+<details>
+<summary><b>To delete the SNS topic</b></summary><p>
+
+1. Open the Amazon SNS console at https://console.aws.amazon.com/sns/v3/home.
+1. In the navigation pane, choose **Topics**.
+1. Choose the SNS topic **ssm-workshop-sns** and choose **Delete**.
+1. Enter ```delete me``` and choose **Delete**.
+
+</p></details>
+
+### Delete the IAM user
+
+<details>
+<summary><b>To delete the IAM user</b></summary><p>
+
+1. Open the AWS IAM console at https://console.aws.amazon.com/iam/home.
+1. In the navigation pane, choose **Users**.
+1. Choose the user **approval-user**, choose **Delete user**, and choose **Yes, delete**.
+
+</p></details>
+
+### Delete the State Manager Association
+
+<details>
+<summary><b>To delete the State Manager associations</b></summary><p>
 
 1. Open the Systems Manager console at https://console.aws.amazon.com/systems-manager/.
 1. In the navigation pane, choose [**State Manager**](https://console.aws.amazon.com/systems-manager/state-manager).
 1. Choose the radio button next to the association named **CloudWatchAgent-Install** and choose **Delete**.
 1. In the **Delete association** window, choose **Delete**.
-1. Repeat this process for the association named **CloudWatchAgent-Configure**.
+
+</p></details>
+
 
 ## Next Section
 
-Click the link below to go to the next episode, **Episode 2:  Enable compliance and monitoring: through config rules and conformance packs**.
+Click the link below to go to the next episode, **Episode 5: Problem and Incident Management with Scale and Automation in an Enterprise Cloud Environment**.
 
-[![](media/.png)](/episode-02-step-01.md)
+[![](media/episode-05.png)](/episode-05-step-00-overview.md)
