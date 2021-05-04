@@ -42,7 +42,7 @@ The CloudFormation template will create the resources depicted in the diagram be
 1. Choose **Create stack**.
 1. For **Specify template**, choose **Upload a template file**, choose the file you saved locally ```oe-workshop-episode-01.yml```, and choose **Next**.
 
-    ![](/media/cloudformation-create-stack-ep01.png)
+    ![](/operational_excellence/media/cloudformation-create-stack-ep01.png)
 
 1. For **Stack name**, enter ```oe-workshop```, and choose **Next**.
 1. On the **Configure stack options** page, leave the defaults and choose **Next**.

@@ -1,6 +1,6 @@
 # Episode 01: Using Amazon Systems Manager as a Foundation for Operationally Excellent Workloads
 
-![](media/ssm-aws-logo.png)
+![](operational_excellence/media/ssm-aws-logo.png)
 
 NOTE: You will incur charges as you go through either of these workshops, as they will exceed the [limits of AWS free tier](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-limits.html).
 
@@ -36,4 +36,4 @@ During this workshop episode, we will work towards the following learning object
 
 Click the link below to go to the next section.
 
-[![](media/episode-01-step-01-manage-ec2.png)](/episode-01-step-01-manage-ec2.md)
+[![](operational_excellence/media/episode-01-step-01-manage-ec2.png)](/episode-01-step-01-manage-ec2.md)
