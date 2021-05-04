@@ -82,13 +82,13 @@ Next we must create an IAM service role, or *assume role*, that allows the servi
 
 Perform the task in this procedure the first time you access Change Manager. You can update these configuration settings later by returning to Change Manager and choosing **Edit** on the **Settings** tab. 
 
-1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
-1. In the navigation pane, choose **Change Manager**.
-1. On the service home page, choose **Set up delegated account**.
+1. Open the [Change Manager console](https://console.aws.amazon.com/systems-manager/change-manager?region=us-east-1#/dashboard/requests).
+1. Choose the **Settings** tab.
+1. Choose **Edit**.
 1. For **User identity management**, choose **AWS Identity and Access Management (IAM)**.
-1. For **Template reviewer notification**, choose **Create an Amazon SNS topic**, enter ```sm-workshop-sns``` for the topic name, and choose **Add notification**.
+1. For **Template reviewer notification**, choose **Create an Amazon SNS topic**, enter ```ssm-workshop-sns``` for the topic name, and choose **Add notification**.
 
-    ![](../media/change-manager-sns.png)
+    ![](/media/change-manager-sns.png)
 
 1. For **Template reviewers** select **Add**, choose the **approval-user** we created previously, and select **Add approvers**.
 
@@ -97,36 +97,12 @@ Perform the task in this procedure the first time you access Change Manager. You
 1. For **Approvers for change freeze events** select **Add**, choose the **approval-user** we created previously, and choose **Add approvers**.
 1. In the **Best practices** section, do the following:
 
-    - For **Check Change Calendar for restricted change events**, choose **Enabled**.
-    - For **SNS topic for approvers for closed events**, select **Create an Amazon SNS topic**, enter ```sm-workshop-sns```, and choose **Add notification**.
-    - Leave **Require monitors for all templates** as the default non-enabled state. **Note** In a real world environment, you can ensure that all templates for your organization specify an Amazon CloudWatch alarm to monitor your change operation.
-    - For **Require template review and approval before**, choose **Enabled**.
+    - Leave the default option of disabled for **Check Change Calendar for restricted change events**, **SNS topic for approvers for closed events**, and **Require monitors for all templates** 
+    - For **Require template review and approval before use**, choose **Enabled**.
 
-1. Choose **Submit**.
+    ![](/media/change-manager-settings.png)
 
-<!-- ### Configure Change Manager
-
-1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
-1. In the navigation pane, choose [**Change Manager**](https://console.aws.amazon.com/systems-manager/change-manager).
-1. Choose **Set up Change Manager**.
-
-    ![](/media/change-manager-set-up.png)
-    
-1. Choose the **Settings** tab.
-1. Choose **Edit** and perform the following actions:
-    
-    - In the **User identity management** section, choose **AWS Identity and Access Management (IAM)**.
-    - Skip the sections **Template reviewer notification**, **Template reviewers**, and **Approvers for change freeze events**.
-        - **Note**: In a real-world environment, it is best practice to specify template reviewers and approvers for change freeze events.
-    - In the **Best practices** section, review the available options to enable or disable.
-        - To specify that Change Manager checks a calendar in Change Calendar to make sure changes are not blocked by scheduled events, you would select the Enabled check box for **Check Change Calendar for restricted change events**, and then select the calendar to check for restricted events from the Change Calendar list. 
-        - If you want to ensure that all templates for your organization or account specify an Amazon CloudWatch alarm to monitor your change operation, you would select the Enabled check box for **Require monitors for all templates**. 
-        - To ensure that no change requests are created, and no runbook workflows run, without being based on a template that has been reviewed and approved, you would select the Enabled check box for **Require template review and approval before use**.
-    - Ensure **Require template review and approval before use** is not enabled.
-    
-    ![](/media/review-template-disabled.png)
-
-1. Choose **Save**. -->
+1. Choose **Save**.
 
 ### Create a change template
 
@@ -140,9 +116,9 @@ Perform the task in this procedure the first time you access Change Manager. You
 1. For **Runbook**, select ```AWS-RestartEC2Instance``` from the drop-down menu.
 1. Leave the default content for **Template information**.
 1. For **Change request approvals**, select **Add approvers** under **First-level approvals**, and select **Request specified approvers**.
-1. For **Amazon SNS topic for approval notifications**, choose **Create an Amazon SNS topic**, enter ```ssm-workshop-sns``` for the name, and choose **Add notification**.
+1. For **Amazon SNS topic for approval notifications**, choose **Select an existing Amazon SNS topic**, choose ```ssm-workshop-sns``` from the drop-down list, and choose **Add notification**.
 1. Skip the **Monitoring** section.
-1. For **Notifications**, choose **Enter an SNS Amazon Resource Name (ARN)**, enter the ARN of the SNS topic created for the approval notification, and choose **Add notification**.
+1. For **Notifications**, choose **Select an existing Amazon SNS topic**, choose ```ssm-workshop-sns``` from the drop-down list, and choose **Add notification**.
     
     - The SNS Topic ARN should be similar to the following: ```arn:aws:sns:us-east-1:1234567890:ssm-workshop-sns```.
 
@@ -153,6 +129,23 @@ Perform the task in this procedure the first time you access Change Manager. You
 1. Select **Submit for review**.
 1. (Optionally) Choose the **Templates** tab, choose the **RestartEC2InstanceTemplate** template, and choose **View details**. You can then navigate between the various tabs to review the template details, tasks included, change requests created using the template, and the version history of the template.
 
+### Approve the change template
+
+1. Open a new incognito browser tab and use the AWS Management console sign-in URL noted above in the **Create IAM user for template reviews and change request approval** section.
+1. For **IAM user name**, enter ```approval-user```.
+1. For **Password**, enter the password you created previously and choose **Sign in**.
+
+    ![](/media/iam-console-sign-in.png)
+
+1. Navigate to the [**AWS Systems Manager Change Manager** console](https://console.aws.amazon.com/systems-manager/change-manager).
+1. Select the **Templates** tab, and open the **RestartEC2InstanceTemplate** template.
+    
+    - **Note**: Alternatively, open the [change template directly using this link](https://console.aws.amazon.com/systems-manager/change-manager?region=us-east-1#/change-template/view-details/RestartEC2InstanceTemplate/details).
+
+1. Navigate between the various tabs to see the template details, tasks, change requests associated, and version history of the template.
+1. Once complete, choose **Approve**.
+1. Optionally enter any comments and choose **Approve**.
+
 ### Create a change request
 
 1. Choose **Create request**.
@@ -160,12 +153,12 @@ Perform the task in this procedure the first time you access Change Manager. You
 1. For **Name**, enter ```RestartEC2Instance```.
 1. Optionally fill out the **Change request information** section.
 1. For **Workflow start time**, leave the default **Run the operation as soon as possible after approval**.
-1. For **Change request approvals**, choose **Add approver**, select the current IAM user or role you are logged in with, and choose **Add approvers**.
+1. For **Change request approvals**, choose **Add approver**, select **approval-user**, and choose **Add approvers**.
 1. Choose **Next**.
 
     ![](/media/change-manager-change-details.png)
 
-1. For **Automation assume role**, choose the **AWS-SystemsManager-AutomationExecutionRole** created previously.
+1. For **Automation assume role**, choose the **change-manager-automation-role** created previously.
 1. For **Deployment location**, leave the default value as **Apply change to this account**.
 1. For **Deployment targets**, perform the following steps:
     - For **Target resources**, choose **Multiple resources**.
@@ -180,10 +173,36 @@ Perform the task in this procedure the first time you access Change Manager. You
 
 ### Approve a change request
 
+1. Open a new browser and use the AWS Management console sign-in URL noted above in the **Task 1: Create IAM user for template reviews and change request approval** section.
+1. For **IAM user name**, enter ```approval-user```.
+1. For **Password**, enter the password you created previously and choose **Sign in**.
 
+    ![](/media/iam-console-sign-in.png)
+
+1. Navigate to the [**AWS Systems Manager Change Manager** console](https://console.aws.amazon.com/systems-manager/change-manager).
+1. Select the **Requests** tab, select the **RestartEC2Instance** change request and choose **View details**.
+1. Navigate between the various tabs to see the request details and tasks for the submitted change request.
+1. Choose **Approve**, optionally enter any comments, and choose **Approve**.
 
 ### Review the change request results
 
+1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
+1. In the navigation pane, choose **Change Manager**.
+1. Select the **Requests** tab, select the **RestartEC2Instance** change request and choose **View details**.
+1. Select the **Timeline** tab, to see the timeline for the change request process.
+1. On the **Timeline** page, note the **Execution ID**.
+
+    ![](/media/change-manager-timeline.png)
+
+1. Select the **Task** tab and select the **Execution ID** to review the steps of the Automation workflow.
+
+    ![](/media/change-manager-task.png)
+
+1. Review the status and details of each step performed.
+
+    ![](/media/change-manager-automation.png)
+
+For more information on Change Manager, see [AWS Systems Manager Change Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/change-manager.html).
 
 ## Next Section
 
