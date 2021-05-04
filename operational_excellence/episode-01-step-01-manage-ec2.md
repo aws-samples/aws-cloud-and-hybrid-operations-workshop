@@ -1,6 +1,6 @@
 # Using AWS Systems Manager to manage EC2 instances
 
-![](media/ssm-aws-logo.png)
+![](/operational_excellence/media/ssm-aws-logo.png)
 
 NOTE: You will incur charges as you go through either of these workshops, as they will exceed the [limits of AWS free tier](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-limits.html).
 
@@ -9,7 +9,6 @@ NOTE: You will incur charges as you go through either of these workshops, as the
 - [Summary](#summary)
 - [Instructions](#instructions)
     - [Create test EC2 instance](#create-test-ec2-instance)
-
 - [Next Section](#next-section)
 
 ## Summary
@@ -27,14 +26,14 @@ To create the test Amazon Linux 2 EC2 instance, you will use [AWS CloudFormation
 1. Open the CloudFormation template [oe-workshop-episode-01.yml](cfntemplates/oe-workshop-episode-01.yml).
 1. Choose **Raw**.
 
-    ![](/media/github-raw.png)
+    ![](/operational_excellence/media/github-raw.png)
 
 1. Open Notepad and copy the entire text.
 1. Save the file to your local machine as ```oe-workshop-episode-01.yml```.
 
 The CloudFormation template will create the resources depicted in the diagram below.
 
-![](/media/ep01-st01.png)
+![](/operational_excellence/media/ep01-st01.png)
 
 **To create the test EC2 instance**
     
