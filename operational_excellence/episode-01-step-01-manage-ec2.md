@@ -191,6 +191,8 @@ The CloudWatch agent configuration wizard should then successfully put the confi
 
 ## Next Section
 
+The Amazon CloudWatch agent has now been successfully installed and configured on our test Amazon Linux 2 EC2 instance. In the next section you will review the metrics in CloudWatch and enable alarm actions to create actionable items in OpsCenter.
+
 Click the link below to go to the next section.
 
 [![](media/episode-01-step-02-enable-alarm-actions.png)](/episode-01-step-02-enable-alarm-actions.md)
