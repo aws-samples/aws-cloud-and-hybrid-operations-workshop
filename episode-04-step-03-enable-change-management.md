@@ -214,4 +214,4 @@ You have now completed the workshop **Episode 4: Automating Changes and Preventa
 
 Click the link below to go to the next section to tear down the resources created during the workshop.
 
-[![](media/codify-runbooks.png)](/episode-01-step-02-codify-runbooks.md)
+[![](media/tear-down.png)](/episode-04-step-04-tear-down.md)
