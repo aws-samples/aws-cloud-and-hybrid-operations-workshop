@@ -42,6 +42,68 @@ A **change request** is a request in Change Manager to run an Automation runbook
 
 ## Instructions
 
+### Create IAM user for template reviews and change request approval
+
+First, we will create an Identity and Access Management (IAM) user that will act as our change template reviewer and change request approver.
+
+1. Open the AWS IAM console at https://console.aws.amazon.com/iam/
+1. In the navigation pane, choose **Users**
+1. Choose **Add user**
+1. In the **Set user details** section, enter ```approval-user```
+1. In the **Select AWS access type** section, choose **AWS Management Console access** 
+1. For **Console password**, choose **Custom password** and enter a password
+1. For **Require password reset**, unselect **User must create a new password at next sign-in** and choose **Next: Permissions**
+
+    ![](/media/iam-add-user.png)
+
+1. In the **Set permissions** section, choose **Attach existing policies directly**
+1. In the search bar, enter ```AdministratorAccess```, select **AdministratorAccess** from the results list, and choose **Next: Tags**
+1. Skip adding tags and select **Next: Review**
+1. Choose **Create user**
+1. On the resulting screen, copy the AWS Management console sign-in URL to Notepad for use later in the lab
+
+    ![](/media/iam-console-link.png)
+    
+#### Task 2: Create an IAM service role for Automation
+
+Next we must create an IAM service role, or *assume role*, that allows the service to perform actions on your behalf during the change operation.
+
+1. Open the AWS IAM console at https://console.aws.amazon.com/iam/
+1. In the navigation pane, choose **Roles**
+1. Choose **Create role**
+1. For **Select type of trusted entity**, leave the default value **AWS service**
+1. For **Choose a use case**, select **Systems Manager** in the section **Or select a service to view its use cases**
+1. For **Select your use case**, choose **Systems Manager** and choose **Next: Permissions**
+1. For **Attach permissions policies**, enter ```AmazonSSMAutomationRole``` in the search field, choose **AmazonSSMAutomationRole**, and choose **Next: Tags**
+1. Skip adding tags and choose **Next: Review**
+1. For **Role name**, enter ```change-manager-automation-role```, and choose **Create role**
+
+#### Task 3: Configuring Change Manager user identity management and template reviewers
+
+Perform the task in this procedure the first time you access Change Manager. You can update these configuration settings later by returning to Change Manager and choosing **Edit** on the **Settings** tab. 
+
+1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/
+1. In the navigation pane, choose **Change Manager**.
+1. On the service home page, choose **Set up delegated account**
+1. For **User identity management**, choose **AWS Identity and Access Management (IAM)
+1. For **Template reviewer notification**, choose **Create an Amazon SNS topic**, enter ```sm-workshop-sns``` for the topic name, and choose **Add notification**
+
+    ![](../media/change-manager-sns.png)
+
+1. For **Template reviewers** select **Add**, choose the **approval-user** we created previously, and select **Add approvers**
+
+#### Task 4: Configuring Change Manager change freeze event approvers and best practices
+
+1. For **Approvers for change freeze events** select **Add**, choose the **approval-user** we created previously, and choose **Add approvers**
+1. In the **Best practices** section, do the following:
+
+    - For **Check Change Calendar for restricted change events**, choose **Enabled**
+    - For **SNS topic for approvers for closed events**, select **Create an Amazon SNS topic**, enter ```sm-workshop-sns```, and choose **Add notification**
+    - Leave **Require monitors for all templates** as the default non-enabled state. **Note** In a real world environment, you can ensure that all templates for your organization specify an Amazon CloudWatch alarm to monitor your change operation
+    - For **Require template review and approval before**, choose **Enabled**
+
+1. Choose **Submit**
+
 ### Configure Change Manager
 
 1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
@@ -85,10 +147,10 @@ A **change request** is a request in Change Manager to run an Automation runbook
     - The SNS Topic ARN should be similar to the following: ```arn:aws:sns:us-east-1:1234567890:ssm-workshop-sns```.
 
 1. Select **Save and preview**.
-1. Select **Submit for review**.
 
     ![](/media/change-create-template.png)
     
+1. Select **Submit for review**.
 1. (Optionally) Choose the **Templates** tab, choose the **RestartEC2InstanceTemplate** template, and choose **View details**. You can then navigate between the various tabs to review the template details, tasks included, change requests created using the template, and the version history of the template.
 
 ### Create a change request
