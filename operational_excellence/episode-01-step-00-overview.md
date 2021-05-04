@@ -14,17 +14,15 @@ NOTE: You will incur charges as you go through either of these workshops, as the
 
 AWS Systems Manager plays a key role in enabling operational excellence. AWS Systems Manager allows our customers to manage and enable the collection of operational telemetry from EC2 Instances, on-premise servers and virtual machines (VMs), and VMs in other cloud environments.
 
-In this episode we will walk through setting up the Systems Manager (SSM) Agent on EC2, and using this to deploy and configure the CloudWatch Agent.
+In this episode we will walk through setting up the Systems Manager (SSM) Agent on EC2, and using this to deploy and configure the CloudWatch Agent. Additionally, we will set up an Amazon CloudWatch alarm for performance metrics on the EC2 instance to create OpsItems in Systems Manager OpsCenter.
 
-In episode one, you will enable the service [AWS Config](https://aws.amazon.com/config/) which enables you to assess, audit, and evaluate the configurations of your AWS resources. Additionally, you will enable and use various capabilities of [AWS Systems Manager](https://aws.amazon.com/systems-manager/) to gain visibility and control of your infrastructure including:
+For more information about the various AWS Systems Manager capabilities see:
 
-- [Quick Setup](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-quick-setup.html)
-- [Inventory](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-inventory.html)
-- [Run Command](https://docs.aws.amazon.com/systems-manager/latest/userguide/execute-remote-commands.html)
-- [Change Calendar](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-change-calendar.html)
 - [Automation](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-automation.html)
-- [State Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-state.html)
-- [Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html)
+- [Distributor](https://docs.aws.amazon.com/systems-manager/latest/userguide/distributor.html)
+- [OpsCenter](https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html)
+- [Run Command](https://docs.aws.amazon.com/systems-manager/latest/userguide/execute-remote-commands.html)
+- [Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html)
 
 ## Learning Objectives
 
