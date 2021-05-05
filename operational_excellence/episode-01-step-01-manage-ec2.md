@@ -10,7 +10,8 @@ To go back to the previous section, click here: [Episode 01: Using Amazon System
 
 - [Summary](#summary)
 - [Instructions](#instructions)
-    - [Create test EC2 instance](#create-test-ec2-instance)
+    - [Create a test EC2 instance](#create-a-test-ec2-instance)
+    - [Review the managed EC2 instance](#review-the-managed-ec2-instance)
     - [Create a State Manager Association to install CloudWatch agent](#create-a-state-manager-association-to-install-cloudwatch-agent)
     - [Connect to the instance using Session Manager](#connect-to-the-instance-using-session-manager)
     - [View the configuration file in Parameter Store](#view-the-configuration-file-in-parameter-store)
@@ -19,11 +20,16 @@ To go back to the previous section, click here: [Episode 01: Using Amazon System
 
 ## Summary
 
-The following section discusses three primary topics:
+The following section discusses four primary topics:
 
+- [AWS Systems Manager Agent (SSM Agent)](https://docs.aws.amazon.com/en_us/systems-manager/latest/userguide/ssm-agent.html)
 - [AWS Systems Manager State Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-state.html)
 - [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html)
 - [Amazon CloudWatch agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Install-CloudWatch-Agent.html)
+
+[AWS Systems Manager Agent (SSM Agent)](https://docs.aws.amazon.com/systems-manager/latest/userguide/prereqs-ssm-agent.html) is Amazon software that can be installed and configured on an EC2 instance, an on-premises server, or a virtual machine (VM). SSM Agent makes it possible for Systems Manager to update, manage, and configure these resources. The agent processes requests from the Systems Manager service in the AWS Cloud, and then runs them as specified in the request.
+
+SSM Agent must be installed on each instance you want to use with AWS Systems Manager. By default, SSM Agent is preinstalled on instances created from the Amazon Machine Images (AMIs) for common versions of Amazon Linux, Amazon Linux 2, macOS, Ubuntu, and Windows server. To see a full list of AMIs, see [About SSM Agent](https://docs.aws.amazon.com/systems-manager/latest/userguide/prereqs-ssm-agent.html).
 
 [AWS Systems Manager State Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-state.html) is a secure and scalable configuration management service that automates the process of keeping your Amazon EC2 and hybrid infrastructure in a state that you define.
 
@@ -51,7 +57,7 @@ In this section you will (1) create test Amazon Linux 2 Elastic Cloud Compute (E
 
 To create the test Amazon Linux 2 EC2 instance, you will use [AWS CloudFormation](https://aws.amazon.com/cloudformation/). AWS CloudFormation gives you an easy way to model a collection of related AWS and third-party resources, provision them quickly and consistently, and manage them throughout their lifecycles, by treating infrastructure as code.
 
-### Create test EC2 instance
+### Create a test EC2 instance
 
 **To save the CloudFormation template locally**
     
@@ -80,6 +86,12 @@ The CloudFormation template will create the resources depicted in the diagram be
 1. On the **Review** page, choose **I acknowledge that AWS CloudFormation might create IAM resources with custom names.**, and choose **Create stack**.
 
 CloudFormation will begin provisioning the resources specified within the CloudFormation template and once complete, you will have one Amazon Linux 2 EC2 instance to test and configure using Systems Manager. You can also use the refresh button to see the latest events related to the CloudFormation stack. Once the status of the CloudFormation stack changes to ```CREATE_COMPLETE```, you can proceed with the next steps. This process should complete within 5 minutes.
+
+### Review the managed EC2 instance
+
+The CloudFormation template created an Amazon Linux 2 EC2 instance which includes SSM agent pre-installed. Additionally, an [IAM instance profile for Systems Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/setup-instance-profile.html) was created and attached to the EC2 instance. By attaching the instance profile, the EC2 instance has the necessary permissions to interact with Systems Manager. Lastly, the EC2 instance was launched into a VPC with a public subnet leveraging an Internet Gateway (IGW) to allow network connectivity to the public Systems Manager endpoints. 
+
+:informational: In a real-world environment, you can improve the security posture of your managed instances (including managed instances in your hybrid environment) by configuring AWS Systems Manager to use an interface VPC endpoint in Amazon Virtual Private Cloud (Amazon VPC). An interface VPC endpoint (interface endpoint) enables you to connect to services powered by AWS PrivateLink, a technology that enables you to privately access Amazon EC2 and Systems Manager APIs by using private IP addresses. PrivateLink restricts all network traffic between your managed instances, Systems Manager, and Amazon EC2 to the Amazon network. This means that your managed instances don't have access to the Internet. If you use PrivateLink, you don't need an Internet gateway, a NAT device, or a virtual private gateway. For more information, see [Step 6: (Optional) Create a Virtual Private Cloud endpoint ](https://docs.aws.amazon.com/systems-manager/latest/userguide/setup-create-vpc.html).
 
 ### Create a State Manager Association to install CloudWatch agent
 

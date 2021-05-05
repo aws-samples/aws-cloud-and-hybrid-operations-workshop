@@ -23,6 +23,7 @@ For more information about the various AWS Systems Manager capabilities see:
 - [OpsCenter](https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html)
 - [Run Command](https://docs.aws.amazon.com/systems-manager/latest/userguide/execute-remote-commands.html)
 - [Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html)
+- [State Manager](https://docs.aws.amazon.com/en_us/systems-manager/latest/userguide/systems-manager-state.html)
 
 ## Learning Objectives
 
