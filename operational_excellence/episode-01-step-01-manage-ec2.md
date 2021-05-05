@@ -31,6 +31,8 @@ The following section discusses four primary topics:
 
 SSM Agent must be installed on each instance you want to use with AWS Systems Manager. By default, SSM Agent is preinstalled on instances created from the Amazon Machine Images (AMIs) for common versions of Amazon Linux, Amazon Linux 2, macOS, Ubuntu, and Windows server. To see a full list of AMIs, see [About SSM Agent](https://docs.aws.amazon.com/systems-manager/latest/userguide/prereqs-ssm-agent.html).
 
+-----
+
 [AWS Systems Manager State Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-state.html) is a secure and scalable configuration management service that automates the process of keeping your Amazon EC2 and hybrid infrastructure in a state that you define.
 
 The following list describes the types of tasks you can perform with State Manager:
@@ -42,7 +44,11 @@ The following list describes the types of tasks you can perform with State Manag
 * Patch instances with software updates throughout their lifecycle.
 * Run scripts on Linux and Windows managed instances throughout their lifecycle.
 
+-----
+
 [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html) (Parameter Store) provides secure, hierarchical storage for configuration data management and secrets management. You can store data such as passwords, database strings, Amazon Machine Image (AMI) IDs, and license codes as parameter values. You can store values as plain text or encrypted data. You can reference Systems Manager parameters in your scripts, commands, SSM documents, and configuration and automation workflows by using the unique name that you specified when you created the parameter.
+
+-----
 
 The unified [Amazon CloudWatch agent](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Install-CloudWatch-Agent.html) enables you to do the following:
 
