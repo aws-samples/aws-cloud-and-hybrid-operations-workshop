@@ -24,7 +24,7 @@ In this section you will (1) create an conformance pack with remediation to eval
 
 Before we can deploy the conformance pack, we will need to edit it. Conformance packs that AWS provides represent collated best practices, however they are not “one size fits all” and need some tailoring before being leveraged.
 
-1.	First, download the conformance pack template from this [link](../cfntemplates/Operational-Best-Practices-for-Amazon-S3-with-Remediation.yml). - Operational-Best-Practices-for-Amazon-S3-with-Remediation
+1.	First, download the conformance pack template from this [link](cfntemplates/Operational-Best-Practices-for-Amazon-S3-with-Remediation.yml). - Operational-Best-Practices-for-Amazon-S3-with-Remediation
 1.	Next edit this file so we can make it usable with your lab environment. You will need to replace the ```<Account-Id>``` entries with the proper account number for your account (without dashes). You will find this entry on these line numbers:
     -   43
     -   80
