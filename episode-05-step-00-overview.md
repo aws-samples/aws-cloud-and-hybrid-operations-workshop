@@ -26,4 +26,4 @@ During this workshop episode, we will work towards the following learning object
 
 Click the link below to go to the next section.
 
-[![](media/enable-inventory.png)](/episode-05-step-01-enable-incident.md)
+[![](media/episode-05-step-01-prepare.png.png)](/episode-05-step-01-enable-incident.md)
