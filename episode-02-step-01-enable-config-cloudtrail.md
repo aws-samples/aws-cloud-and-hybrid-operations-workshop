@@ -25,7 +25,7 @@ Prior to enabling these features, you will create several IAM Roles, Policies an
 
 **To save the CloudFormation template locally**
     
-1. Open the CloudFormation template [workshop-config-prerequisites.yml](cfntemplates/workshop-config-prerequisites.yml).
+1. Open the CloudFormation template [workshop-config-prerequisites.yml](../cfntemplates/workshop-config-prerequisites.yml).
 1. Choose **Raw**.
 
     ![](/media/github-raw.png)
