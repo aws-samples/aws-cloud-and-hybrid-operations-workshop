@@ -165,7 +165,7 @@ Question | Choice
 **Which region do you want to store the config in the parameter store?** | ```us-east-1```
 **Which AWS credential should be used to send json config to parameter store?** | ```1```
 
-The CloudWatch agent configuration wizard should then successfully put the config to parameter store using the name **AmazonCloudWatch-linux** and the program will exit. You can now exit the Session Manager session by choosing **Terminate** and then on the **Terminate session** window choosing **Terminate**.
+The CloudWatch agent configuration wizard should then successfully put the configuration file to parameter store using the name **AmazonCloudWatch-linux** and the program will exit. You can now exit the Session Manager session by choosing **Terminate** and then on the **Terminate session** window choosing **Terminate**.
 
 ### View the configuration file in Parameter Store
 
