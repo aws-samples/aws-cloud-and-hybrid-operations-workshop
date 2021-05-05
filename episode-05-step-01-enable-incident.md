@@ -101,10 +101,15 @@ Escalation plans use **stages** where each stage lasts a defined number of minut
 
 ### Create a response plan
 
+Use response plans to plan for incidents and define how to respond to incidents. Response plans provide a template for when an incident occurs. This template includes information about who to engage, the expected severity of the event, automatic runbooks to initiate, and metrics to monitor. To create a response plan, use the following steps. 
+
+**To create a response plan**
+
 1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
 1. In the navigation pane, choose [**Incident Manager**](https://console.aws.amazon.com/systems-manager/incidents).
 1. Choose **Prepare**.
-1. On the **Get prepared** page, choose **Go to Settings** in the **General settings** section.
+1. On the **Get prepared** page, choose **Create response plan** in the **Response plan** section.
+
 
 ### Create an Amazon Event Bridge rule to monitor
 
