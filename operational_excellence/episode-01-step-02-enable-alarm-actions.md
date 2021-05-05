@@ -113,6 +113,7 @@ To trigger the CloudWatch alarm for testing purposes we will use the ```stress``
     ```
     sudo amazon-linux-extras install epel -y
     sudo yum install stress -y
+    sleep 3
     stress -m 1 --vm-bytes 516M -t 1200s
     ```
     

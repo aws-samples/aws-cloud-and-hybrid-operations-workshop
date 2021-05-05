@@ -12,7 +12,7 @@ To go back to the previous section, click here: [Episode 01: Using Amazon System
 - [Instructions](#instructions)
     - [Create a test EC2 instance](#create-a-test-ec2-instance)
     - [Review the managed EC2 instance](#review-the-managed-ec2-instance)
-    - [Create a State Manager Association to install CloudWatch agent](#create-a-state-manager-association-to-install-cloudwatch-agent)
+    - [Install CloudWatch agent using Distributor](#install-cloudwatch-agent-using-distributor)
     - [Connect to the instance using Session Manager](#connect-to-the-instance-using-session-manager)
     - [View the configuration file in Parameter Store](#view-the-configuration-file-in-parameter-store)
     - [Create a State Manager Association to configure CloudWatch agent](#create-a-state-manager-association-to-configure-cloudwatch-agent)
@@ -99,29 +99,29 @@ The CloudFormation template created an Amazon Linux 2 EC2 instance which include
 
 :information_source: In a real-world environment, you can improve the security posture of your managed instances (including managed instances in your hybrid environment) by configuring AWS Systems Manager to use an interface VPC endpoint in Amazon Virtual Private Cloud (Amazon VPC). An interface VPC endpoint (interface endpoint) enables you to connect to services powered by AWS PrivateLink, a technology that enables you to privately access Amazon EC2 and Systems Manager APIs by using private IP addresses. PrivateLink restricts all network traffic between your managed instances, Systems Manager, and Amazon EC2 to the Amazon network. This means that your managed instances don't have access to the Internet. If you use PrivateLink, you don't need an Internet gateway, a NAT device, or a virtual private gateway. For more information, see [Step 6: (Optional) Create a Virtual Private Cloud endpoint ](https://docs.aws.amazon.com/systems-manager/latest/userguide/setup-create-vpc.html).
 
-### Create a State Manager Association to install CloudWatch agent
-
-**To create a State Manager association to install the CloudWatch agent**
+### Install CloudWatch agent using Distributor
 
 1. Open the Systems Manager console at https://console.aws.amazon.com/systems-manager/.
-1. In the navigation pane, choose [**State Manager**](https://console.aws.amazon.com/systems-manager/state-manager).
-1. Choose **Create association** and perform the following steps:
+1. In the navigation pane, choose [**Distributor**](https://console.aws.amazon.com/systems-manager/distributor).
+1. In the list of **Packages**, choose **AmazonCloudWatchAgent**, and choose **Install on a schedule**.
+
+    - :information_source: This will bring you to the State Manager console and specifically the **Create association** process.
+    
+1. On the **Create association** page, perform the following steps:
 
     - For **Name**, enter ```CloudWatchAgent-Install```.
-    - For **Document**, search for the document and select the radio button for the document **AWS-ConfigureAWSPackage**.
-    - In the **Parameters** section, perform the following steps:
-        - Leave the default values for **Action** and **Installation Type**.
-        - For **Name**, enter ```AmazonCloudWatchAgent```.
-    - For **Targets**, choose **Choose instances manually**.
+    - For **Document**, leave the document already chosen, **AWS-ConfigureAWSPackage**.
+    - In the **Parameters** section, leave the default values populated to install the Amazon CloudWatch agent.
+    - For **Targets**, select **Choose instances manually**.
         - Choose the instance created above.
     - In the **Specify schedule** section, perform the following steps:
         - For **Specify with**, select **CRON/Rate expression**.
         - For **CRON/Rate expression**, enter ```rate(1 day)```.
     - Choose **Create Association**.
-    
-1. Once the create association request completes, choose the association name to view details about the association. After the status of the association changes to **Success**, continue with the next steps.
 
     ![](/operational_excellence/media/state-association-details.png)
+    
+1. Once the create association request completes, choose the association name to view details about the association. After the status of the association changes to **Success**, continue with the next steps.
     
 ### Connect to the instance using Session Manager
 
