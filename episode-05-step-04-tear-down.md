@@ -2,7 +2,7 @@
 
 ![](media/ssm-aws-logo.png)
 
-To go back to the previous section, click here: [Perform a post-incident analysis](/episode-05-step-03-post-incident.md)
+To go back to the previous section, click here: [Perform a post-incident analysis](/episode-05-step-03-post-incident.md).
 
 **Congratulations!** You have completed the **Episode 5: Problem and Incident Management with Scale and Automation in an Enterprise Cloud Environment** workshop.
 
