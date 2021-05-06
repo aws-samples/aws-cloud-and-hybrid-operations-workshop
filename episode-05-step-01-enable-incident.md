@@ -19,9 +19,11 @@ To go back to the previous section, click here: [Episode 5: Problem and Incident
 
 ## Summary
 
-In this section you will (1)...
+AWS Systems Manager **Incident Manager** enables faster resolution of critical application availability and performance issues. It helps you prepare for incidents with automated response plans that bring the right people and information together. With Incident Manager, you can automatically take action when a critical issue is detected by an Amazon CloudWatch alarm or Amazon Eventbridge event. Incident Manager immediately executes pre-configured response plans to engage responders via SMS and phone calls, links designated chat channels using AWS Chatbot, and executes AWS Systems Manager Automation runbooks. Incident Manager helps you improve service reliability by suggesting post-incident action items, such as automating a runbook step or adding a new alarm, based on Amazon’s post-incident analysis template.
 
 ## Instructions
+
+In this section you will (1)...
 
 ### Create prerequisite resources using CloudFormation
 

@@ -4,7 +4,7 @@
 
 NOTE: You will incur charges as you go through either of these workshops, as they will exceed the [limits of AWS free tier](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-limits.html).
 
-To go back to the previous section, click here: [Prepare for incidents using Incident Manager](/episode-05-step-00-overview.md)
+To go back to the previous section, click here: [Prepare for incidents using Incident Manager](/episode-05-step-01-enable-incident.md)
 
 ## Table of Contents
 
@@ -46,6 +46,10 @@ We can now navigate back to the [CloudWatch alarm console](https://console.aws.a
 ### Review the incident in Incident Manager
 
 When the CloudWatch alarm changes to the ```Alarm``` state, an incident will automatically be created in Incident Manager using the response plan created in the first section [Prepare for incidents using Incident Manager](/episode-05-step-01-enable-incident.md)
+
+### Resolve the incident
+
+
 
 ## Next Section
 
