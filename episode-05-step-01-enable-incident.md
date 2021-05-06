@@ -23,11 +23,11 @@ AWS Systems Manager **Incident Manager** enables faster resolution of critical a
 
 ## Instructions
 
-In this section you will (1)...
+In this section you will create prerequisite resources using a CloudFormation template. You will then setup Incident Manager and prepare for a incident by creating contacts, escalation plans, and response plans.
 
 ### Create prerequisite resources using CloudFormation
 
-The [CloudFormation template](cfntemplates/ssm-workshop-resources-episode-05.yml) creates a test Amazon Linux 2 EC2 instance, IAM instance profile role for System Manager, an Amazon CloudWatch alarm for the instance to monitor CPU performance, an IAM role for Amazon EventBridge, and an EventBridge rule.
+The [CloudFormation template](cfntemplates/ssm-workshop-resources-episode-05.yml) creates a test Amazon Linux 2 EC2 instance, IAM instance profile role for System Manager, an Amazon CloudWatch alarm for the instance to monitor CPU performance, an IAM role for Amazon EventBridge, and an EventBridge rule to start the incident.
 
 ### Create test resources using CloudFormation
 

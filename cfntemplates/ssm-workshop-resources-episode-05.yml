@@ -198,7 +198,7 @@ Resources:
       MetricName: CPUUtilization
       Namespace: AWS/EC2
       Statistic: Average
-      Period: 300
+      Period: 60
       Threshold: 60
       Dimensions:
         - Name: InstanceId
