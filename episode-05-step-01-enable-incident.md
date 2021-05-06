@@ -31,13 +31,13 @@ The [CloudFormation template](cfntemplates/ssm-workshop-resources-episode-05.yml
 
 **To save the CloudFormation template locally**
     
-1. Open the CloudFormation template [ssm-workshop-resources-episode-04.yml](cfntemplates/ssm-workshop-resources-episode-04.yml).
+1. Open the CloudFormation template [ssm-workshop-resources-episode-05.yml](cfntemplates/ssm-workshop-resources-episode-05.yml).
 1. Choose **Raw**.
 
     ![](/media/github-raw.png)
 
 1. Open Notepad and copy the entire text.
-1. Save the file to your local machine as ```ssm-workshop-resources-episode-04.yml```.
+1. Save the file to your local machine as ```ssm-workshop-resources-episode-05.yml```.
 
 The CloudFormation template will create the resources depicted in the diagram below.
 
@@ -47,11 +47,11 @@ The CloudFormation template will create the resources depicted in the diagram be
     
 1. Open the [AWS CloudFormation console](https://console.aws.amazon.com/cloudformation/home).
 1. Choose **Create stack**.
-1. For **Specify template**, choose **Upload a template file**, choose the file you saved locally ```ssm-workshop-resources-episode-04.yml```, and choose **Next**.
+1. For **Specify template**, choose **Upload a template file**, choose the file you saved locally ```ssm-workshop-resources-episode-05.yml```, and choose **Next**.
 
     ![](/media/cloudformation-create-stack-ep04.png)
 
-1. For **Stack name**, enter ```ssm-workshop-ep04```, and choose **Next**.
+1. For **Stack name**, enter ```ssm-workshop-ep05```, and choose **Next**.
 1. On the **Configure stack options** page, leave the defaults and choose **Next**.
 1. On the **Review ssm-workshop-ep04** page, choose **I acknowledge that AWS CloudFormation might create IAM resources with custom names.**
 1. Choose **Create stack**.
