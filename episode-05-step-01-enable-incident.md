@@ -84,8 +84,8 @@ Escalation plans use **stages** where each stage lasts a defined number of minut
 1. On the **Get prepared** page, choose **Create escalation plan** in the **Escalation plans** section.
 1. On the **Create escalation plan** page, perform the following steps:
 
-    - For **Name**, enter ```SampleApp Performance Issues```.
-    - For **Alias**, enter ```sampleapp-performance```.
+    - For **Name**, enter ```workshop-escalation-plan```.
+    - For **Alias**, enter ```workshop-escalation```.
     - Before making modifications to **Stage 1**, choose **Add stage**.
     - For **Stage 1**, perform the following steps:
         - For **Stage duration** enter ```15```.
@@ -98,7 +98,6 @@ Escalation plans use **stages** where each stage lasts a defined number of minut
     
 ![](media/prepare-escalation-plan.png)
 
-
 ### Create a response plan
 
 Use response plans to plan for incidents and define how to respond to incidents. Response plans provide a template for when an incident occurs. This template includes information about who to engage, the expected severity of the event, automatic runbooks to initiate, and metrics to monitor. To create a response plan, use the following steps. 
@@ -109,7 +108,44 @@ Use response plans to plan for incidents and define how to respond to incidents.
 1. In the navigation pane, choose [**Incident Manager**](https://console.aws.amazon.com/systems-manager/incidents).
 1. Choose **Prepare**.
 1. On the **Get prepared** page, choose **Create response plan** in the **Response plan** section.
+1. For **Response plan details**, enter the following:
 
+    - For **Name** enter ```sampleapp-performance-issues-response-plan```.
+    - For **Display name**, enter ```SampleApp Performance Issues response plan```.
+    
+1. For **Incident creation details**, enter the following:
+
+    - For **Title**, enter ```[SampleApp] Performance Issues Detected```.
+    - Expand the **Additional options** section and enter the following:
+    
+        ```
+        ### :fire: :fire: :fire: **Incident in Progress** :fire: :fire: :fire:
+
+        ---
+
+        #### Summary of Incident
+
+        Sample App resources are experiencing performance issues currently. Escalating to the workshop contact users for immediate resolution.
+
+        #### Current Status
+
+        <Responder to fill out details here>
+        ```
+    
+    - For **Dedupe string**, enter ```SampleAppPerformance```.
+
+1. For the purpose of this workshop, skip the **Chat channel** section.
+1. For **Engagements**, choose **workshop-escalation-plan** from the drop-down list.
+1. For the **Runbook** section, perform the following steps:
+
+    - Choose **Clone runbook from template**.
+    - For **Runbook name** enter ```sampleapp-response-runbook```.
+    - For **Execution permissions**, choose **Create an IAM role using a template**.
+    - For **Role name**, enter ```IncidentManager-role```.
+
+1. Choose **Create response plan**.
+
+![](media/prepare-escalation-plan.png)
 
 ### Create an Amazon Event Bridge rule to monitor
 
