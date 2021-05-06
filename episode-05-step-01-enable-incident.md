@@ -4,6 +4,8 @@
 
 NOTE: You will incur charges as you go through either of these workshops, as they will exceed the [limits of AWS free tier](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-limits.html).
 
+To go back to the previous section, click here: [Episode 5: Problem and Incident Management with Scale and Automation in an Enterprise Cloud Environment](/episode-05-step-00-overview.md)
+
 ## Table of Contents
 
 - [Summary](#summary)
@@ -140,7 +142,7 @@ Use response plans to plan for incidents and define how to respond to incidents.
     - Expand the **Additional options** section and enter the following:
     
         ```
-        ### Performance Issue Detected on SampleApp
+        ### Performance Issue Detected on SampleApp 
 
         A performance spike has been detected based on specific CloudWatch alarms firing (see Metrics tab for details).
 
@@ -168,8 +170,10 @@ Use response plans to plan for incidents and define how to respond to incidents.
 
 ### Create an Amazon Event Bridge rule to monitor
 
+
+
 ## Next Section
 
 Click the link below to go to the next section.
 
-[![](media/codify-runbooks.png)](/episode-05-step-02-codify-runbooks.md)
+[![](media/episode-05-step-02-mitigate-respond.png)](/episode-05-step-02-mitigate-respond.md)
