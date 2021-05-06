@@ -6,77 +6,75 @@
 
 ## Tear down instructions
 
-**To disable AWS Config**
+### Delete the CloudFormation stack
 
-**To delete the Quick Setup Host Management**
+<details>
+<summary><b>To delete the CloudFormation stack</b></summary><p>
 
-1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
-1. In the navigation pane, choose [**Quick Setup**](https://console.aws.amazon.com/systems-manager/quick-setup).
-1. Choose the **Host Management** configuration created previously, choose **Actions**, and choose **Delete Configuration**.
+1. Open the AWS CloudFormation console at https://console.aws.amazon.com/cloudformation/home.
+1. In the navigation pane, choose **Stacks**.
+1. Choose the stack **ssm-workshop-ep05** and click **Delete**.
+1. Choose **Delete stack**.
 
-    1. Choose **Remove all OUs and Regions**.
-    1. This process will take a few moments to complete, once complete proceed with the next step.
+</p></details>
 
-1. Choose **Actions** and choose **Delete configuration**.
+### Delete Incident Manager resources
 
-    1. In the **Delete Configuration** window, type **delete**, and choose **Delete**
+#### Delete the Incident Manager replication set
 
-**To delete the resource data sync**
+<details>
+<summary><b>To delete the replication set</b></summary><p>
 
-1. Open the Resource Data Sync console at https://console.aws.amazon.com/systems-manager/managed-instances/resource-data-sync.
-1. Choose the resource data sync **YOURNAME-inventory-s3-sync** and choose **Delete**.
-1. In the **Delete resource data sync** window, choose **Delete resource data sync**. 
+1. Navigate to the [**Incident Manager console**](https://console.aws.amazon.com/systems-manager/incidents/home) and choose **Settings** from the left navigation bar.
+1. Select the region **US East (Ohio)** and choose **Delete**.
+1. Enter ```delete``` into the text box and choose **Delete**.
 
-**To delete the S3 bucket created for the resource data sync**
+</p></details>
 
-1. Open the Amazon S3 console at https://s3.console.aws.amazon.com/s3.
-1. Choose the S3 bucket **YOURFIRSTNAME-sm-workshop** and choose **Empty**.
+#### Delete Incident Manager contacts
 
-    1. On the **Empty bucket** page, type **permanently delete** to confirm deletion of the objects in the S3 bucket.
-    1. Choose **Empty**.
+<details>
+<summary><b>To delete contacts</b></summary><p>
 
-1. Choose the S3 bucket **YOURFIRSTNAME-sm-workshop** and choose **Delete**.
-    
-    1. On the **Delete bucket** page, type the name of the S3 bucket to confirm deletion of the S3 bucket.
-    1. Choose **Delete bucket**.
+1. Navigate to the [**Incident Manager console**](https://console.aws.amazon.com/systems-manager/incidents/home) and choose **Contacts** from the left navigation bar.
+1. Select one of the two contacts created during the workshop (```yourname``` or ```yourname-escalated```), choose **Delete**.
+1. Enter ```delete``` into the text box and choose **Delete**.
+1. Repeat the process for the second contact.
 
-**To delete the Command document**
+</p></details>
 
-1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
-1. In the navigation pane, choose [**Documents**](https://console.aws.amazon.com/systems-manager/documents).
-1. Choose the **Owned by me** tab.
-1. Choose the document **org-install-app**, choose **Actions**, and choose **Delete document**.
-1. In the **Delete document** window, choose **Delete**.
+#### Delete the response plan
 
-**To delete the Change calendar**
+<details>
+<summary><b>To delete the reponse plan</b></summary><p>
 
-1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
-1. In the navigation pane, choose [**Change Calendar**](https://console.aws.amazon.com/systems-manager/change-calendar/).
-1. Choose the calendar **YOURNAME-cal-open** and choose **Delete**.
-1. In the **Delete calendar** window, choose **Delete**.
+1. Navigate to the [**Incident Manager console**](https://console.aws.amazon.com/systems-manager/incidents/home) and choose **Response plans** from the left navigation bar.
+1. Select escalation plan created during the workshop (```sampleapp-performance-issues-response-plan```), choose **Delete**.
+1. Enter ```sampleapp-performance-issues-response-plan``` into the text box and choose **Delete**.
 
-**To delete the Automation document**
+</p></details>
 
-1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
-1. In the navigation pane, choose [**Documents**](https://console.aws.amazon.com/systems-manager/documents).
-1. Choose the **Owned by me** tab.
-1. Choose the document **yourname-stop-instances-check-calendar**, choose **Actions**, and choose **Delete document**.
-1. In the **Delete document** window, choose **Delete**.
+#### Delete the escalation plan
 
-**To delete the Parameter Store parameter**
+<details>
+<summary><b>To delete the escalation plan</b></summary><p>
 
-1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
-1. In the navigation pane, choose [**Parameter Store**](https://console.aws.amazon.com/systems-manager/parameters).
-1. Choose the parameter **CloudWatchAgent-AmazonLinux** and choose **Delete**.
-1. In the **Delete parameters** window, choose **Delete parameters**.
+1. Navigate to the [**Incident Manager console**](https://console.aws.amazon.com/systems-manager/incidents/home) and choose **Escalation plans** from the left navigation bar.
+1. Select the escalation plan created during the workshop (```workshop-escalation```), choose **Delete**.
+1. Enter ```delete``` into the text box and choose **Delete**.
 
-**To delete the State Manager associations**
+</p></details>
 
-1. Open the Systems Manager console at https://console.aws.amazon.com/systems-manager/.
-1. In the navigation pane, choose [**State Manager**](https://console.aws.amazon.com/systems-manager/state-manager).
-1. Choose the radio button next to the association named **CloudWatchAgent-Install** and choose **Delete**.
-1. In the **Delete association** window, choose **Delete**.
-1. Repeat this process for the association named **CloudWatchAgent-Configure**.
+### Delete the IAM role for Incident Manager
+
+<details>
+<summary><b>To delete the IAM role</b></summary><p>
+
+1. Open the AWS IAM console at https://console.aws.amazon.com/iam/home.
+1. In the navigation pane, choose **Roles**.
+1. Choose the role **IncidentManager-Role**, choose **Delete role**, and choose **Yes, delete**.
+
+</p></details>
 
 ## Next Section
 
