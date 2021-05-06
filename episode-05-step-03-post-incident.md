@@ -70,6 +70,8 @@ In this section you will perform a post-incident analysis.
     - For **Annotation**, enter ```Stress command interrupted``` and modify the time to match the peak of the graph.
     - Choose **Add Annotation**.
     - For **Annotation**, enter ```Incident resolved``` and modify the time to match the ending of the graph.
+    
+    ![](media/incident-annotations.png)
 
 1. Choose **Done**.
 
@@ -85,13 +87,15 @@ In this section you will perform a post-incident analysis.
 ### Review related items
 
 1. Choose the **Related items** tab to see resources related to the incident.
-1. Optionally edit the existing CloudWatch alarm resource or add/delete resources from this list.
+1. Optionally edit the existing CloudWatch alarm resource, or add/delete resources from this list.
 
 ### Review action items
 
 1. Choose the **Action items** tab to see recommendations and action items.
     
     - :exclamation: **Important**: The **Recommendations** section will automatically be populated based on the answers you provided in the incident questions. You can choose to then **Accept** or **Dismiss** recommended items to add or remove them from the **Action items** list.
+    
+    ![](media/incident-recommendations.png)
 
 1. In the **Recommendations** section, select **Add detection metric** and choose **Accept**.
 
