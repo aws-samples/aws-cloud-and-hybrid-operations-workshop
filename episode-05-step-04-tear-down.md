@@ -4,7 +4,7 @@
 
 To go back to the previous section, click here: [Perform a post-incident analysis](/episode-05-step-03-post-incident.md)
 
-**Congratulations!** You have completed the **Episode 5: Reactive ops and automation** workshop.
+**Congratulations!** You have completed the **Episode 5: Problem and Incident Management with Scale and Automation in an Enterprise Cloud Environment** workshop.
 
 ## Tear down instructions
 
@@ -77,9 +77,3 @@ To go back to the previous section, click here: [Perform a post-incident analysi
 1. Choose the role **IncidentManager-Role**, choose **Delete role**, and choose **Yes, delete**.
 
 </p></details>
-
-## Next Section
-
-Click the link below to go to the next episode, **Episode 2:  Enable compliance and monitoring: through config rules and conformance packs**.
-
-[![](media/.png)](/episode-02-step-01.md)
