@@ -166,7 +166,7 @@ Use response plans to plan for incidents and define how to respond to incidents.
 
 1. Choose **Create response plan**.
 
-![](media/prepare-escalation-plan.png)
+![](media/prepare-response-plan.png)
 
 ### Create an Amazon Event Bridge rule to monitor
 
