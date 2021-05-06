@@ -55,4 +55,4 @@ When the CloudWatch alarm changes to the ```Alarm``` state, an incident will aut
 
 Click the link below to go to the next section.
 
-[![](media/codify-runbooks.png)](/episode-01-step-02-codify-runbooks.md)
+[![](media/episode-05-step-03-post-incident.png)](/episode-05-step-03-post-incident.md)

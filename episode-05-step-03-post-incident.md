@@ -1,8 +1,10 @@
-# Enabling Inventory
+# Perform a post-incident analysis
 
 ![](media/ssm-aws-logo.png)
 
 NOTE: You will incur charges as you go through either of these workshops, as they will exceed the [limits of AWS free tier](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-limits.html).
+
+To go back to the previous section, click here: [Mitigate and respond to incidents](/episode-05-step-02-mitigate-respond.md)
 
 ## Table of Contents
 
