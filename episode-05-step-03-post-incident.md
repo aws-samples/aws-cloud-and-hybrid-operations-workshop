@@ -9,6 +9,10 @@ NOTE: You will incur charges as you go through either of these workshops, as the
 - [Summary](#summary)
 - [Instructions](#instructions)
     - [Create analysis for the incident](#create-analysis-for-the-incident)
+    - [Add metrics](#add-metrics)
+    - [Answer incident questions](#answer-incident-questions)
+    - [Review related items](#review-related-items)
+    - [Review action items](#review-action-items)
 - [Next Section](#next-section)
 
 ## Summary
@@ -31,7 +35,7 @@ In this section you will (1)
 
 1. In the **Create analysis** window, leave the default value for **Title**, choose **AWSIncidents-PostIncidentAnalysisTemplate**, and choose **Create**.
 
-#### Add metrics
+### Add metrics
 
 1. Choose the **Metrics** tab and choose **Add metrics**.
 1. First, modify the timeframe of the metric by choosing the edit button.
@@ -58,7 +62,7 @@ In this section you will (1)
 
 1. Choose **Done**.
 
-#### Answer incident questions
+### Answer incident questions
 
 1. Choose the **Incident questions** tab to review the questions provided by the **AWSIncidents-PostIncidentAnalysisTemplate** analysis template.
 1. Review each section briefly to see the list of pre-populated incident questions by the analysis template.
@@ -67,12 +71,12 @@ In this section you will (1)
 
     ![](media/incident-detection-question.png)
     
-#### Review the related items
+### Review related items
 
 1. Choose the **Related items** tab to see resources related to the incident.
 1. Optionally edit the existing CloudWatch alarm resource or add/delete resources from this list.
 
-#### Review action items
+### Review action items
 
 1. Choose the **Action items** tab to see recommendations and action items.
     
