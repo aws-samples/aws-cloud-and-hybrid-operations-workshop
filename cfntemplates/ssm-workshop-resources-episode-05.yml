@@ -246,6 +246,10 @@ Resources:
         - CloudWatch Alarm State Change
         resources:
         - !GetAtt CPUCloudWatchAlarm.Arn
+        detail:
+          state:
+            value:
+            - ALARM
       Name: sampleAppAlarmRule
       RoleArn: !GetAtt EventBridgeRole.Arn
       State: ENABLED
