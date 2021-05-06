@@ -1,154 +1,119 @@
-# Enabling Inventory
+# Perform a post-incident analysis
 
 ![](media/ssm-aws-logo.png)
 
 NOTE: You will incur charges as you go through either of these workshops, as they will exceed the [limits of AWS free tier](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-limits.html).
 
+To go back to the previous section, click here: [Mitigate and respond to incidents](/episode-05-step-02-mitigate-respond.md).
+
 ## Table of Contents
 
 - [Summary](#summary)
 - [Instructions](#instructions)
-    - [Enable AWS Config](#enable-aws-config)
-    - [Use Systems Manager Quick Setup](#use-systems-manager-quick-setup)
-    - [Create and configure an S3 bucket for resource data sync](#create-and-configure-an-s3-bucket-for-resource-data-sync)
-    - [Create a Resource Data Sync](#create-a-resource-data-sync)
+    - [Create analysis for the incident](#create-analysis-for-the-incident)
+    - [Add metrics](#add-metrics)
+    - [Answer incident questions](#answer-incident-questions)
+    - [Review related items](#review-related-items)
+    - [Review action items](#review-action-items)
 - [Next Section](#next-section)
 
 ## Summary
 
-In this section you will (1) enable AWS Config to monitor and record your AWS resource configurations,(2) use Systems Manager Quick Setup to enable Systems Manager best practices, (3) create an S3 bucket to store Systems Manager Inventory data, (4) create a resource data sync to send inventory data to the S3 bucket, and (5) use the detailed view tab for Inventory.
+**Post-incident analysis** guides you through identifying improvements to your incident response, including time to detection and mitigation. An analysis can also help you understand the root cause of the incidents. Incident Manager creates recommended action items to improve your incident response. 
+
+**Benefits of a post-incident analysis**
+
+- Improve incident response
+- Understand the root cause of the problem
+- Address root causes with deliverable action items
+- Analyze the impact of incidents
+- Capture and share learnings within an organization
 
 ## Instructions
 
-### Enable AWS Config
+In this section you will perform a post-incident analysis.
 
-AWS Config is a service that enables you to assess, audit, and evaluate the configurations of your AWS resources. Config continuously monitors and records your AWS resource configurations and allows you to automate the evaluation of recorded configurations against desired configurations. With Config, you can review changes in configurations and relationships between AWS resources, dive into detailed resource configuration histories, and determine your overall compliance against the configurations specified in your internal guidelines. This enables you to simplify compliance auditing, security analysis, change management, and operational troubleshooting.
-
-**To enable AWS Config**
-
-1. Open the [AWS Config console](https://console.aws.amazon.com/config/home).
-1. Select **1-click setup**.
-
-    ![](/media/aws-config-1-click.png)
-    
-1. Select **Confirm**.
-
-    ![](/media/aws-config-confirm.png)
-    
-1. Once AWS Config completes setting up, you will be brought to the AWS Config dashboard and can continue with the next steps.
-
-### Use Systems Manager Quick Setup
-
-Use AWS Systems Manager Quick Setup to quickly configure frequently used AWS services and features with recommended best practices. You can use Quick Setup in an individual account or across multiple accounts and AWS Regions by integrating with AWS Organizations. Quick Setup simplifies setting up services, including AWS Systems Manager, by automating common or recommended tasks. These tasks include, for example, creating required AWS Identity and Access Management (IAM) instance profile roles and setting up operational best practices, such as periodic patch scans and inventory collection.
-
-**To setup Quick Setup Host Management**
+### Create the analysis
 
 1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
-1. In the navigation pane, choose [**Quick Setup**](https://console.aws.amazon.com/systems-manager/quick-setup).
-1. Choose **Create**.
-1. Choose **Host Management** and choose **Next**.
+1. In the navigation pane, choose [**Incident Manager**](https://console.aws.amazon.com/systems-manager/incidents).
+1. In the **Resolved incidents** section, choose the incident created during this workshop and choose **View details**.
+1. Choose **Create analysis**.
 
-    - **Note**: If your AWS account is part of an AWS Organization and you are logged in to the root organization account, you also have an option to configure the Change Manager capability of Systems Manager.
+    ![](media/incident-create-analysis.png)
+
+1. In the **Create analysis** window, leave the default value for **Title**, choose **AWSIncidents-PostIncidentAnalysisTemplate**, and choose **Create**.
+
+    ![](media/incident-create-analysis-window.png)
+
+### Add metrics
+
+1. Choose the **Metrics** tab and choose **Add metrics**.
+1. First, modify the timeframe of the metric by choosing the edit button.
+
+    ![](media/incident-timeframe-edit.png)
+
+1. Choose the **Relative** tab, choose **2 hours**, choose **Apply**.
+
+    ![](media/incident-relative-timeframe.png)
+
+1. In the search bar, filter for ```Name: CPUUtiliziation```, choose the instance created by the CloudFormation stack, and choose **Next**.
+1. On the **Describe, annotate, and review** page, enter a title and description for the event such as:
+
+    - **Title**: ```Stress test command performed spiking CPU```.
+    - **Description**: ```A stress test command to simulate 70% CPU usage was performed to simulate an incident.```
     
-1. On the **Customize Host Management configuration options**, ensure the defaults for **Systems Manager** are enabled:
-
-    - Update Systems Manager (SSM) Agent every two weeks.
-    - Collect inventory from your instances every 30 minutes.
-    - Scan instances for missing patches daily.
-
-1. In the **Targets** section, choose **Current Region** and choose **All instances**.
-1. Choose **Create**.
-
-    ![](/media/quick-setup-create.png)
+1. Choose **Add Annotation** to add an annotation to the metric graph. You can add annotations to identify key timepoints during the incident.
     
-    - Systems Manager Quick Setup will begin deploying a CloudFormation stack which creates the corresponding resources to enable Systems Manager best practices. After a few moments, the **Host Management** page should refresh and you can see the **Configuration deployment status**, **Configuration association status**, and **Configuration details** for the **Quick Setup** deployment.
+    - For **Annotation**, enter ```Incident begins``` and modify the time to match the beginning of the graph.
+    - Choose **Add Annotation**.
+    - For **Annotation**, enter ```Stress command interrupted``` and modify the time to match the peak of the graph.
+    - Choose **Add Annotation**.
+    - For **Annotation**, enter ```Incident resolved``` and modify the time to match the ending of the graph.
+    
+    ![](media/incident-annotations.png)
 
-    ![](/media/quick-setup-host-mgmt.png)
+1. Choose **Done**.
 
-1. Choose the radio button for the current account and Region and choose **View details**.    
-1. On the **Association drilldown** page, you can review the **Association status**, **Instances per status**, **Schedule rate**, and **Last updated** timestamp for each association created by **Quick Setup**.
+### Answer incident questions
 
-    ![](/media/quick-setup-drilldown.png)
+1. Choose the **Incident questions** tab to review the questions provided by the **AWSIncidents-PostIncidentAnalysisTemplate** analysis template.
+1. Review each section briefly to see the list of pre-populated incident questions by the analysis template.
+1. In the **Detection** section, choose **Edit**.
+1. For the second question **ID2 What adjustments could be made to the metrics used for detection?**, choose **Add metric**, optionally enter a comment, and choose **Save**.
 
-### Create and configure an S3 bucket for resource data sync
+    ![](media/incident-detection-question.png)
+    
+### Review related items
 
-Now that AWS Config is enabled, you will create an S3 bucket to store Systems Manager inventory data collected from all of your managed instances. The resource data sync created in the next section  automatically updates the centralized data when new inventory data is collected.
+1. Choose the **Related items** tab to see resources related to the incident.
+1. Optionally edit the existing CloudWatch alarm resource, or add/delete resources from this list.
 
-**To create and configure an S3 bucket for resource data sync**
+### Review action items
 
-1. Navigate to the [S3](https://s3.console.aws.amazon.com/s3) console.
-1. Select **Create Bucket**.
-1. For the **Bucket name** enter: ```YOURFIRSTNAME-sm-workshop```.
-1. For **Region** select **US-East (N. Virginia)**.
-1. Keep all defaults including **Block all public access**.
-1. Choose **Create Bucket**.
-1. Select your newly created bucket to access the configuration details.
-1. Navigate to the **Permissions** tab.
-1. Navigate to **Bucket Policy** and select **Edit**.
-1. Copy and paste the policy below into the bucket policy, replace the two _ENTERYOURBUCKET_ entries below with your **Bucket Name**, and select **Save changes**.
+1. Choose the **Action items** tab to see recommendations and action items.
+    
+    - :exclamation: **Important**: The **Recommendations** section will automatically be populated based on the answers you provided in the incident questions. You can choose to then **Accept** or **Dismiss** recommended items to add or remove them from the **Action items** list.
+    
+    ![](media/incident-recommendations.png)
 
-```
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "SSMBucketPermissionsCheck",
-            "Effect": "Allow",
-            "Principal": {
-                "Service": "ssm.amazonaws.com"
-            },
-            "Action": "s3:GetBucketAcl",
-            "Resource": "arn:aws:s3:::ENTERYOURBUCKET"
-        },
-        {
-            "Sid": " SSMBucketDelivery",
-            "Effect": "Allow",
-            "Principal": {
-                "Service": "ssm.amazonaws.com"
-            },
-            "Action": "s3:PutObject",
-            "Resource": [
-                "arn:aws:s3:::ENTERYOURBUCKET/inventory/*"
-            ],
-            "Condition": {
-                "StringEquals": {
-                    "s3:x-amz-acl": "bucket-owner-full-control"
-                }
-            }
-        }
-    ]
-}
-```
+1. In the **Recommendations** section, select **Add detection metric** and choose **Accept**.
 
-![](/media/inventory-bucket-policy.png)
+    - :information_source: Action items added will automatically have a corresponding [OpsCenter OpsItem](https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html) created so the appropriate individuals can track the status of action items by working on the corresponding [OpsItem](https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-working-with-OpsItems.html).
+    
+    <details>
+    <summary><b>:information_source: Example auto-generated OpsItem</b></summary><p>
 
-### Create a Resource Data Sync
+    ![](media/incident-generated-opsitem.png)
 
-1. Now we will configure the **Resource Data Sync** which will ship the inventory data to an S3 bucket for further processing.
-1. Open the Resource Data Sync console at https://console.aws.amazon.com/systems-manager/managed-instances/resource-data-sync.
-1. Select **Create resource data sync**.
-1. Configuration details:
+    </p></details>
 
-    - For **Sync name** enter **YOURNAME-inventory-s3-sync**.
-    - For **Bucket name** enter the name of the bucket you created previously.
-    - For **Bucket prefix** enter **inventory**.
-    - For **Bucket region** enter **This region (us-east-1)**.
-    - For **KMS Key ARN - optional** leave this blank for the purpose of the workshop.
-    - Choose **Create**
-
-1. Switch back to your bucket and you can now see the data being synced.
-
-    ![](/media/image23.png)
-
-    - Now we have a clean data structure for inventory data.
-    - From here you can utilize Athena and Quicksight to gain deeper insight about the inventory data gathered. **Note:** For the purpose of this workshop, we will not be covering these steps.
-    - **User Guide Documentation:**
-        <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-datasync.html>
-
-    ![](/media/image24.png)
+Once you have completed reviewing the various tabs of an analysis, choose **Complete**. In the resulting **Checklist** window, you can view answers provided, timeline events added, metrics added, and action items recommended. Choose **Complete** to complete the analysis process.
 
 ## Next Section
 
-Click the link below to go to the next section.
+You have now completed the workshop **Episode 5: Problem and Incident Management with Scale and Automation in an Enterprise Cloud Environment**!
 
-[![](media/codify-runbooks.png)](/episode-01-step-02-codify-runbooks.md)
+Click the link below to go to the next section to tear down the resources created during the workshop.
+
+[![](media/tear-down.png)](/episode-05-step-04-tear-down.md)
