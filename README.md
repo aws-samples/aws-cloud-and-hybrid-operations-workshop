@@ -8,7 +8,7 @@ This is a set of workshops designed for architects and engineers through which y
 
 In episode one, you will learn how to use AWS services and best practices to set up an operational foundation to automate inventory and operational best practices for your cloud or hybrid-cloud applications and resources.
 
-#### [Episode 2: Enabling Compliance and Monitoring in an Enterprise Cloud Environment]()
+#### [Episode 2: Enabling Compliance and Monitoring in an Enterprise Cloud Environment](/episode-02-step-00-overview.md)
 
 In episode two, you will learn how to enable compliance automation and reporting.
 
