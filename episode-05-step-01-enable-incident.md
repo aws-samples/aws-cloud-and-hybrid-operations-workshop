@@ -41,7 +41,7 @@ The [CloudFormation template](cfntemplates/ssm-workshop-resources-episode-05.yml
 
 The CloudFormation template will create the resources depicted in the diagram below.
 
-![](/media/ep04-st01.png)
+![](/media/ep05-st01.png)
 
 **To create the workshop test resources**
     
@@ -49,7 +49,7 @@ The CloudFormation template will create the resources depicted in the diagram be
 1. Choose **Create stack**.
 1. For **Specify template**, choose **Upload a template file**, choose the file you saved locally ```ssm-workshop-resources-episode-05.yml```, and choose **Next**.
 
-    ![](/media/cloudformation-create-stack-ep04.png)
+    ![](/media/cloudformation-create-stack-ep05.png)
 
 1. For **Stack name**, enter ```ssm-workshop-ep05```, and choose **Next**.
 1. On the **Configure stack options** page, leave the defaults and choose **Next**.
