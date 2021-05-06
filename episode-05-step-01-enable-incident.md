@@ -32,6 +32,10 @@ In this section you will (1)...
 1. On the **Settings** page, choose **Add Region**.
 1. In the **Add Region** window, choose **US East (Ohio)** from the drop-down list, and choose **Add**.
 
+The replication set for Incident Manager will begin to be processed. You can continue to move forward with the next steps.
+
+![](media/configure-replication-set.png)
+
 ### Create contact details
 
 1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
@@ -54,6 +58,13 @@ In this section you will (1)...
     - For **Contact channel name**, choose **email** created above.
     - For **Engagement time (min)**, leave the default value ```0```.
     - :information_source: Outside of the workshop, you can specify varying engagement times on when contacts should be engaged as part of incidents that take occur.
+    
+    <details>
+    <summary><b>Example Contact information</b></summary><p>
+
+    ![](media/prepare-create-contact.png)
+
+    </p></details>
     
 1. Choose **Create**.
 
