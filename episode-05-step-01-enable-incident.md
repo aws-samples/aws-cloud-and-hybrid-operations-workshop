@@ -180,7 +180,7 @@ Use response plans to plan for incidents and define how to respond to incidents.
     - Expand the **Additional options** section and enter the following:
     
         ```
-        ### Performance Issue Detected on SampleApp 
+        ### 🚨🚨🚨 Performance Issue Detected on SampleApp 🚨🚨🚨
 
         A performance spike has been detected based on specific CloudWatch alarms firing (see Metrics tab for details).
 
