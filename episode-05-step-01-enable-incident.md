@@ -78,7 +78,16 @@ This step creates a contact and sends activation codes to the configured contact
 
 1. Choose **Finish**.
 
+**Repeat the process to create an escalated contact**
+
 Repeat the process above to create a second contact. For the second contact, specify **Name** and **Unique alias** as ```yourname-escalated``` and specify **Engagement time (min)** as ```15```.
+
+<details>
+<summary><b>:information_source: Example Escalated Contact information</b></summary><p>
+
+![](media/prepare-create-escalated-contact.png)
+
+</p></details>
 
 ### Create an escalation plan
 
@@ -127,20 +136,19 @@ Use response plans to plan for incidents and define how to respond to incidents.
 1. For **Incident creation details**, enter the following:
 
     - For **Title**, enter ```[SampleApp] Performance Issues Detected```.
+    - For **Impact**, choose **High**.
     - Expand the **Additional options** section and enter the following:
     
         ```
-        ### :fire: :fire: :fire: **Incident in Progress** :fire: :fire: :fire:
+        ### Performance Issue Detected on SampleApp
+
+        A performance spike has been detected based on specific CloudWatch alarms firing (see Metrics tab for details).
 
         ---
 
-        #### Summary of Incident
+        ### Summary of Incident
 
-        Sample App resources are experiencing performance issues currently. Escalating to the workshop contact users for immediate resolution.
-
-        #### Current Status
-
-        <Responder to fill out details here>
+        **Resolver**: *Edit this section to provide a high level summary for other responders who are viewing this Incident.*
         ```
     
     - For **Dedupe string**, enter ```SampleAppPerformance```.
