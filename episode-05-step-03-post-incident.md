@@ -27,14 +27,21 @@ In this section you will (1)
 
 1. Choose **Create analysis**.
 
-    [![](media/tear-down.png)](/incident-create-analysis.md)
+    ![](media/incident-create-analysis.png)
 
 1. In the **Create analysis** window, leave the default value for **Title**, choose **AWSIncidents-PostIncidentAnalysisTemplate**, and choose **Create**.
-
 
 #### Add metrics
 
 1. Choose the **Metrics** tab and choose **Add metrics**.
+1. First, modify the timeframe of the metric by choosing the edit button.
+
+    ![](media/incident-timeframe-edit.png)
+
+1. Choose the **Relative** tab, choose **2 hours**, choose **Apply**.
+
+    ![](media/incident-relative-timeframe.png)
+
 1. In the search bar, filter for ```Name: CPUUtiliziation```, choose the instance created by the CloudFormation stack, and choose **Next**.
 1. On the **Describe, annotate, and review** page, enter a title and description for the event such as:
 
@@ -54,6 +61,35 @@ In this section you will (1)
 #### Answer incident questions
 
 1. Choose the **Incident questions** tab to review the questions provided by the **AWSIncidents-PostIncidentAnalysisTemplate** analysis template.
+1. Review each section briefly to see the list of pre-populated incident questions by the analysis template.
+1. In the **Detection** section, choose **Edit**.
+1. For the second question **ID2 What adjustments could be made to the metrics used for detection?**, choose **Add metric**, optionally enter a comment, and choose **Save**.
+
+    ![](media/incident-detection-question.png)
+    
+#### Review the related items
+
+1. Choose the **Related items** tab to see resources related to the incident.
+1. Optionally edit the existing CloudWatch alarm resource or add/delete resources from this list.
+
+#### Review action items
+
+1. Choose the **Action items** tab to see recommendations and action items.
+    
+    - :exclamation: **Important**: The **Recommendations** section will automatically be populated based on the answers you provided in the incident questions. You can choose to then **Accept** or **Dismiss** recommended items to add or remove them from the **Action items** list.
+
+1. In the **Recommendations** section, select **Add detection metric** and choose **Accept**.
+
+    - :information_source: Action items added will automatically have a corresponding [OpsCenter OpsItem](https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter.html) created so the appropriate individuals can track the status of action items by working on the corresponding [OpsItem](https://docs.aws.amazon.com/systems-manager/latest/userguide/OpsCenter-working-with-OpsItems.html).
+    
+    <details>
+    <summary><b>:information_source: Example auto-generated OpsItem</b></summary><p>
+
+    ![](media/incident-generated-opsitem.png)
+
+    </p></details>
+
+Once you have completed reviewing the various tabs of an analysis, choose **Complete**. In the resulting **Checklist** window, you can view answers provided, timeline events added, metrics added, and action items recommended. Choose **Complete** to complete the analysis process.
 
 ## Next Section
 
