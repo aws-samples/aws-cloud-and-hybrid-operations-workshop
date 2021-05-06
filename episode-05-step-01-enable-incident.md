@@ -170,6 +170,7 @@ Use response plans to plan for incidents and define how to respond to incidents.
 1. For **Response plan details**, enter the following:
 
     - For **Name** enter ```sampleapp-performance-issues-response-plan```.
+        - :exclamation: **Important**: The name of the response plan is case-sensitive and must match exactly.
     - For **Display name**, enter ```SampleApp Performance Issues response plan```.
     
 1. For **Incident creation details**, enter the following:

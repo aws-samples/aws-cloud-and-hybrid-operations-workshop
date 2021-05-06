@@ -251,5 +251,5 @@ Resources:
       State: ENABLED
       Targets: 
         - Id: TestName
-          Arn: arn:aws:ssm-incidents::030124216594:response-plan/TestResponsePlan
+          Arn: !Join [ '', ['arn:aws:ssm-incidents::', !Ref 'AWS::AccountId', ':response-plan/sampleapp-performance-issues-response-plan'] ]
           RoleArn: !GetAtt EventBridgeRole.Arn
