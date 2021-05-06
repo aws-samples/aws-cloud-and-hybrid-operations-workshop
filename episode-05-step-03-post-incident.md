@@ -19,9 +19,19 @@ To go back to the previous section, click here: [Mitigate and respond to inciden
 
 ## Summary
 
-In this section you will (1) 
+**Post-incident analysis** guides you through identifying improvements to your incident response, including time to detection and mitigation. An analysis can also help you understand the root cause of the incidents. Incident Manager creates recommended action items to improve your incident response. 
+
+**Benefits of a post-incident analysis**
+
+- Improve incident response
+- Understand the root cause of the problem
+- Address root causes with deliverable action items
+- Analyze the impact of incidents
+- Capture and share learnings within an organization
 
 ## Instructions
+
+In this section you will perform a post-incident analysis.
 
 ### Create the analysis
 
