@@ -4,7 +4,7 @@
 
 NOTE: You will incur charges as you go through either of these workshops, as they will exceed the [limits of AWS free tier](http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/free-tier-limits.html).
 
-To go back to the previous section, click here: [Episode 5: Problem and Incident Management with Scale and Automation in an Enterprise Cloud Environment](/episode-05-step-00-overview.md)
+To go back to the previous section, click here: [Episode 5: Problem and Incident Management with Scale and Automation in an Enterprise Cloud Environment](/episode-05-step-00-overview.md).
 
 ## Table of Contents
 
@@ -58,7 +58,7 @@ The CloudFormation template will create the resources depicted in the diagram be
 1. On the **Review ssm-workshop-ep04** page, choose **I acknowledge that AWS CloudFormation might create IAM resources with custom names.**
 1. Choose **Create stack**.
 
-CloudFormation will begin provisioning the resources specified within the CloudFormation template and once complete, you will have one Windows EC2 instance to work with during this workshop. You can also use the refresh button to see the latest events related to the CloudFormation stack. Once the status of the CloudFormation stack changes to ```CREATE_COMPLETE```, you can proceed with the next steps. This process should complete within 7 minutes.
+CloudFormation will begin provisioning the resources specified within the CloudFormation template and once complete, you will have one Amazon Linux EC2 instance, an Amazon CloudWatch alarm, and an Amazon EventBridge rule to work with during this workshop. You can also use the refresh button to see the latest events related to the CloudFormation stack. Once the status of the CloudFormation stack changes to ```CREATE_COMPLETE```, you can proceed with the next steps. This process should complete within 7 minutes.
 
 ### Configure Incident Manager to replicate data
 
