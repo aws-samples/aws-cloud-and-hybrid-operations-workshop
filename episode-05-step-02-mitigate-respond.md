@@ -96,18 +96,54 @@ When the CloudWatch alarm changes to the ```Alarm``` state, an incident will aut
     
     - For **Title**, enter ```SampleApp Instance ID```
     - For **Type**, choose **Other**.
-    - For **Detail**, 
-
-
+    - For **Detail**, enter the following URL (**Important**: replace [INSTANCE-ID] at the end of the URL with your instance ID)
+        
+        ```
+        https://console.aws.amazon.com/ec2/home?region=us-east-1#Instances:instanceState=running;search=[INSTANCE-ID]
+        ```
+    
+    - Choose **Add**.
+    
+1. Choose the **Timeline** tab to see the additional events populated which specify when metrics and related items were added to the incident.
+1. Navigate back to the **Runbook** tab.
 1. Review the steps specified within the **Diagnosis** step and when prepared, choose **Resume** to move to step 3: **Mitigation**.
+1. Choose the refresh button to see the new step.
 
-### Review the timeline
+### Remediate the issue
 
-1. Choose the **Timeline** 
+In this particular simulation, we are aware that the ```stress-ng``` package running on our SampleApp instance is causing problems with CPU performance. To remediate the issue, we will leverage Systems Manager Automation to reboot the EC2 instance clearing the command and bring CPU performance back to expected levels. 
+
+1. Open the Systems Manager console at https://console.aws.amazon.com/systems-manager/.
+1. In the navigation pane, choose [**Automation**](https://console.aws.amazon.com/systems-manager/automation).
+1. Choose **Execute automation**.
+1. In the **Automation document** section, search for ```AWS-RestartEC2Instance```.
+1. Choose **AWS-RestartEC2Instance** and choose **Next**.
+1. In the **Input parameters** section, enable **Show interactive instance picker** to select the SampleApp EC2 instance.
+1. Choose **Execute**.
+
+Automation will then restart the EC2 instance. Once the instance starts back up, the CPU usage will return to normal and the incident will be resolved. Proceed with the next steps once the status of the Automation workflow changes to ```Success```.
+
+1. Navigate back to the incident in Incident Manager and choose the **Metrics** tab to confirm the CPU CloudWatch alarm has returned to an ```OK``` state.
+1. Choose the **Timeline** tab to add a note to the incident that a restart command was issued using Automation.
+1. Choose **Add**.
+1. In the **Add custom event** window, enter the description (optionally adding the Automation execution ID):
+
+    ```
+    Issued restart EC2 command using Automation
+    Execution ID: b8be5bdd-6c93-4930-b339-aeb986767761
+    ```
+    
+    ![](/media/incident-custom-event.png)
+    
+1. Choose **Add**.
 
 ### Resolve the incident
 
+Now that the issue has been remediated, you can resolve the incident.
 
+1. Choose **Resolve incident**.
+
+In the next section, you will create an analysis for this incident to improve processes going forward.
 
 ## Next Section
 
