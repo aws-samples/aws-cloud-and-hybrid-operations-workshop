@@ -60,7 +60,7 @@ The replication set for Incident Manager will begin to be processed. You can con
     - :information_source: Outside of the workshop, you can specify varying engagement times on when contacts should be engaged as part of incidents that take occur.
     
     <details>
-    <summary><b>Example Contact information</b></summary><p>
+    <summary><b>:information_source: Example Contact information</b></summary><p>
 
     ![](media/prepare-create-contact.png)
 
