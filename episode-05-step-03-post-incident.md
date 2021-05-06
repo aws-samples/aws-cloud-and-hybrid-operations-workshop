@@ -38,14 +38,13 @@ In this section you will perform a post-incident analysis.
 1. Open the AWS Systems Manager console at https://console.aws.amazon.com/systems-manager/.
 1. In the navigation pane, choose [**Incident Manager**](https://console.aws.amazon.com/systems-manager/incidents).
 1. In the **Resolved incidents** section, choose the incident created during this workshop and choose **View details**.
-    
-    - **Note**: The name should be similar to ```[SampleApp] CPU Issue [i-123456789012-CPU-Spike]```.
-
 1. Choose **Create analysis**.
 
     ![](media/incident-create-analysis.png)
 
 1. In the **Create analysis** window, leave the default value for **Title**, choose **AWSIncidents-PostIncidentAnalysisTemplate**, and choose **Create**.
+
+    ![](media/incident-create-analysis-window.png)
 
 ### Add metrics
 
