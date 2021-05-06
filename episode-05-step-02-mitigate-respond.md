@@ -10,7 +10,10 @@ To go back to the previous section, click here: [Prepare for incidents using Inc
 
 - [Summary](#summary)
 - [Instructions](#instructions)
-
+    - [Simulate an incident](#simulate-an-incident)
+    - [Review the incident](#review-the-incident)
+    - [Remediate the issue](#remediate-the-issue)
+    - [Add a custom timeline event](#add-a-custom-timeline-event)
 - [Next Section](#next-section)
 
 ## Summary
@@ -19,9 +22,9 @@ In this section you will (1)
 
 ## Instructions
 
-### Trigger the incident
+### Simulate an incident
 
-To trigger the CloudWatch alarm for testing purposes we will use the ```stress-ng``` Linux package via Session Manager.
+To simulate an incident, you will use the ```stress-ng``` Linux package via Session Manager which will cause the Amazon CloudWatch alarm to go into an ```ALARM``` state, creating an incident. 
 
 1. Open the Systems Manager console at https://console.aws.amazon.com/systems-manager/.
 1. In the navigation pane, choose [**Session Manager**](https://console.aws.amazon.com/systems-manager/session-manager/sessions).
@@ -41,11 +44,66 @@ To trigger the CloudWatch alarm for testing purposes we will use the ```stress-n
 
 We can now navigate back to the [CloudWatch alarm console](https://console.aws.amazon.com/cloudwatch/home?region=us-east-1#alarmsV2:alarm/?), choose the CPU spike alarm, and momentairly see the CPU usage begin to spike.
 
-![](/operational_excellence/media/alarm-in-alarm-state.png)
+![](/media/alarm-in-alarm-state.png)
 
 ### Review the incident in Incident Manager
 
 When the CloudWatch alarm changes to the ```Alarm``` state, an incident will automatically be created in Incident Manager using the response plan created in the first section [Prepare for incidents using Incident Manager](/episode-05-step-01-enable-incident.md)
+
+1. Open the Systems Manager console at https://console.aws.amazon.com/systems-manager/.
+1. In the navigation pane, choose [**Incident Manager**](https://console.aws.amazon.com/systems-manager/incidents/home).
+1. Open the incident created, ```[SampleApp] Performance Issues Detected [i-123456789012-CPU-Spike]```.
+1. Review the **Summary** details which contains the description provided when creating the response plan and data provided by Amazon EventBridge with details about the event.
+
+    - Optionally choose **Edit** to modify the summary details.
+
+1. Review the **Recent timeline events**, to see when the event started and the cause.
+1. The **Current runbook step** shows where you are in the overall procedure of the defined runbook.
+
+### Review the runbook
+
+1. Choose the **Runbook** tab to see the appropriate steps defined by the response plan.
+1. The first step is to **Triage** the incident by using the **Metrics** tab.
+
+### Triage and diagnose the issue
+
+1. Choose the **Metrics** tab to review the metrics of the CloudWatch alarm which started the incident.
+
+    - You can optionally modify the timeframe.
+
+1. Choose **Add**.
+1. In the **Add metrics** window, choose **From CloudWatch metrics**.
+1. Copy and paste the following JSON metric source code to display the network IN/OUT on the SampleApp instance.
+
+    - :exclamation: **Important** Replace ```[INSTANCE-ID]``` with the EC2 instance ID created by CloudFormation.
+
+    ```
+    {
+        "view": "timeSeries",
+        "stacked": false,
+        "region": "us-east-1",
+        "metrics": [
+            [ "AWS/EC2", "NetworkIn", "InstanceId", "[INSTANCE-ID]" ],
+            [ ".", "NetworkOut", ".", "." ]
+        ]
+    }
+    ```
+
+1. Navigate back to the **Runbook** tab and choose **Resume** to proceed to step 2: **Diagnosis**.
+1. Choose the **Related items** tab to see the ARN of the CloudWatch alarm.
+1. Choose **Add**.
+1. In the **Add related item** windowm, enter the following details:
+    
+    - For **Title**, enter ```SampleApp Instance ID```
+    - For **Type**, choose **Other**.
+    - For **Detail**, 
+
+
+1. Review the steps specified within the **Diagnosis** step and when prepared, choose **Resume** to move to step 3: **Mitigation**.
+
+### Review the timeline
+
+1. Choose the **Timeline** 
 
 ### Resolve the incident
 
