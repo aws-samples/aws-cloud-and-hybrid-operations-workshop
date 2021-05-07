@@ -206,9 +206,6 @@ Resources:
       Dimensions:
         - Name: InstanceId
           Value: !Ref LinuxEc2InstanceOne
-      Tags:
-      - Key: SSMWorkshop
-        Value: 'true'
 
   #-------------------------------------------------
   # IAM role for the EventBridge rule
@@ -258,7 +255,7 @@ Resources:
             - ALARM
       Name: sampleAppAlarmRule
       RoleArn: !GetAtt EventBridgeRole.Arn
-      State: ENABLED
+      State: DISABLED
       Targets: 
         - Id: TestName
           Arn: !Join [ '', ['arn:aws:ssm-incidents::', !Ref 'AWS::AccountId', ':response-plan/sampleapp-performance-issues-response-plan'] ]

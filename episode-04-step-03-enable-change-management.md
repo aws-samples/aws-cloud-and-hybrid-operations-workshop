@@ -24,7 +24,7 @@ To go back to the previous section, click here: [Schedule and Automate Patching 
 
 ## Summary
 
-In this section you will enable [AWS Systems Manager Change Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/change-manager.html), create a change template, create a change request, approve a change request, and review the results of a change request.
+In this section you will enable [AWS Systems Manager Change Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/change-manager.html), create a change template, approve a change template, create a change request, approve a change request, and review the results of a change request.
 
 :exclamation: **Important**: For the purpose of this workshop, you will set up Change Manager for a local account. Outside of the workshop, if you use AWS Organizations, you can configure Change Manager to manage changes across multiple AWS accounts and across AWS Regions using a single *delegated administrator* account.
 
@@ -127,13 +127,7 @@ Perform the task in this procedure the first time you access Change Manager. You
 1. For **Amazon SNS topic for approval notifications**, choose **Select an existing Amazon SNS topic**, choose ```ssm-workshop-sns``` from the drop-down list, and choose **Add notification**.
 1. Skip the **Monitoring** section.
 1. For **Notifications**, choose **Select an existing Amazon SNS topic**, choose ```ssm-workshop-sns``` from the drop-down list, and choose **Add notification**.
-    
-    - The SNS Topic ARN should be similar to the following: ```arn:aws:sns:us-east-1:1234567890:ssm-workshop-sns```.
-
 1. Select **Save and preview**.
-
-    ![](/media/change-create-template.png)
-    
 1. Select **Submit for review**.
 1. (Optionally) Choose the **Templates** tab, choose the **RestartEC2InstanceTemplate** template, and choose **View details**. You can then navigate between the various tabs to review the template details, tasks included, change requests created using the template, and the version history of the template.
 
