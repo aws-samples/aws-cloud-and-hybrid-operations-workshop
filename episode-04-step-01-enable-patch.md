@@ -218,7 +218,7 @@ Depending on the release date of the AMI used, the test instances may not be mis
 
 1. (Optional) To view the association, choose the **Association ID** link.
 
-    ![](/media/patch-now-results.png)
+    ![](/media/patch-now-results-install.png)
 
 1. (Optional) To view the command log details, choose the **Execution ID** link and then choose **Output** for one of the targeted managed instances. This will bring you to the corresponding Run Command output results for the **Scan** operation.
     
