@@ -10,7 +10,7 @@ To go back to the previous section, click here: [Mitigate and respond to inciden
 
 - [Summary](#summary)
 - [Instructions](#instructions)
-    - [Create analysis for the incident](#create-analysis-for-the-incident)
+    - [Create the analysis](#create-the-analysis)
     - [Add metrics](#add-metrics)
     - [Answer incident questions](#answer-incident-questions)
     - [Review related items](#review-related-items)
@@ -31,7 +31,7 @@ To go back to the previous section, click here: [Mitigate and respond to inciden
 
 ## Instructions
 
-In this section you will perform a post-incident analysis.
+In this section you will perform a post-incident analysis following the resolution of the incident.
 
 ### Create the analysis
 
