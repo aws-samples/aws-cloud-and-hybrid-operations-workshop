@@ -192,6 +192,9 @@ Resources:
     Properties:
       AlarmDescription: Monitor for CPU usage on SampleApp instance.
       AlarmName: !Join [ '-', [!Ref LinuxEc2InstanceOne, 'CPU-Spike'] ]
+      ActionsEnabled: true
+      AlarmActions:
+      - !Join [ '', ['arn:aws:ssm-incidents::', !Ref 'AWS::AccountId', ':response-plan/sampleapp-performance-issues-response-plan'] ]
       ComparisonOperator: GreaterThanThreshold
       DatapointsToAlarm: 1
       EvaluationPeriods: 1
@@ -203,6 +206,9 @@ Resources:
       Dimensions:
         - Name: InstanceId
           Value: !Ref LinuxEc2InstanceOne
+      Tags:
+      - Key: SSMWorkshop
+        Value: 'true'
 
   #-------------------------------------------------
   # IAM role for the EventBridge rule
