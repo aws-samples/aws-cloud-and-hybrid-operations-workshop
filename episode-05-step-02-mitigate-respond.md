@@ -11,14 +11,16 @@ To go back to the previous section, click here: [Prepare for incidents using Inc
 - [Summary](#summary)
 - [Instructions](#instructions)
     - [Simulate an incident](#simulate-an-incident)
-    - [Review the incident](#review-the-incident)
+    - [Review the incident in Incident Manager](#review-the-incident-in-incident-manager)
+    - [Review the runbook](#review-the-runbook)
+    - [Triage and diagnose the issue](#triage-and-diagnose-the-issue)
     - [Remediate the issue](#remediate-the-issue)
-    - [Add a custom timeline event](#add-a-custom-timeline-event)
+    - [Resolve the incident](#resolve-the-incident)
 - [Next Section](#next-section)
 
 ## Summary
 
-In this section you will (1)
+In this section you will trigger the CPU alarm using the ```stress-ng``` package on the test SampleApp instance. This will start the incident in Incident Manager which you will then review.
 
 ## Instructions
 

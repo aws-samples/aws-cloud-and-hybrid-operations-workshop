@@ -10,11 +10,11 @@ To go back to the previous section, click here: [Episode 5: Problem and Incident
 
 - [Summary](#summary)
 - [Instructions](#instructions)
+    - [Create prerequisite resources using CloudFormation](#create-prerequisite-resources-using-cloudformation)
     - [Configure Incident Manager to replicate data](#configure-incident-manager-to-replicate-data)
     - [Create contact details](#create-contact-details)
     - [Create an escalation plan](#create-an-escalation-plan)
     - [Create a response plan](#create-a-response-plan)
-    - [Create an Amazon Event Bridge rule to monitor](#create-an-amazon-event-bridge-rule-to-monitor)
 - [Next Section](#next-section)
 
 ## Summary
@@ -28,8 +28,6 @@ In this section you will create prerequisite resources using a CloudFormation te
 ### Create prerequisite resources using CloudFormation
 
 The [CloudFormation template](cfntemplates/ssm-workshop-resources-episode-05.yml) creates a test Amazon Linux 2 EC2 instance, IAM instance profile role for System Manager, an Amazon CloudWatch alarm for the instance to monitor CPU performance, an IAM role for Amazon EventBridge, and an EventBridge rule to start the incident.
-
-### Create test resources using CloudFormation
 
 **To save the CloudFormation template locally**
     
@@ -177,7 +175,7 @@ Use response plans to plan for incidents and define how to respond to incidents.
 
     - For **Title**, enter ```[SampleApp] Performance Issues Detected```.
     - For **Impact**, choose **High**.
-    - Expand the **Additional options** section and enter the following:
+    - For **Summary** enter the following:
     
         ```
         ### 🚨🚨🚨 Performance Issue Detected on SampleApp 🚨🚨🚨
