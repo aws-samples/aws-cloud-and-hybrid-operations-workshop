@@ -18,14 +18,14 @@
 
 #------------------------------------------------------------------------------
 #
-# Template: opsmgmt-deploy-test-instances.yaml
-# Purpose:  CloudFormation template to deploy test instances for patching using multi-account/multi-Region Automation
+# Template: ssm-workshop-resources-episode-04.yaml
+# Purpose:  CloudFormation template to deploy test resources for the fourth episode of the virtual workshop.
 #
 #
 #------------------------------------------------------------------------------
 
 AWSTemplateFormatVersion: '2010-09-09'
-Description: AWS CloudFormation template to launch instances for Inventory, Patching, and Compliance demo environment for AWS Systems Manager
+Description: AWS CloudFormation template to deploy test resources for the fourth episode of the virtual workshop.
 
 #-----------------------------------------------------------
 # Parameters

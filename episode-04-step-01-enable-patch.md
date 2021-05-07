@@ -96,14 +96,13 @@ Patch Manager uses **patch baselines**, which include rules for auto-approving p
         - Leave the **Auto approval delay** at its default of **0 days**.
         - For **Compliance reporting - optional**, choose **Medium**.
         - Choose **Include non-security updates**.
-    - **Note** If an approved patch is reported as missing, the option you select in **Compliance reporting**, such as ```Critical``` or ```Medium```, determines the severity of the compliance violation reported in System Manager **Compliance**.
+    - **Note**: If an approved patch is reported as missing, the option you select in **Compliance reporting**, such as ```Critical``` or ```Medium```, determines the severity of the compliance violation reported in System Manager **Compliance**.
     
     ![](/media/patch-create-baseline.png)
 
 1. In the **Patch exceptions** section, perform the following steps:
 
     - In the **Approved patches** text box, enter ```kernel*```.
-    - In the **Approved patches compliance level - optional** section, choose **High** from the drop-down list.
     - Choose **Approved patches include non-security updates**.
     
     ![](/media/patch-add-exceptions.png)
@@ -148,16 +147,6 @@ You create a patch group by using resource tags. Unlike other tagging scenarios 
     - **Key:** ```Patch Group```
     - **Value:** ```Web```
     ![](/media/ec2-tags-patch-group-web.png)
-
-1. Navigate back to [Systems Manager \> Patch Manager \> Patch Baselines](https://console.aws.amazon.com/systems-manager/patch-manager/baselines).
-1. Select the second page of results and then select the Baseline you created in the previous part (```AmazonLinux2SecAndNonSecBaseline```).
-1. Choose **Actions** and **Modify patch groups**.
-
-    ![](/media/patch-modify-group.png)
-
-1. For **Patch groups**, enter ```App```, choose **Add**, and choose **Close**.
-
-    ![](/media/patch-add-group.png)
 
 From here you can utilize the AWS provided Command document **AWS-RunPatchBaseline** to scan or patch your instances.
 
