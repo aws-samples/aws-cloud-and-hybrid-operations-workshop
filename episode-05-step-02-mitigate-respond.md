@@ -92,7 +92,7 @@ When the CloudWatch alarm changes to the ```Alarm``` state, an incident will aut
     ```
 
 1. Navigate back to the **Runbook** tab and choose **Resume** to proceed to step 2: **Diagnosis**.
-1. Choose the **Related items** tab to see the ARN of the CloudWatch alarm.
+1. Choose the **Related items** tab.
 1. Choose **Add**.
 1. In the **Add related item** windowm, enter the following details:
     
