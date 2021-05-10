@@ -132,4 +132,4 @@ From the AWS Management Console, you can launch AWS CloudShell by choosing the f
 
 Click the link below to go to the next episode, **Episode 3: Create Actionable Visibility for Enterprise Cloud Applications and Resources**.
 
-[![](media/.png)](/episode-03-step-00.md)
+[![](media/episode-03-step-00-overview.png)](/episode-03-step-00-overview.md)
