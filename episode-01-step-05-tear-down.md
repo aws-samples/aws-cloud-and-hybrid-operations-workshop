@@ -179,6 +179,6 @@ From the AWS Management Console, you can launch AWS CloudShell by choosing the f
 
 ## Next Section
 
-Click the link below to go to the next episode, **Episode 2:  Enable compliance and monitoring: through config rules and conformance packs**.
+Click the link below to go to the next episode, **Episode 2: Enabling Compliance and Monitoring in an Enterprise Cloud Environment**.
 
-[![](media/.png)](/episode-02-step-01.md)
+[![](media/episode-02-step-00-overview.png)](/episode-02-step-00-overview.md)
