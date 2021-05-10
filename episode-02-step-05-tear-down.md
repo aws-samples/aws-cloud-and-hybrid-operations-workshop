@@ -97,7 +97,7 @@ From the AWS Management Console, you can launch AWS CloudShell by choosing the f
     1. On the **Empty bucket** page, type **permanently delete** to confirm deletion of the objects in the S3 bucket.
     1. Choose **Empty**.
 
-1. Choose the S3 bucket created by AWS Config Setup. The name will be similar to ```config-bucket-123456789012``.
+1. Choose the S3 bucket created by AWS Config Setup. The name will be similar to ```config-bucket-123456789012```.
 1. Choose **Delete**.
     
     1. On the **Delete bucket** page, type the name of the S3 bucket to confirm deletion of the S3 bucket.
@@ -130,6 +130,6 @@ From the AWS Management Console, you can launch AWS CloudShell by choosing the f
 
 ## Next Section
 
-Click the link below to go to the next episode, **Episode 2:  Enable compliance and monitoring: through config rules and conformance packs**.
+Click the link below to go to the next episode, **Episode 3: Create Actionable Visibility for Enterprise Cloud Applications and Resources**.
 
 [![](media/.png)](/episode-03-step-00.md)
