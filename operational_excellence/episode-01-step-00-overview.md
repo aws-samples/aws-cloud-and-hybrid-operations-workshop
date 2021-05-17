@@ -1,4 +1,4 @@
-# Episode 01: Using Amazon Systems Manager as a Foundation for Operationally Excellent Workloads
+# Episode 01: Using AWS Systems Manager as a Foundation for Operationally Excellent Workloads
 
 ![](/operational_excellence/media/ssm-aws-logo.png)
 
