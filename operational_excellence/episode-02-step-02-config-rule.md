@@ -93,4 +93,4 @@ Now return to the Config rule you created, click into the rule, and click Re-eva
 
 Click the link below to go to the next section.
 
-[![](media/config-conformancepack.png)](/episode-02-step-03-config-conformancepack.md)
+[![](media/config-conformancepack.png)](/operational_excellence/episode-02-step-03-config-conformancepack.md)
