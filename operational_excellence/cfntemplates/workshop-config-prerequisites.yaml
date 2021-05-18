@@ -1,0 +1,113 @@
+Resources: 
+  ConformancePackServiceLinkedRole:
+    Type: AWS::IAM::ServiceLinkedRole
+    Properties: 
+      AWSServiceName: config-conforms.amazonaws.com
+      Description: Service Linked Role for AWS Config Conforms
+
+  S3OperationsAutomationsExecutionRole: 
+    Type: "AWS::IAM::Role"
+    Properties: 
+      RoleName: S3OperationsAutomationsExecutionRole
+      AssumeRolePolicyDocument: 
+        Version: "2012-10-17"
+        Statement: 
+          - 
+            Effect: "Allow"
+            Principal: 
+              Service: 
+                - "ssm.amazonaws.com"
+            Action: 
+              - "sts:AssumeRole"
+      Path: "/"
+  
+  S3OperationsAutomationExecutionRolePolicies: 
+    Type: "AWS::IAM::Policy"
+    Properties: 
+      PolicyName: "S3OperationsAutomationsExecutionRolePolicy"
+      PolicyDocument: 
+        Version: "2012-10-17"
+        Statement: 
+          - 
+            Effect: "Allow"
+            Action: "s3:*"
+            Resource: "*"
+      Roles: 
+        - 
+          Ref: "S3OperationsAutomationsExecutionRole"
+  SSMConfigEC2LabRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: WorkshopEC2SSMRole
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+          Principal:
+            Service: ec2.amazonaws.com
+          Action: sts:AssumeRole
+      ManagedPolicyArns:
+      - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM
+  SSMConfigEC2LabProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref 'SSMConfigEC2LabRole'
+      Path: /
+      InstanceProfileName: WorkshopEC2SSMRole
+  S3LoggingBucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Sub 's3serversideloggingbucket-${AWS::AccountId}'
+      AccessControl : "LogDeliveryWrite"
+
+  ConformancePackDeliveryBucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Sub 'awsconfigconforms-delivery-bucket-${AWS::AccountId}'
+
+  ConformancePackDeliveryBucketPolicy:
+    DependsOn: ConformancePackServiceLinkedRole
+    Type: AWS::S3::BucketPolicy
+    Properties: 
+      Bucket: 
+        Ref: "ConformancePackDeliveryBucket"
+      PolicyDocument: 
+        Version: '2012-10-17'
+        Statement:
+          -
+            Sid: AWSConfigConformsBucketPermissionsCheck
+            Effect: Allow
+            Principal:
+              AWS:
+                - !Sub 'arn:aws:iam::${AWS::AccountId}:role/aws-service-role/config-conforms.amazonaws.com/AWSServiceRoleForConfigConforms'
+            Action: 's3:GetBucketAcl'
+            Resource: !Sub 'arn:aws:s3:::awsconfigconforms-delivery-bucket-${AWS::AccountId}'
+          -
+            Sid: AWSConfigConformsBucketDelivery
+            Effect: Allow
+            Principal:
+              AWS:
+                - !Sub 'arn:aws:iam::${AWS::AccountId}:role/aws-service-role/config-conforms.amazonaws.com/AWSServiceRoleForConfigConforms'
+            Action: 's3:PutObject'
+            Resource: !Sub 'arn:aws:s3:::awsconfigconforms-delivery-bucket-${AWS::AccountId}/*'
+            Condition:
+              StringEquals:
+                's3:x-amz-acl': bucket-owner-full-control
+          -
+            Sid: ' AWSConfigConformsBucketReadAccess'
+            Effect: Allow
+            Principal:
+              AWS:
+                - !Sub 'arn:aws:iam::${AWS::AccountId}:role/aws-service-role/config-conforms.amazonaws.com/AWSServiceRoleForConfigConforms'
+            Action: 's3:GetObject'
+            Resource: !Sub 'arn:aws:s3:::awsconfigconforms-delivery-bucket-${AWS::AccountId}/*'
+            
+  UnusedEBSVolume:
+    Type: AWS::EC2::Volume
+    Properties:
+      Size: 10
+      VolumeType: gp3
+      AvailabilityZone: !Select 
+        - 0
+        - Fn::GetAZs: !Ref 'AWS::Region'
