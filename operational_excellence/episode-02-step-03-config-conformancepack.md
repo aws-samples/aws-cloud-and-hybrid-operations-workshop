@@ -62,4 +62,4 @@ We will check compliance status for each rule in conformance pack and associated
 
 Click the link below to go to the next section.
 
-[![](media/config-advancedquery.png)](/operational_excellence/episode-02-step-04-config-advancedquery.md)
+[![](/operational_excellence/media/config-advancedquery.png)](/operational_excellence/episode-02-step-04-config-advancedquery.md)
