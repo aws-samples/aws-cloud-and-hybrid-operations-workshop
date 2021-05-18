@@ -88,4 +88,4 @@ You can create groupings and aggregations through Advanced Query as well:
 
 Click the link below to go to the next section.
 
-[![](media/tear-down.png)](/episode-02-step-05-tear-down.md)
+[![](/operational_excellence/media/tear-down.png)](/operational_excellence/episode-02-step-05-tear-down.md)
