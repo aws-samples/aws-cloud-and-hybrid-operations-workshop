@@ -1,4 +1,4 @@
-# Enabling AWS Config and AWS Cloudtrail
+# Enabling AWS Config
 
 ![](media/config-aws-logo.png)
 
@@ -77,4 +77,4 @@ AWS Config is a service that enables you to assess, audit, and evaluate the conf
 
 Click the link below to go to the next section.
 
-[![](media/config-rule.png)](/episode-02-step-02-config-rule.md)
+[![](media/config-rule.png)](/operational_excellence/episode-02-step-02-config-rule.md)
