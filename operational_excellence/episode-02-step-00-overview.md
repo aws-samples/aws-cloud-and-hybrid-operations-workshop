@@ -29,4 +29,4 @@ During this workshop episode, we will work towards the following learning object
 
 Click the link below to go to the next section.
 
-[![](media/enable-config.png)](/episode-02-step-01-enable-config.md)
+[![](operational_excellence/media/enable-config.png)](/operational_excellence/episode-02-step-01-enable-config.md)
