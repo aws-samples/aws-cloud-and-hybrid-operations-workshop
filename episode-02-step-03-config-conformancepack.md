@@ -1,4 +1,4 @@
-# AWS Config Deploy Conformance Pack 
+# AWS Config Deploy Conformance Pack
 
 ![](media/config-aws-logo.png)
 
@@ -14,17 +14,17 @@ NOTE: You will incur charges as you go through either of these workshops, as the
 
 ## Summary
 
-A conformance pack is a collection of AWS Config rules and remediation actions that can be easily deployed as a single entity in an account and a Region or across an organization in AWS Organizations. 
+A conformance pack is a collection of AWS Config rules and remediation actions that can be easily deployed as a single entity in an account and a Region or across an organization in AWS Organizations.
 
 In this section you will (1) create an conformance pack with remediation to evaluate your S3 buckets accoriding to S3 Best Practices, and (2) use AWS Systems Manager Automation Documents to remediate non-compliant S3 Buckets.
 
 ## Instructions
 
-### Deploy conformance pack 
+### Deploy conformance pack
 
 Before we can deploy the conformance pack, we will need to edit it. Conformance packs that AWS provides represent collated best practices, however they are not “one size fits all” and need some tailoring before being leveraged.
 
-1.	First, download the conformance pack template from this [link](cfntemplates/Operational-Best-Practices-for-Amazon-S3-with-Remediation.yml). - Operational-Best-Practices-for-Amazon-S3-with-Remediation
+1.	First, download the conformance pack template from this [link](cfntemplates/Operational-Best-Practices-for-Amazon-S3-with-Remediation.yaml). - Operational-Best-Practices-for-Amazon-S3-with-Remediation
 1.	Next edit this file so we can make it usable with your lab environment. You will need to replace the ```<Account-Id>``` entries with the proper account number for your account (without dashes). You will find this entry on these line numbers:
     -   43
     -   80
@@ -43,7 +43,7 @@ Before we can deploy the conformance pack, we will need to edit it. Conformance 
 
     ![](/media/config-conformancepack2-ep02.png)
 
-### View compliance remediation 
+### View compliance remediation
 
 We will check compliance status for each rule in conformance pack and associated resources. Conformance Packs can also be deployed to an AWS Organization; however, this is out of scope for this lab.
 

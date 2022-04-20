@@ -15,7 +15,7 @@ NOTE: You will incur charges as you go through either of these workshops, as the
 
 ## Summary
 
-In this section you will (1) enable AWS Config to monitor and record your AWS resource configurations (2) enable AWS Cloudtrail to monitor and record your AWS resource configurations, 
+In this section you will (1) enable AWS Config to monitor and record your AWS resource configurations (2) enable AWS Cloudtrail to monitor and record your AWS resource configurations,
 
 Prior to enabling these features, you will create several IAM Roles, Policies and a S3 bucket needed for AWS Config Conformance Packs and Autoremdiation. [AWS CloudFormation](https://aws.amazon.com/cloudformation/). AWS CloudFormation gives you an easy way to model a collection of related AWS and third-party resources, provision them quickly and consistently, and manage them throughout their lifecycles, by treating infrastructure as code.
 
@@ -24,24 +24,24 @@ Prior to enabling these features, you will create several IAM Roles, Policies an
 ### Deploy AWS Config Prerequisites
 
 **To save the CloudFormation template locally**
-    
-1. Open the CloudFormation template [workshop-config-prerequisites.yml](cfntemplates/workshop-config-prerequisites.yml).
+
+1. Open the CloudFormation template [workshop-config-prerequisites.yaml](cfntemplates/workshop-config-prerequisites.yaml).
 1. Choose **Raw**.
 
     ![](/media/github-raw.png)
 
 1. Open Notepad and copy the entire text.
-1. Save the file to your local machine as ```workshop-config-prerequisites.yml```.
+1. Save the file to your local machine as ```workshop-config-prerequisites.yaml```.
 
 The CloudFormation template will create the resources depicted in the diagram below.
 
 ![](/media/cloudformation-stack-ep02.png)
 
 **To deploy Cloudformation template for AWS Config Prerequisites**
-    
+
 1. Open the [AWS CloudFormation console](https://console.aws.amazon.com/cloudformation/home).
 1. Choose **Create stack**.
-1. For **Specify template**, choose **Upload a template file**, choose the file you saved locally ```workshop-config-prerequisites.yml```, and choose **Next**.
+1. For **Specify template**, choose **Upload a template file**, choose the file you saved locally ```workshop-config-prerequisites.yaml```, and choose **Next**.
 
     ![](/media/cloudformation-create-stack-ep02.png)
 
@@ -67,7 +67,7 @@ AWS CloudTrail is an AWS service that helps you enable governance, compliance, r
     - Trail name: ```workshop-week```
     - Storage Location: Create new S3 Bucket
     - Trail log bucket and folder: Leave as it is *aws-cloudtrail-logs-accountid-hash*
-    - Log file SSE-KMS encryption: Enabled 
+    - Log file SSE-KMS encryption: Enabled
     - For the AWS KMS alias: ```cloudtrail-workshop-kms```
     - Log file validation: Enabled
     - SNS notification delivery: Leave as it is (Disabled)
